@@ -15,34 +15,6 @@
 <g:set var="enableQueryContext" value="${grailsApplication.config.biocache.enableQueryContext?.toBoolean()}"></g:set>
 <g:set var="enableHubData" value="${grailsApplication.config.hub.enableHubData?.toBoolean()}"></g:set>
 <g:set var="hubState" value="${true}"></g:set>
-<div class="row-fluid">
-    <div class="span12">
-        <ol class="breadcrumb pull-left">
-            <rg:breadcrumbTrail/>
-            <g:if test="${isHabitat}">
-                <li><a href="${grailsApplication.config.grails.serverURL}/habitats/">Habitats</a> <span class="divider"><i class="fa fa-arrow-right"></i></span></li>
-            </g:if>
-            <g:else>
-                <li><a href="${grailsApplication.config.grails.serverURL}${region.type != 'layer' ? '#rt='+ region.type :''}">Regions</a> <span class="divider"><i class="fa fa-arrow-right"></i></span></li>
-            </g:else>
-            <g:if test="${region.parent && region.parent.type && region.parent.name}">
-                <li><a href="${grailsApplication.config.grails.serverURL}/${region.parent.type}/${region.parent.name}">${region.parent.name}</a> <span class="divider"><i class="fa fa-arrow-right"></i></span></li>
-                <g:if test="${region.parent.child}">
-                    <li><a href="${grailsApplication.config.grails.serverURL}/${region.parent.child.type}/${region.parent.child.name}">${region.parent.child.name}</a> <span class="divider"><i class="fa fa-arrow-right"></i></span></li>
-                </g:if>
-            </g:if>
-            <li class="active">${region.name}</li>
-        </ol>
-        <div class="pull-right">
-            <div class="row">
-                <a id="alertsButton" class="btn btn-ala pull-right" href="${alertsUrl}">
-                    Alerts
-                    <i class="icon-bell icon-white"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row-fluid" id="emblemsContainer">
     <div class="span12">

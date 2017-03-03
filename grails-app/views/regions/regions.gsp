@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="layout" content="${grailsApplication.config.skin.layout?:'main'}"/>
+    <meta name="layout" content="${grailsApplication.config.skin.layout?:'elurikkus'}"/>
     <title>Regions | ${grailsApplication.config.orgNameLong}</title>
     <script src="${g.createLink(controller: 'data',action: 'regionsMetadataJavascript')}"></script>
     <g:if test="${grailsApplication.config.google.apikey}">
@@ -16,14 +16,6 @@
 
 </head>
 <body class="nav-locations">
-<div class="row-fluid">
-    <div class="span12">
-        <ul class="breadcrumb">
-            <rg:breadcrumbTrail/>
-            <li class="active">Regions</li>
-        </ul>
-    </div>
-</div>
 
 <div class="row-fluid">
     <div class="span12">

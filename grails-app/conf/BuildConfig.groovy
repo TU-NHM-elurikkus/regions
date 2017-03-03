@@ -40,13 +40,15 @@ grails.project.dependency.resolution = {
         runtime (":ala-bootstrap2:2.4.5") {
             exclude "jquery"
         }
+
         if (Environment.current == Environment.PRODUCTION) {
             runtime ":zipped-resources:1.0.1"
             runtime ":cached-resources:1.1"
             compile ":cache-headers:1.1.7"
             runtime ":yui-minify-resources:0.1.5"
         }
-        runtime ':ala-auth:1.3.4'
 
+        runtime ":ala-auth:1.3.4"
+        runtime ":elurikkus-commons:0.2-SNAPSHOT"
     }
 }

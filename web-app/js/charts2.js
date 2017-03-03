@@ -644,7 +644,6 @@ function initTaxonTree(treeOptions) {
 * Go to occurrence records for selected node
 \************************************************************/
 function showRecords(node, query) {
-    debugger;
   var rank = node.attr('rank');
   if (rank == 'kingdoms') return;
   var name = node.attr('id');
