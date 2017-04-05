@@ -237,6 +237,14 @@ RegionSet.prototype = {
             // to stop it from growing too large.
             var itemHeight = $content.find('li').height();
             $content.height(this.sortedList.length*itemHeight);
+
+            $content.on('click', '.regionLink', function() {
+                var name = $(this).html();
+                if (selectedRegion !== null && name === selectedRegion.name) {
+                    document.location.href = selectedRegion.urlToViewRegion();
+                }
+                new Region(name).set();
+            });
         }
         if (callbackOnComplete) {
             // assume global scope
@@ -425,6 +433,12 @@ Region.prototype = {
                 showInfo("<a class='btn btn-ala' href='" + this.urlToViewRegion() + "' title='Go to " + this.name + "'>" +
                         this.name + "</a>" + "<span id='zoomTo' class='btn'><i class='fa fa-search-plus'></i> Zoom to region</span>");
             }
+
+            var regionName = this.name;
+
+            $('#zoomTo').on('click', function() {
+                map.zoomToRegion(regionName);
+            });
         }
     }
 };
@@ -660,18 +674,6 @@ function init (options) {
             selectedRegion.displayRegion();
         }
     });
-
-    /*****************************************\
-    | Handle region clicks
-    \*****************************************/
-    $('li.regionLink').live('click', function () {
-        var name = $(this).html();
-        if (selectedRegion !== null && name === selectedRegion.name) {
-            document.location.href = selectedRegion.urlToViewRegion();
-        }
-        new Region(name).set();
-    });
-
     /*****************************************\
     | Handle layer toggles
     \*****************************************/
@@ -709,14 +711,6 @@ function init (options) {
     \*****************************************/
     $('#reset-map').click(function () {
         map.resetViewport();
-    });
-
-    /*****************************************\
-    | Handle zoom to region
-    \*****************************************/
-    $('#zoomTo').live('click', function () {
-        var name = $(this).prev().html();
-        map.zoomToRegion(name);
     });
 
     /*****************************************\
