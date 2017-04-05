@@ -267,13 +267,21 @@ li.regionLink {
     padding-bottom: 3px;
 }
 
+.species-list-button {
+    background-color: white;
+}
+
+.species-list-button:hover {
+    background-color: white;
+}
+
 tr.groupSelected, tr.groupSelected:hover td {
-    background-color: #C44D34 !important;
+    background-color: #06a9d5 !important;
     color: white;
 }
 
 tr.speciesSelected, tr.speciesSelected:hover td {
-    background-color: #C44D34 !important;
+    background-color: #06a9d5 !important;
     color: white;
 }
 

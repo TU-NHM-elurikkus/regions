@@ -177,6 +177,7 @@ var RegionWidget = function (config) {
     var initializeTabs = function () {
         // Initialize tabs
         $('#explorerTabs a').on('show', function(e) {
+            debugger;
             var tabId = $(e.target).attr('id');
             updateState({tab: tabId});
         });

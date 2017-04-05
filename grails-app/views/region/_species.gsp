@@ -23,10 +23,21 @@
     <tr class="infoRowLinks" style="display: none;">
         <td>&nbsp;</td>
         <td colspan="2">
-            <a href="${speciesPageUrl}/${singleSpecies.guid}" class="btn btn-mini" title="View Species page"><i class="fa fa-share-square-o"></i> Species Profile</a>
-            &nbsp;|&nbsp;
+            <a href="${speciesPageUrl}/${singleSpecies.guid}" title="View Species page">
+                <button class="erk-button erk-button--light species-list-button">
+                    <i class="fa fa-share-square-o"></i>
+                    Species Profile
+                </button>
+            </a>
+
             <a href="${rg.speciesRecordListUrl([guid: singleSpecies.guid, regionFid: regionFid, regionName: regionName, regionType: regionType, regionPid: regionPid, from: from, to: to, showHubData: showHubData])}"
-               class="btn btn-mini" title="View list of Records"><i class="fa fa-database"></i> List of Records</a>
+               title="View list of Records"
+            >
+                <button class="erk-button erk-button--light species-list-button">
+                    <i class="fa fa-database"></i>
+                    List of Records
+                </button>
+            </a>
         </td>
     </tr>
 </g:each>
@@ -38,7 +49,10 @@
            aa-js-before="regionWidget.showMoreSpecies();"
            aa-js-after="regionWidget.speciesLoaded();"
            aa-queue="abort"
-           class="btn btn-small"><i class="fa fa-plus"></i> Show more species</a>
+        >
+            <i class="fa fa-plus"></i>
+            Show more species
+        </a>
     </td>
     <td></td>
 </tr>

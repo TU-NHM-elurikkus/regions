@@ -2,15 +2,19 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="${grailsApplication.config.skin.layout?:'main'}"/>
+
     <title>${region.name} | ${grailsApplication.config.orgNameLong}</title>
+
     <g:if test="${grailsApplication.config.google.apikey}">
         <script src="https://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.apikey}" type="text/javascript"></script>
     </g:if>
     <g:else>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     </g:else>
+
     <r:require modules="region, bootstrapSwitch"/>
 </head>
+
 <body class="nav-locations regions">
 <g:set var="enableQueryContext" value="${grailsApplication.config.biocache.enableQueryContext?.toBoolean()}"></g:set>
 <g:set var="enableHubData" value="${grailsApplication.config.hub.enableHubData?.toBoolean()}"></g:set>
@@ -49,15 +53,26 @@
     </g:if>
 </div>
 
-<div class="row-fluid">
-    <div class="span6">
+<div class="row">
+    <div class="col-6">
         <ul class="nav nav-tabs" id="explorerTabs">
-            <li class="active"><a id="speciesTab" href="#speciesTabContent" data-toggle="tab">Explore by species <i class="fa fa-cog fa-spin fa-lg hidden"></i></a></li>
-            <li><a id="taxonomyTab" href="#taxonomyTabContent" data-toggle="tab">Explore by taxonomy <i class="fa fa-cog fa-spin fa-lg hidden"></i></a></li>
+            <li class="nav-item">
+                <a id="speciesTab" data-toggle="tab" href="#speciesTabContent" class="nav-link active">
+                    Explore by species
+                    <i class="fa fa-cog fa-spin fa-lg hidden"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a id="taxonomyTab" data-toggle="tab" href="#taxonomyTabContent" class="nav-link">
+                    Explore by taxonomy
+                    <i class="fa fa-cog fa-spin fa-lg hidden"></i>
+                </a>
+            </li>
         </ul>
+
         <div class="tab-content">
             <div class="tab-pane active" id="speciesTabContent">
-                %{--<table class="table table-condensed table-hover" id="groups">--}%
                 <table id="groups"
                        tagName="tbody"
                        class="table table-condensed table-hover"
@@ -65,12 +80,14 @@
                        aa-js-before="setHubConfig();"
                        aa-js-after="regionWidget.groupsLoaded();"
                        aa-refresh-zones="groupsZone"
-                       aa-queue="abort">
+                       aa-queue="abort"
+                >
                     <thead>
                         <tr>
                             <th class="text-center">Group</th>
                         </tr>
                     </thead>
+
                     <tbody id="groupsZone" tagName="tbody">
                         <tr class="spinner">
                             <td class="spinner text-center">
@@ -79,6 +96,7 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <table class="table table-condensed table-hover" id="species">
                     <thead>
                         <tr>
@@ -86,6 +104,7 @@
                             <th class="text-right">Records</th>
                         </tr>
                     </thead>
+
                     <aa:zone id="speciesZone" tag="tbody" jsAfter="regionWidget.speciesLoaded();">
                         <tr class="spinner">
                             <td colspan="3" class="spinner text-center">
@@ -94,15 +113,24 @@
                         </tr>
                     </aa:zone>
                 </table>
+
                 <div class="text-center" id="exploreButtons">
-                    <a href="" id="viewRecords" class="btn"><i class="fa fa-share-square-o"></i> View Records</a>
+                    <button id="viewRecords" class="erk-button erk-button--light">
+                        <i class="fa fa-share-square-o"></i>
+                        View Records
+                    </button>
 
                     <a href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
-                       aa-refresh-zones="dialogZone" aa-js-before="regionWidget.showDownloadDialog();" class="btn">
-                        <i class="fa fa-download"></i> Download Records
+                       aa-refresh-zones="dialogZone" aa-js-before="regionWidget.showDownloadDialog();"
+                    >
+                        <button class="erk-button erk-button--light">
+                            <i class="fa fa-download"></i>
+                            Download Records
+                        </button>
                     </a>
                 </div>
             </div>
+
             <div class="tab-pane" id="taxonomyTabContent">
                 <div id="charts">
                     <i class="spinner fa fa-cog fa-spin fa-3x"></i>
@@ -110,13 +138,20 @@
             </div>
         </div>
     </div>
-    <div class="span6">
 
+    <div class="col-6">
         <ul class="nav nav-tabs" id="controlsMapTab">
-            <li class="active">
-                <a href="#">Time Controls and Map <i class="fa fa-info-circle fa-lg link" id="timeControlsInfo"
-                                                     data-content="Drag handles to restrict date or play by decade."
-                                                     data-placement="right" data-toggle="popover" data-original-title="How to use time controls"></i></a>
+            <li class="nav-item">
+                <a href="#" class="nav-link active">Time Controls and Map
+                    <i
+                        class="fa fa-info-circle fa-lg link"
+                        id="timeControlsInfo"
+                        data-content="Drag handles to restrict date or play by decade."
+                        data-placement="right"
+                        data-toggle="popover"
+                        data-original-title="How to use time controls">
+                    </i>
+                </a>
             </li>
         </ul>
 
@@ -142,15 +177,19 @@
                         <i class="fa fa-chevron-right"></i>Map opacity controls
                     </a>
                 </div>
+
                 <div id="opacityControlsContent" class="accordion-body collapse">
                     <div class="accordion-inner">
                         <label class="checkbox">
                             <input type="checkbox"name="occurrences" id="toggleOccurrences" checked> Occurrences
                         </label>
+
                         <div id="occurrencesOpacity"></div>
+
                         <label class="checkbox">
                             <input type="checkbox" name="region" id="toggleRegion" checked> Region
                         </label>
+
                         <div id="regionOpacity"></div>
                     </div>
                 </div>
@@ -165,6 +204,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">Download Records</h3>
         </div>
+
         <div class="modal-body text-center">
             <i class="fa fa-cog fa-spin fa-2x"></i>
         </div>
@@ -175,11 +215,17 @@
     <div class="row-fluid">
         <div class="span12" id="subRegions">
             <h2>Regions within ${region.name}</h2>
+
             <g:each in="${subRegions}" var="item">
                 <h3>${item.key}</h3>
+
                 <ul>
                     <g:each in="${item.value.list}" var="r">
-                        <li><g:link action="region" params="[regionType:item.value.name,regionName:r,parent:region.name]">${r}</g:link></li>
+                        <li>
+                            <g:link action="region" params="[regionType:item.value.name,regionName:r,parent:region.name]">
+                                ${r}
+                            </g:link>
+                        </li>
                     </g:each>
                 </ul>
             </g:each>
@@ -189,30 +235,38 @@
 
 <g:if test="${documents.factSheets||documents.publications||documents.links}">
     <div class="row">
-        <div class="span12" id="docs">
+        <div class="col-12" id="docs">
             <h2>Documents and Links</h2>
+
             <g:if test="${documents.factSheets}">
                 <h3>Fact sheets</h3>
+
                 <ul>
                     <g:each in="${documents.factSheets}" var="d">
                         <li>
-                            <a href="${d.url}" class="external">${d.linkText}</a> ${d.otherText}
+                            <a href="${d.url}" class="external">${d.linkText}</a>
+                            ${d.otherText}
                         </li>
                     </g:each>
                 </ul>
             </g:if>
+
             <g:if test="${documents.publications}">
                 <h3>Publications</h3>
+
                 <ul>
                     <g:each in="${documents.publications}" var="d">
                         <li>
-                            <a href="${d.url}" class="external">${d.linkText}</a> ${d.otherText}
+                            <a href="${d.url}" class="external">${d.linkText}</a>
+                            ${d.otherText}
                         </li>
                     </g:each>
                 </ul>
             </g:if>
+
             <g:if test="${documents.links}">
                 <h3>Links</h3>
+
                 <ul>
                     <g:each in="${documents.links}" var="d">
                         <li>
@@ -232,14 +286,13 @@
     var regionWidget;
 
     $(function() {
-
-    $(document).on("click", "[aa-refresh-zones]", function(event) {
-        event.stopPropagation()
-        return false;
-    });
+        $(document).on("click", "[aa-refresh-zones]", function(event) {
+            event.stopPropagation()
+            return false;
+        });
 
         <g:if test="${enableHubData}">
-        $("[name='hub-toggle']").bootstrapSwitch({
+            $("[name='hub-toggle']").bootstrapSwitch({
                 size: "small",
                 onText: "All",
                 onColor: "primary",
@@ -256,7 +309,7 @@
                     refreshSpeciesGroup();
                     taxonomyChart.load()
                 }
-        });
+            });
         </g:if>
 
         regionWidget = new RegionWidget({
@@ -278,9 +331,11 @@
             },
             username: '${rg.loggedInUsername()}',
             q: '${region.q}'
+
             <g:if test="${enableQueryContext}">
                 ,qc:"${URLEncoder.encode(grailsApplication.config.biocache.queryContext, "UTF-8")}"
             </g:if>
+
             <g:if test="${enableHubData}">
                 ,hubFilter:"${URLEncoder.encode(grailsApplication.config.hub.hubFilter , "UTF-8")}"
                 ,showHubData: ${hubState}
@@ -316,7 +371,6 @@
     function refreshSpeciesGroup(){
         $('#groups').click()
     }
-
 </r:script>
 </body>
 </html>
