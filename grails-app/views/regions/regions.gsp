@@ -36,7 +36,7 @@
 
 <div class="row">
     <div class="col-4">
-        <p style="font-size:15px;margin-left:15px;padding-bottom:0;"><i class="fa fa-info-circle"></i> Click on a region name to select an area.</p>
+        <p style="font-size:15px;padding-bottom:0;"><i class="fa fa-info-circle"></i> Click on a region name to select an area.</p>
         <div id="accordion">
             <g:each in="${menu}" var="item">
                 <h2><a href="#">${item.label}</a></h2>
@@ -48,7 +48,11 @@
 
     <div class="col-8" id="rightPanel">
             <span id="click-info"><i class="fa fa-info-circle"></i> Click on the map to select an area.</span>
-            <span class="btn" id="reset-map"><i class="fa fa-refresh"></i> Reset map</span>
+
+            <button id="reset-map" class="erk-button erk-button--light">
+                <i class="fa fa-refresh"></i> Reset map
+            </button>
+
             <div id="map">
                 <div id="map-container">
                     <div id="map_canvas"></div>

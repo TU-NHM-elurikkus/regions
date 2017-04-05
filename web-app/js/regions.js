@@ -419,22 +419,26 @@ Region.prototype = {
     /* Write the region link and optional subregion name and zoom link at the top of the map.
      * @param subregion the name of the subregion */
     setLinks: function (subregion) {
-        var extra = "";
         if (this.name.toLowerCase() === 'n/a') {
             showInfo("N/A");
         } else {
-            if (this.other) {
-                if (subregion) {
-                    extra = "<span class='btn' id='extra'>(" + subregion + ")</span>";
-                }
-                showInfo("<a class='btn btn-ala' href='" + this.urlToViewRegion() + "' title='Go to " + this.name + "'>" +
-                        this.name + "</a>" + "<span id='zoomTo' class='btn'><i class='fa fa-search-plus'></i> Zoom to region</span>" + extra);
-            } else {
-                showInfo("<a class='btn btn-ala' href='" + this.urlToViewRegion() + "' title='Go to " + this.name + "'>" +
-                        this.name + "</a>" + "<span id='zoomTo' class='btn'><i class='fa fa-search-plus'></i> Zoom to region</span>");
+            var regionName = this.name;
+
+            var html =
+                '<a href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
+                    '<button class="erk-button erk-button--light">' + regionName + '</button>' +
+                '</a>' +
+                '\n' + 
+                '<button id="zoomTo" class="erk-button erk-button--light">' + 
+                    '<i class="fa fa-search-plus"></i>' + 
+                    'Zoom to region' + 
+                '</button>';
+
+            if(this.other && subregion) {
+                html += '<button class="erk-button erk-button--light" id="extra">(' + subregion + ')</button>';
             }
 
-            var regionName = this.name;
+            showInfo(html);
 
             $('#zoomTo').on('click', function() {
                 map.zoomToRegion(regionName);

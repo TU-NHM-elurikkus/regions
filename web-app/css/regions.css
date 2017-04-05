@@ -55,7 +55,8 @@
 }
 
 #accordion {
-    margin: 16px 0 0 5px;
+    margin: 0;
+    margin-top: 18px;
     height: 446px;
 }
 
@@ -92,7 +93,6 @@
 }
 
 #zoomTo, #reset-map {
-    margin-left: 1.5em;
     font-size: 12px;
     color: #666;
     cursor: pointer;
