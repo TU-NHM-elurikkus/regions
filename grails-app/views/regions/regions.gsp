@@ -12,7 +12,7 @@
     <g:else>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     </g:else>
-    <r:require modules="regions"/>
+    <r:require modules="jquery, regions"/>
 
 </head>
 <body class="nav-locations">

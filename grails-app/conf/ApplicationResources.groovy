@@ -21,7 +21,7 @@ modules = {
     }
 
     jquery {
-        resource url: '/vendor/jquery/jquery-1.11.2.js'
+        resource url: '/vendor/jquery/jquery-1.11.2.js', disposition: 'head'
     }
 
     'jquery-ui' {
