@@ -7,10 +7,10 @@
             <g:layoutTitle />
         </title>
 
-        <r:require modules="bootstrap, ala"/>
+        <r:require modules="jquery, bootstrap, ala, menu"/>
 
-        <r:layoutResources />
         <g:layoutHead />
+        <r:layoutResources />
 
         <style>
             body {

@@ -237,6 +237,14 @@ RegionSet.prototype = {
             // to stop it from growing too large.
             var itemHeight = $content.find('li').height();
             $content.height(this.sortedList.length*itemHeight);
+
+            $content.on('click', '.regionLink', function() {
+                var name = $(this).html();
+                if (selectedRegion !== null && name === selectedRegion.name) {
+                    document.location.href = selectedRegion.urlToViewRegion();
+                }
+                new Region(name).set();
+            });
         }
         if (callbackOnComplete) {
             // assume global scope
@@ -411,20 +419,30 @@ Region.prototype = {
     /* Write the region link and optional subregion name and zoom link at the top of the map.
      * @param subregion the name of the subregion */
     setLinks: function (subregion) {
-        var extra = "";
         if (this.name.toLowerCase() === 'n/a') {
             showInfo("N/A");
         } else {
-            if (this.other) {
-                if (subregion) {
-                    extra = "<span class='btn' id='extra'>(" + subregion + ")</span>";
-                }
-                showInfo("<a class='btn btn-ala' href='" + this.urlToViewRegion() + "' title='Go to " + this.name + "'>" +
-                        this.name + "</a>" + "<span id='zoomTo' class='btn'><i class='fa fa-search-plus'></i> Zoom to region</span>" + extra);
-            } else {
-                showInfo("<a class='btn btn-ala' href='" + this.urlToViewRegion() + "' title='Go to " + this.name + "'>" +
-                        this.name + "</a>" + "<span id='zoomTo' class='btn'><i class='fa fa-search-plus'></i> Zoom to region</span>");
+            var regionName = this.name;
+
+            var html =
+                '<a href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
+                    '<button class="erk-button erk-button--light">' + regionName + '</button>' +
+                '</a>' +
+                '\n' + 
+                '<button id="zoomTo" class="erk-button erk-button--light">' + 
+                    '<i class="fa fa-search-plus"></i>' + 
+                    'Zoom to region' + 
+                '</button>';
+
+            if(this.other && subregion) {
+                html += '<button class="erk-button erk-button--light" id="extra">(' + subregion + ')</button>';
             }
+
+            showInfo(html);
+
+            $('#zoomTo').on('click', function() {
+                map.zoomToRegion(regionName);
+            });
         }
     }
 };
@@ -660,18 +678,6 @@ function init (options) {
             selectedRegion.displayRegion();
         }
     });
-
-    /*****************************************\
-    | Handle region clicks
-    \*****************************************/
-    $('li.regionLink').live('click', function () {
-        var name = $(this).html();
-        if (selectedRegion !== null && name === selectedRegion.name) {
-            document.location.href = selectedRegion.urlToViewRegion();
-        }
-        new Region(name).set();
-    });
-
     /*****************************************\
     | Handle layer toggles
     \*****************************************/
@@ -709,14 +715,6 @@ function init (options) {
     \*****************************************/
     $('#reset-map').click(function () {
         map.resetViewport();
-    });
-
-    /*****************************************\
-    | Handle zoom to region
-    \*****************************************/
-    $('#zoomTo').live('click', function () {
-        var name = $(this).prev().html();
-        map.zoomToRegion(name);
     });
 
     /*****************************************\

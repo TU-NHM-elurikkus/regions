@@ -55,7 +55,8 @@
 }
 
 #accordion {
-    margin: 16px 0 0 5px;
+    margin: 0;
+    margin-top: 18px;
     height: 446px;
 }
 
@@ -92,7 +93,6 @@
 }
 
 #zoomTo, #reset-map {
-    margin-left: 1.5em;
     font-size: 12px;
     color: #666;
     cursor: pointer;
@@ -267,13 +267,21 @@ li.regionLink {
     padding-bottom: 3px;
 }
 
+.species-list-button {
+    background-color: white;
+}
+
+.species-list-button:hover {
+    background-color: white;
+}
+
 tr.groupSelected, tr.groupSelected:hover td {
-    background-color: #C44D34 !important;
+    background-color: #06a9d5 !important;
     color: white;
 }
 
 tr.speciesSelected, tr.speciesSelected:hover td {
-    background-color: #C44D34 !important;
+    background-color: #06a9d5 !important;
     color: white;
 }
 
