@@ -218,8 +218,9 @@ RegionSet.prototype = {
     /* Write the list of regions to the regionSet's DOM container - loading first if required
      * @param callbackOnComplete a global-scope function to call when the list is written */
     writeList: function (callbackOnComplete) {
-        var $content = $('#' + layers[this.name].layerName), html = "<ul>", me = this,
+        var $content = $('#' + layers[this.name].layerName), me = this,
             id;
+        var html = '<ul class="erk-ulist">';
         if (!this.loaded()) {
             // load content asynchronously and execute this method when complete
             this.load('writeList', callbackOnComplete);
@@ -228,7 +229,7 @@ RegionSet.prototype = {
         if ($content.find('ul').length === 0) {
             $.each(this.sortedList, function (i, name) {
                 id = me.other ? me.objects[name].layerName : me.objects[name].id;
-                html += "<li class='regionLink' id='" + id + "'>" + name + "</li>";
+                html += "<li class='erk-ulist__item regionLink' id='" + id + "'>" + name + "</li>";
             });
             html += "</ul>";
             $content.find('span.loading').remove();

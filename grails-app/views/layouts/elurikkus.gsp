@@ -7,7 +7,7 @@
             <g:layoutTitle />
         </title>
 
-        <r:require modules="jquery, bootstrap, ala, menu"/>
+        <r:require modules="jquery, bootstrap, menu"/>
 
         <g:layoutHead />
         <r:layoutResources />

@@ -10,10 +10,12 @@
                 By downloading this content you are agreeing to use it in accordance with the Atlas
                 <a href="http://www.ala.org.au/about/terms-of-use/#TOUusingcontent">Terms of Use</a>
                 and individual <a href=" http://www.ala.org.au/support/faq/#q29">Data Provider Terms</a>.
-                <br/><br/>
             </p>
 
-            <h4>Please provide the following details before downloading:</h4>
+            <p>
+                <h4>Please provide the following details before downloading:</h4>
+            </p>
+
             <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'email', 'error')}">
                 <label class="control-label" for="email">Email</label>
                 <div class="controls">
@@ -48,8 +50,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button id='downloadStart' class="btn btn-primary"
+            <button class="erk-button erk-button--light" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button id='downloadStart' class="erk-button erk-button--light"
                     aa-refresh-zones="dialogZone" js-before="AjaxAnywhere.dynamicParams=regionWidget.getCurrentState();">
                 <i class="fa fa-download"></i> Download
             </button>

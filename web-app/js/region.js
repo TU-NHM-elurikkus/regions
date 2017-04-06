@@ -909,7 +909,7 @@ var RegionMap = function (config) {
             "fq=rank:(species OR subspecies)",
             'CQL_FILTER=',
             "symsize=3",
-            "ENV=color:FF0000;name:circle;size:3;opacity:" + getOccurrenceOpacity(),
+            "ENV=color:046e8b;name:circle;size:3;opacity:" + getOccurrenceOpacity(),
             "EXCEPTIONS=application-vnd.ogc.se_inimage"
         ];
 

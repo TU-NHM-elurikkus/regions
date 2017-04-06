@@ -71,7 +71,7 @@
 
 #accordion .ui-accordion-content {
     max-height: 195px;
-    padding: 0.5em 2.2em;
+    padding: 0;
 }
 
 #accordion ul {
@@ -100,6 +100,13 @@
 
 li.regionLink {
     cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 0.5rem;
+}
+
+li.regionLink:hover {
+    background-color: #06a9d5;
 }
 
 .ui-accordion-content li.selected {

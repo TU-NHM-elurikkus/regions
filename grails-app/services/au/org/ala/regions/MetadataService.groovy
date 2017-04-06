@@ -51,8 +51,7 @@ class MetadataService {
 
     static final Map DOWNLOAD_OPTIONS = [
             0: 'Download All Records',
-            1: 'Download Species Checklist',
-            2: 'Download Species FieldGuide'
+            1: 'Download Species Checklist'
     ]
 
 
