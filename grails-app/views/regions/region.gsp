@@ -199,16 +199,20 @@
 </div>
 
 <div id="downloadRecordsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <aa:zone id="dialogZone">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">Download Records</h3>
-        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <aa:zone id="dialogZone">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Download Records</h3>
+                </div>
 
-        <div class="modal-body text-center">
-            <i class="fa fa-cog fa-spin fa-2x"></i>
+                <div class="modal-body text-center">
+                    <i class="fa fa-cog fa-spin fa-2x"></i>
+                </div>
+            </aa:zone>
         </div>
-    </aa:zone>
+    </div>
 </div>
 
 <g:if test="${subRegions.size() > 0}">
