@@ -22,7 +22,7 @@
     <body>
         <g:render template="/menu" plugin="elurikkus-commons" />
 
-        <div class="container-fluid">
+        <div>
             <g:layoutBody />
         </div>
 

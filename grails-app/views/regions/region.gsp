@@ -20,41 +20,32 @@
 <g:set var="enableHubData" value="${grailsApplication.config.hub.enableHubData?.toBoolean()}"></g:set>
 <g:set var="hubState" value="${true}"></g:set>
 
-<div class="row-fluid" id="emblemsContainer">
-    <div class="span12">
-        <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-        </g:if>
-        <h1>${region.name}</h1>
-        <aa:zone id="emblems" href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}">
-            <i class="fa fa-cog fa-spin fa-2x"></i>
-        </aa:zone>
-    </div>
+<div id="emblemsContainer">
+    <g:if test="${flash.message}">
+        <div class="message">${flash.message}</div>
+    </g:if>
+
+    <h1>${region.name}</h1>
+
+    <aa:zone id="emblems" href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}">
+        <i class="fa fa-cog fa-spin fa-2x"></i>
+    </aa:zone>
 </div>
 
-<div class="row-fluid">
-    <div class="span8">
-        <g:if test="${region.description || region.notes}">
-            <section class="section">
-                <h2>Description</h2>
-                <g:if test="${region.description}"><p>${raw(region.description)}</p></g:if>
-                <g:if test="${region.notes}"><h3>Notes on the map layer</h3><p>${region.notes}</p></g:if>
-            </section>
-        </g:if>
-
-        <h2 id="occurrenceRecords" class="">Occurrence records <span id="totalRecords"></span></h2>
-    </div>
-    <g:if test="${enableHubData}">
-        <div class="switch-padding span4">
-            <span class="pull-right">
-                Toggle: All / MDBA records <input type="checkbox" name="hub-toggle" ${hubState?"":"checked"}>
-            </span>
-        </div>
+<div>
+    <g:if test="${region.description || region.notes}">
+        <section class="section">
+            <h2>Description</h2>
+            <g:if test="${region.description}"><p>${raw(region.description)}</p></g:if>
+            <g:if test="${region.notes}"><h3>Notes on the map layer</h3><p>${region.notes}</p></g:if>
+        </section>
     </g:if>
+
+    <h2 id="occurrenceRecords" class="">Occurrence records <span id="totalRecords"></span></h2>
 </div>
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-5">
         <ul class="nav nav-tabs" id="explorerTabs">
             <li class="nav-item">
                 <a id="speciesTab" data-toggle="tab" href="#speciesTabContent" class="nav-link active">
@@ -73,61 +64,52 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="speciesTabContent">
-                <table id="groups"
-                       tagName="tbody"
-                       class="table table-condensed table-hover"
-                       aa-href="${g.createLink(controller: 'region', action: 'showGroups', params: [regionFid: region.fid,regionType: region.type, regionName: region.name, regionPid: region.pid])}"
-                       aa-js-before="setHubConfig();"
-                       aa-js-after="regionWidget.groupsLoaded();"
-                       aa-refresh-zones="groupsZone"
-                       aa-queue="abort"
-                >
-                    <thead>
-                        <tr>
-                            <th class="text-center">Group</th>
-                        </tr>
-                    </thead>
+                <div class="row no-gutters">
+                    <div class="col-4">
+                        <table id="groups"
+                            tagName="tbody"
+                            class="table table-condensed table-hover"
+                            aa-href="${g.createLink(controller: 'region', action: 'showGroups', params: [regionFid: region.fid,regionType: region.type, regionName: region.name, regionPid: region.pid])}"
+                            aa-js-before="setHubConfig();"
+                            aa-js-after="regionWidget.groupsLoaded();"
+                            aa-refresh-zones="groupsZone"
+                            aa-queue="abort"
+                        >
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Group</th>
+                                </tr>
+                            </thead>
 
-                    <tbody id="groupsZone" tagName="tbody">
-                        <tr class="spinner">
-                            <td class="spinner text-center">
-                                <i class="fa fa-cog fa-spin fa-2x"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tbody id="groupsZone" tagName="tbody">
+                                <tr class="spinner">
+                                    <td class="spinner text-center">
+                                        <i class="fa fa-cog fa-spin fa-2x"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <table class="table table-condensed table-hover" id="species">
-                    <thead>
-                        <tr>
-                            <th colspan="2" class="text-center">Species</th>
-                            <th class="text-right">Records</th>
-                        </tr>
-                    </thead>
+                    <div class="col-8">
+                        <table class="table table-condensed table-hover" id="species">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Species: Common Name</th>
+                                    <th class="text-right">Records</th>
+                                </tr>
+                            </thead>
 
-                    <aa:zone id="speciesZone" tag="tbody" jsAfter="regionWidget.speciesLoaded();">
-                        <tr class="spinner">
-                            <td colspan="3" class="spinner text-center">
-                                <i class="fa fa-cog fa-spin fa-2x"></i>
-                            </td>
-                        </tr>
-                    </aa:zone>
-                </table>
-
-                <div class="text-center" id="exploreButtons">
-                    <button id="viewRecords" class="erk-button erk-button--light">
-                        <i class="fa fa-share-square-o"></i>
-                        View Records
-                    </button>
-
-                    <a href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
-                       aa-refresh-zones="dialogZone" aa-js-before="regionWidget.showDownloadDialog();"
-                    >
-                        <button class="erk-button erk-button--light">
-                            <i class="fa fa-download"></i>
-                            Download Records
-                        </button>
-                    </a>
+                            <aa:zone id="speciesZone" tag="tbody" jsAfter="regionWidget.speciesLoaded();">
+                                <tr class="spinner">
+                                    <td colspan="3" class="spinner text-center">
+                                        <i class="fa fa-cog fa-spin fa-2x"></i>
+                                    </td>
+                                </tr>
+                            </aa:zone>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -139,21 +121,28 @@
         </div>
     </div>
 
-    <div class="col-6">
-        <ul class="nav nav-tabs" id="controlsMapTab">
-            <li class="nav-item">
-                <a href="#" class="nav-link active">Time Controls and Map
-                    <i
-                        class="fa fa-info-circle fa-lg link"
-                        id="timeControlsInfo"
-                        data-content="Drag handles to restrict date or play by decade."
-                        data-placement="right"
-                        data-toggle="popover"
-                        data-original-title="How to use time controls">
-                    </i>
-                </a>
-            </li>
-        </ul>
+    <div class="col-7">
+        <div>
+            <i class="fa fa-info-circle fa-lg"></i>
+            How to use time control: drag handles to restrict date or play by decade.
+        <span id="exploreButtons">
+            <button id="viewRecords" class="erk-button erk-button--light">
+                <i class="fa fa-share-square-o"></i>
+                View Records
+            </button>
+
+            <a href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
+               aa-refresh-zones="dialogZone" aa-js-before="regionWidget.showDownloadDialog();"
+            >
+                <button class="erk-button erk-button--light">
+                    <i class="fa fa-download"></i>
+                    Download Records
+                </button>
+            </a>
+        </span>
+        </div>
+
+        <div id="region-map"></div>
 
         <div id="timeControls" class="text-center">
             <div id="timeButtons">
@@ -168,32 +157,18 @@
             </div>
         </div>
 
-        <div id="region-map"></div>
+        <div id="opacityControls">
+            <label class="checkbox">
+                <input type="checkbox"name="occurrences" id="toggleOccurrences" checked> Occurrences
+            </label>
 
-        <div class="accordion" id="opacityControls">
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" href="#opacityControlsContent">
-                        <i class="fa fa-chevron-right"></i>Map opacity controls
-                    </a>
-                </div>
+            <div id="occurrencesOpacity"></div>
 
-                <div id="opacityControlsContent" class="accordion-body collapse">
-                    <div class="accordion-inner">
-                        <label class="checkbox">
-                            <input type="checkbox"name="occurrences" id="toggleOccurrences" checked> Occurrences
-                        </label>
+            <label class="checkbox">
+                <input type="checkbox" name="region" id="toggleRegion" checked> Region
+            </label>
 
-                        <div id="occurrencesOpacity"></div>
-
-                        <label class="checkbox">
-                            <input type="checkbox" name="region" id="toggleRegion" checked> Region
-                        </label>
-
-                        <div id="regionOpacity"></div>
-                    </div>
-                </div>
-            </div>
+            <div id="regionOpacity"></div>
         </div>
     </div>
 </div>
@@ -216,7 +191,7 @@
 </div>
 
 <g:if test="${subRegions.size() > 0}">
-    <div class="row-fluid">
+    <div class="row">
         <div class="span12" id="subRegions">
             <h2>Regions within ${region.name}</h2>
 
