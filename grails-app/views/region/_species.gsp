@@ -23,20 +23,17 @@
     <tr class="infoRowLinks" style="display: none;">
         <td>&nbsp;</td>
         <td colspan="2">
-            <a href="${speciesPageUrl}/${singleSpecies.guid}" title="View Species page">
-                <button class="erk-button erk-button--light species-list-button">
-                    <i class="fa fa-share-square-o"></i>
-                    Species Profile
-                </button>
+            <a href="${speciesPageUrl}/${singleSpecies.guid}" title="View Species page" class="species-list-button">
+                <i class="fa fa-share-square-o"></i>
+                Species Profile
             </a>
 
             <a href="${rg.speciesRecordListUrl([guid: singleSpecies.guid, regionFid: regionFid, regionName: regionName, regionType: regionType, regionPid: regionPid, from: from, to: to, showHubData: showHubData])}"
                title="View list of Records"
+               class="species-list-button"
             >
-                <button class="erk-button erk-button--light species-list-button">
-                    <i class="fa fa-database"></i>
-                    List of Records
-                </button>
+                <i class="fa fa-database"></i>
+                List of Records
             </a>
         </td>
     </tr>

@@ -47,6 +47,10 @@
     padding-left: 0 !important;
 }
 
+#occurrenceRecords {
+    padding-bottom: 0.5rem;
+}
+
 #map_canvas {
     height: 470px;
     border: 1px solid #d3d3d3;
@@ -106,7 +110,7 @@ li.regionLink {
 }
 
 li.regionLink:hover {
-    background-color: #06a9d5;
+    background-color: #30d8ef;
 }
 
 .ui-accordion-content li.selected {
@@ -159,6 +163,11 @@ li.regionLink:hover {
     border-radius: 5px;
 }
 
+#exploreButtons {
+    float: right;
+    padding-bottom: 0.5rem;
+}
+
 #species .scrollContent {
     height: 400px;
 }
@@ -168,20 +177,24 @@ li.regionLink:hover {
 }
 
 #explorerTabs.nav-tabs li a, #controlsMapTab.nav-tabs li a {
-    font-size: 1.1em;
+    font-size: 14px;
+    border-radius: 0;
+    padding: 0 15px;
+    line-height: 28px; /* 30px height - 2 * 1px border */
 }
 
 .nav-tabs li a .popover-content {
-    font-size: .9em;
 }
 
 .nav-tabs li.active a {
     background-color: #ffffff;
 }
 
+#speciesTabContent thead th {
+    padding: 0;
+}
+
 #groups, #species {
-    height: 560px;
-    max-height: 560px;
     margin-bottom: .8em;
 }
 
@@ -191,7 +204,6 @@ li.regionLink:hover {
 }
 
 #species thead tr, #groups thead tr {
-    display: block;
     position: relative;
     width: 100%;
 }
@@ -199,7 +211,6 @@ li.regionLink:hover {
 #groups tbody, #species tbody {
     height: 530px;
     max-height: 530px;
-    display: block;
     overflow-y: auto;
 }
 
@@ -208,8 +219,7 @@ li.regionLink:hover {
 }
 
 #groups td, #species td {
-    padding: 1px 1.5em 1px 1em;
-    font-size: .9em;
+    padding: 1px 0.5em 1px 0;
 }
 
 #species tbody .spinner, #groups tbody .spinner {
@@ -223,21 +233,15 @@ li.regionLink:hover {
 
 #groups {
     border-right: 1px solid #dddddd;
-    float: left;
-    table-layout: fixed;
-    width: 45%;
 }
 
 #groups thead th {
-    display:inherit;
 }
 
 #groups tbody tr {
-    display: block;
 }
 
 #groups tbody td {
-    display: inherit;
 }
 
 #groups td.level0 {
@@ -249,21 +253,10 @@ li.regionLink:hover {
 }
 
 #species {
-    float: right;
-    table-layout: fixed;
-    width: 55%;
-}
-
-#species thead th:first-child {
-    width: 85%;
 }
 
 #species td:first-child {
     padding-right: 0;
-}
-
-#species tbody tr.link td:first-child {
-    width: 5%;
 }
 
 #species tr.infoRowLinks {
@@ -275,20 +268,16 @@ li.regionLink:hover {
 }
 
 .species-list-button {
-    background-color: white;
-}
-
-.species-list-button:hover {
-    background-color: white;
+    color: white;
 }
 
 tr.groupSelected, tr.groupSelected:hover td {
-    background-color: #06a9d5 !important;
+    background-color: #30d8ef !important;
     color: white;
 }
 
 tr.speciesSelected, tr.speciesSelected:hover td {
-    background-color: #06a9d5 !important;
+    background-color: #30d8ef !important;
     color: white;
 }
 
