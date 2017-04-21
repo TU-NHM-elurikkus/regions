@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <g:render template="/manifest" plugin="elurikkus-commons" />
 
         <title>
             <g:layoutTitle />
