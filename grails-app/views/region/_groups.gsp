@@ -10,7 +10,7 @@
         aa-queue="abort">
         <td class="level${group.parent ? '1' : '0'}">
             <g:if test="${!group.parent}">
-            <i class="fa fa-chevron-right"></i>
+            <span class="fa fa-chevron-right"></span>
             </g:if>
             ${group.commonName == 'ALL_SPECIES' ? 'All Species' : group.commonName}
         </td>

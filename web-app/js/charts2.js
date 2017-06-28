@@ -13,7 +13,7 @@ var taxonomyPieChartOptions = {
     width: 480,
     height: 350,
     chartArea: {left:0, top:30, width:"100%", height: "70%"},
-    is3D: true,
+    is3D: false,
     titleTextStyle: {color: "#555", fontName: 'Arial', fontSize: 15},
     sliceVisibilityThreshold: 0,
     legend: "right"
@@ -24,7 +24,7 @@ var genericChartOptions = {
     width: 480,
     height: 350,
     chartArea: {left:0, top:30, width:"100%", height: "70%"},
-    is3D: true,
+    is3D: false,
     titleTextStyle: {color: "#555", fontName: 'Arial', fontSize: 15},
     sliceVisibilityThreshold: 0,
     legend: "right",
@@ -427,11 +427,11 @@ var taxonomyChart = {
         // draw the back button / instructions
         var $backLink = $('#backLink');
         if ($backLink.length == 0) {
-            $backLink = $('<div class="link" id="backLink">&laquo; Previous rank</div>').appendTo($outerContainer);  // create it
+            $backLink = $('<div class="erk-button erk-button--inline" id="backLink">&laquo; Previous rank</div>').appendTo($outerContainer);  // create it
             $backLink.css('position','relative').css('top','-75px');
             $backLink.click(function() {
                 // only act if link was real
-                if (!$backLink.hasClass('link')) return;
+                if (!$backLink.hasClass('erk-button')) return;
                 $("i.loading").remove();
                 // show spinner while loading
                 $container.append($('<i class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></i>'));
@@ -448,17 +448,17 @@ var taxonomyChart = {
         }
         if (this.hasState()) {
             // show the prev link
-            $backLink.html("&laquo; Previous rank").addClass('link');
+            $backLink.html("&laquo; Previous rank").addClass('erk-button');
         }
         else {
             // show the instruction
-            $backLink.html("Click a slice to drill into the next taxonomic level.").removeClass('link');
+            $backLink.html("Click a slice to drill into the next taxonomic level.").removeClass('erk-button');
         }
 
         // draw records link
         var $recordsLink = $('#recordsLink');
         if ($recordsLink.length == 0) {
-            $recordsLink = $('<div class="link under" id="recordsLink">View records</div>').appendTo($outerContainer);  // create it
+            $recordsLink = $('<div class="erk-link" id="recordsLink">View records</div>').appendTo($outerContainer);  // create it
             $recordsLink.css('position','relative').css('top','-75px');
             $recordsLink.click(function () {
                 thisChart.showRecords();  // called explicitly so we have the correct 'this' context
@@ -507,7 +507,7 @@ var taxonomyChart = {
             });
         }
 
-        $("#charts i").hide();
+        $("#charts span").hide();
     },
     showRecords: function () {
         // show occurrence records

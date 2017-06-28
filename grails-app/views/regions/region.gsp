@@ -20,44 +20,66 @@
 <g:set var="enableHubData" value="${grailsApplication.config.hub.enableHubData?.toBoolean()}"></g:set>
 <g:set var="hubState" value="${true}"></g:set>
 
-<div id="emblemsContainer">
+<div class="page-header">
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>
 
-    <h1>${region.name}</h1>
+    <h1 class="page-header__title">
+        ${region.name}
+    </h1>
 
-    <aa:zone id="emblems" href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}">
-        <i class="fa fa-cog fa-spin fa-2x"></i>
-    </aa:zone>
-</div>
+    <div id="occurrenceRecords" class="page-header__subtitle">
+        Occurrence records <span class="totalRecords"></span>
 
-<div>
-    <g:if test="${region.description || region.notes}">
-        <section class="section">
-            <h2>Description</h2>
-            <g:if test="${region.description}"><p>${raw(region.description)}</p></g:if>
-            <g:if test="${region.notes}"><h3>Notes on the map layer</h3><p>${region.notes}</p></g:if>
-        </section>
-    </g:if>
+        <%-- XXX TODO Test the style of emblems. So far they have remained unseen. --%>
+        <g:if test="${emblems}">
+            <aa:zone id="emblems" href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}">
+                <i class="fa fa-cog fa-spin fa-2x"></i>
+            </aa:zone>
+        </g:if>
 
-    <h2 id="occurrenceRecords" class="">Occurrence records <span id="totalRecords"></span></h2>
+        <%-- XXX TODO Test the style of description. So far it have remained unseen. --%>
+        <div>
+            <g:if test="${region.description || region.notes}">
+                <g:if test="${region.description}">
+                    <p>
+                        ${raw(region.description)}
+                    </p>
+                </g:if>
+
+                <g:if test="${region.notes}">
+                    <strong>Notes on the map layer: </strong> ${region.notes}
+                </g:if>
+            </g:if>
+        </div>
+    </div>
+
+    <div class="page-header-links">
+        <a href="${g.createLink(uri: '/')}" class="page-header-links__link">
+            Regions
+        </a>
+
+        <div id="viewRecords" class="erk-link page-header-links__link">
+            View records <span class="totalRecords"></span>
+        </div>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-5">
+    <div class="col-md-5">
         <ul class="nav nav-tabs" id="explorerTabs">
             <li class="nav-item">
                 <a id="speciesTab" data-toggle="tab" href="#speciesTabContent" class="nav-link active">
                     Explore by species
-                    <i class="fa fa-cog fa-spin fa-lg hidden"></i>
+                    <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a id="taxonomyTab" data-toggle="tab" href="#taxonomyTabContent" class="nav-link">
                     Explore by taxonomy
-                    <i class="fa fa-cog fa-spin fa-lg hidden"></i>
+                    <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                 </a>
             </li>
         </ul>
@@ -115,27 +137,22 @@
 
             <div class="tab-pane" id="taxonomyTabContent">
                 <div id="charts">
-                    <i class="spinner fa fa-cog fa-spin fa-3x"></i>
+                    <span class="spinner fa fa-cog fa-spin fa-3x"></span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-7">
+    <div class="col-md-7">
         <div>
-            <i class="fa fa-info-circle fa-lg"></i>
+            <span class="fa fa-info-circle fa-lg"></span>
             How to use time control: drag handles to restrict date or play by decade.
         <span id="exploreButtons">
-            <button id="viewRecords" class="erk-button erk-button--light">
-                <i class="fa fa-share-square-o"></i>
-                View Records
-            </button>
-
             <a href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
                aa-refresh-zones="dialogZone" aa-js-before="regionWidget.showDownloadDialog();"
             >
                 <button class="erk-button erk-button--light">
-                    <i class="fa fa-download"></i>
+                    <span class="fa fa-download"></span>
                     Download Records
                 </button>
             </a>
@@ -183,7 +200,7 @@
                 </div>
 
                 <div class="modal-body text-center">
-                    <i class="fa fa-cog fa-spin fa-2x"></i>
+                    <span class="fa fa-cog fa-spin fa-2x"></span>
                 </div>
             </aa:zone>
         </div>
@@ -192,7 +209,7 @@
 
 <g:if test="${subRegions.size() > 0}">
     <div class="row">
-        <div class="span12" id="subRegions">
+        <div class="col" id="subRegions">
             <h2>Regions within ${region.name}</h2>
 
             <g:each in="${subRegions}" var="item">

@@ -5,14 +5,14 @@ modules = {
         dependsOn  'jquery', 'jquery-ui', 'jquery-bbq', 'map', 'font-awesome', 'he'
 
         resource url: '/js/regions.js'
-        resource url: '/css/regions.css', attrs:[media:'all']
+        resource url: [dir:'css', file:'regions.css']
     }
 
     region {
         dependsOn 'jquery', 'jquery-ui', 'jquery-ui-slider-pips', 'jquery-bbq', 'ajaxanywhere', 'map', 'charts', 'number-functions', 'font-awesome'
 
         resource url: '/js/region.js'
-        resource url: '/css/regions.css', attrs:[media:'all']
+        resource url: [dir:'css', file:'regions.css']
     }
 
     leaflet {
