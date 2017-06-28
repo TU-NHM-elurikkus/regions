@@ -70,14 +70,14 @@
     <div class="col-md-5">
         <ul class="nav nav-tabs" id="explorerTabs">
             <li class="nav-item">
-                <a id="speciesTab" data-toggle="tab" href="#speciesTabContent" class="nav-link active">
+                <a id="species-tab" data-toggle="tab" href="#species-tab-content" class="nav-link active">
                     Explore by species
                     <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a id="taxonomyTab" data-toggle="tab" href="#taxonomyTabContent" class="nav-link">
+                <a id="taxonomy-tab" data-toggle="tab" href="#taxonomy-tab-content" class="nav-link">
                     Explore by taxonomy
                     <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                 </a>
@@ -85,7 +85,7 @@
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="speciesTabContent">
+            <div class="tab-pane active" id="species-tab-content">
                 <div class="row no-gutters">
                     <div class="col-4">
                         <table id="groups"
@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane" id="taxonomyTabContent">
+            <div class="tab-pane" id="taxonomy-tab-content">
                 <div id="charts">
                     <span class="spinner fa fa-cog fa-spin fa-3x"></span>
                 </div>
@@ -146,46 +146,53 @@
     <div class="col-md-7">
         <div>
             <span class="fa fa-info-circle fa-lg"></span>
+
             How to use time control: drag handles to restrict date or play by decade.
-        <span id="exploreButtons">
-            <a href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
-               aa-refresh-zones="dialogZone" aa-js-before="regionWidget.showDownloadDialog();"
-            >
-                <button class="erk-button erk-button--light">
-                    <span class="fa fa-download"></span>
-                    Download Records
-                </button>
-            </a>
-        </span>
+
+            <span id="exploreButtons">
+                <a href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
+                    aa-refresh-zones="dialogZone" aa-js-before="regionWidget.showDownloadDialog();"
+                >
+                    <button class="erk-button erk-button--light">
+                        <span class="fa fa-download"></span>
+                        Download Records
+                    </button>
+                </a>
+            </span>
         </div>
 
         <div id="region-map"></div>
 
-        <div id="timeControls" class="text-center">
-            <div id="timeButtons">
-                <span class="timeControl link" id="playButton" title="Play timeline by decade" alt="Play timeline by decade"></span>
-                <span class="timeControl link" id="pauseButton" title="Pause play" alt="Pause play"></span>
-                <span class="timeControl link" id="stopButton" title="Stop" alt="Stop"></span>
-                <span class="timeControl link" id="resetButton" title="Reset" alt="Reset"></span>
-            </div>
-
-            <div id="timeSlider">
-                <div id="timeRange"><span id="timeFrom"></span> - <span id="timeTo"></span></div>
+        <div id="time-controls" class="text-center">
+            <div id="time-buttons">
+                <span class="time-control link" id="playButton" title="Play timeline by decade" alt="Play timeline by decade"></span>
+                <span class="time-control link" id="pauseButton" title="Pause play" alt="Pause play"></span>
+                <span class="time-control link" id="stopButton" title="Stop" alt="Stop"></span>
+                <span class="time-control link" id="resetButton" title="Reset" alt="Reset"></span>
             </div>
         </div>
 
+        <div id="timeSlider">
+        </div>
+
+        <div id="time-range">
+            <span id="timeFrom"></span> - <span id="timeTo"></span>
+        </div>
+
         <div id="opacityControls">
-            <label class="checkbox">
-                <input type="checkbox"name="occurrences" id="toggleOccurrences" checked> Occurrences
+            <label class="checkbox" for="toggleOccurrences">
+                <input type="checkbox" name="occurrences" id="toggleOccurrences" checked />
+                Occurrences
             </label>
 
-            <div id="occurrencesOpacity"></div>
+            <p id="occurrencesOpacity"></p>
 
-            <label class="checkbox">
-                <input type="checkbox" name="region" id="toggleRegion" checked> Region
+            <label class="checkbox" for="toggleRegion">
+                <input type="checkbox" name="region" id="toggleRegion" checked />
+                Region
             </label>
 
-            <div id="regionOpacity"></div>
+            <p id="regionOpacity"></p>
         </div>
     </div>
 </div>

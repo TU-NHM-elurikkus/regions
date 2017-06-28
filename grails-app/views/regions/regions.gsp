@@ -80,26 +80,20 @@
             </div>
 
             <div id="controls">
-                <div>
-                    <div class="tish">
-                        <label class="checkbox" for="toggleLayer">
-                            <input type="checkbox" name="layer" id="toggleLayer" value="1" checked />
-                            All regions
-                        </label>
-                    </div>
+                <label class="checkbox" for="toggleLayer">
+                    <input type="checkbox" name="layer" id="toggleLayer" value="1" checked />
+                    All regions
+                </label>
 
-                    <div id="layerOpacity"></div>
+                <p id="layerOpacity"></p>
+
+                <label class="checkbox" for="toggleRegion">
+                    <input type="checkbox" name="region" id="toggleRegion" value="1" checked disabled />
+                        Selected region
+                    </label>
                 </div>
 
-                <div>
-                    <div class="tish">
-                        <label class="checkbox" for="toggleRegion">
-                            <input type="checkbox" name="region" id="toggleRegion" value="1" checked disabled />
-                                Selected region
-                            </label>
-                        </div>
-                    <div id="regionOpacity"></div>
-                </div>
+                <p id="regionOpacity"></p>
             </div>
         </div><!--close map-->
     </div>

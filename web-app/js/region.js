@@ -93,7 +93,7 @@ var RegionWidget = function (config) {
 
     var defaultFromYear = 1850;
     var defaultToYear = new Date().getFullYear();
-    var defaultTab = 'speciesTab';
+    var defaultTab = 'species-tab';
     var regionMap;
     var timeControls;
     var taxonomyWidget;
@@ -850,7 +850,7 @@ var RegionMap = function (config) {
         var searchParam = encodeURI("?q=" + decodeURI(query.q) + "&fq=" + query.fq + "&fq=geospatial_kosher:true");
 
         var fqParam = "";
-        if ($("#taxonomyTab").hasClass('active')) {
+        if ($("#taxonomy-tab").hasClass('active')) {
             // show records based on taxonomy chart
             if (taxonomyChart.rank && taxonomyChart.name) {
                 fqParam = "&fq=" + taxonomyChart.rank + ":" + taxonomyChart.name;
@@ -915,7 +915,7 @@ var RegionMap = function (config) {
         }
 
         var fqParam = "";
-        if ($("#taxonomyTab").hasClass('active')) {
+        if ($("#taxonomy-tab").hasClass('active')) {
             // show records based on taxonomy chart
             if (taxonomyChart.rank && taxonomyChart.name) {
                 prms.push("fq=" + encodeURI(taxonomyChart.rank + ":" + taxonomyChart.name));
