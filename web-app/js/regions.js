@@ -427,12 +427,12 @@ Region.prototype = {
 
             var html =
                 '<a href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
-                    '<button class="erk-button erk-button--light">' + regionName + '</button>' +
+                    regionName +
                 '</a>' +
-                '\n' + 
-                '<button id="zoomTo" class="erk-button erk-button--light">' + 
-                    '<i class="fa fa-search-plus"></i>' + 
-                    'Zoom to region' + 
+                '\n' +
+                '<button id="zoomTo" class="erk-button erk-button--light">' +
+                    '<span class="fa fa-search-plus"></span>\n' +
+                    'Zoom to region' +
                 '</button>';
 
             if(this.other && subregion) {
@@ -532,8 +532,7 @@ map = {
             that = this;
         this.clickedRegion = null;
         $.ajax({
-            url: config.baseUrl + "/proxy?format=json&url=" + config.spatialServiceUrl + "/intersect/" + fid + "/" +
-                    location.lat() + "/" + location.lng(),
+            url: config.baseUrl + "/proxy?format=json&url=" + config.spatialServiceUrl + "/intersect/" + fid + "/" + location.lat() + "/" + location.lng(),
             dataType: 'json',
             success: function (data) {
                 if (data.length === 0) {

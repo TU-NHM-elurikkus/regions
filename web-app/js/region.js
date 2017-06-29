@@ -93,7 +93,7 @@ var RegionWidget = function (config) {
 
     var defaultFromYear = 1850;
     var defaultToYear = new Date().getFullYear();
-    var defaultTab = 'speciesTab';
+    var defaultTab = 'species-tab';
     var regionMap;
     var timeControls;
     var taxonomyWidget;
@@ -258,9 +258,9 @@ var RegionWidget = function (config) {
     var hideTabSpinner = function (tabId) {
         if ($.active == 1) {
             if (tabId) {
-                $('#' + tabId + ' i').addClass('hidden');
+                $('#' + tabId + ' span').addClass('hidden');
             } else {
-                $('#' + state.tab + ' i').addClass('hidden');
+                $('#' + state.tab + ' span').addClass('hidden');
             }
         }
     };
@@ -271,9 +271,9 @@ var RegionWidget = function (config) {
      */
     var showTabSpinner = function (tabId) {
         if (tabId) {
-            $('#' + tabId + ' i').removeClass('hidden');
+            $('#' + tabId + ' span').removeClass('hidden');
         } else {
-            $('#' + state.tab + ' i').removeClass('hidden');
+            $('#' + state.tab + ' span').removeClass('hidden');
         }
     };
 
@@ -285,17 +285,17 @@ var RegionWidget = function (config) {
         $('.group-row').removeClass('groupSelected');
         $("tr[parent]").hide();
         if (group != state.group) {
-            $('#' + state.group + '-row i').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            $('#' + state.group + '-row span').removeClass('fa-chevron-down').addClass('fa-chevron-right');
         }
         var groupId = group.replace(/[^A-Za-z0-9\\d_]/g, "") + '-row';
 
-        var isAlreadyExpanded = $('#' + groupId + ' i').hasClass('fa-chevron-down');
+        var isAlreadyExpanded = $('#' + groupId + ' span').hasClass('fa-chevron-down');
         if (isAlreadyExpanded) {
             $("tr[parent='" + groupId + "']").hide();
-            $('#' + groupId + ' i').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            $('#' + groupId + ' span').removeClass('fa-chevron-down').addClass('fa-chevron-right');
         } else {
             $("tr[parent='" + groupId + "']").show();
-            $('#' + groupId + ' i').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+            $('#' + groupId + ' span').removeClass('fa-chevron-right').addClass('fa-chevron-down');
         }
 
         // Update widget state
@@ -389,7 +389,7 @@ var RegionWidget = function (config) {
             if (state.subgroup) {
                 // Display group hidden rows
                 $("tr[parent='" + getGroupId() + "']").show();
-                $('#' + getGroupId() + ' i').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+                $('#' + getGroupId() + ' span').removeClass('fa-chevron-right').addClass('fa-chevron-down');
                 $('#' + getSubgroupId()).click();
             } else {
                 $('#' + getGroupId()).click();
@@ -408,16 +408,16 @@ var RegionWidget = function (config) {
             $('#species').effect('highlight', {color: '#fee6d2'}, 2000);
             var totalRecords = $('#moreSpeciesZone').attr('totalRecords');
             if (isNaN(totalRecords)) {
-                $('#totalRecords').text('');
+                $('.totalRecords').text('');
             } else {
-                $('#totalRecords').text('(' + region.format(parseInt($('#moreSpeciesZone').attr('totalRecords'))) + ')');
+                $('.totalRecords').text('(' + region.format(parseInt($('#moreSpeciesZone').attr('totalRecords'))) + ')');
             }
 
             $('#occurrenceRecords').effect('highlight', {color: '#fee6d2'}, 2000);
         },
 
         showMoreSpecies: function() {
-            $('#showMoreSpeciesButton').html("<i class='fa fa-cog fa-spin'></i>");
+            $('#showMoreSpeciesButton').html("<span class='fa fa-cog fa-spin'></span>");
             AjaxAnywhere.dynamicParams=this.getCurrentState();
         },
 
@@ -741,14 +741,11 @@ var RegionMap = function (config) {
             }
         });
 
-        // Dixes accordion width
-        $('#opacityControls').width( $('#opacityControls').width() + 2);
-
         $('#opacityControls a').on('click', function() {
             if ($('#opacityControlsContent').hasClass('in')) {
-                $('#opacityControls i').switchClass('fa-chevron-down', 'fa-chevron-right');
+                $('#opacityControls span').switchClass('fa-chevron-down', 'fa-chevron-right');
             } else {
-                $('#opacityControls i').switchClass('fa-chevron-right', 'fa-chevron-down');
+                $('#opacityControls span').switchClass('fa-chevron-right', 'fa-chevron-down');
             }
         });
 
@@ -853,7 +850,7 @@ var RegionMap = function (config) {
         var searchParam = encodeURI("?q=" + decodeURI(query.q) + "&fq=" + query.fq + "&fq=geospatial_kosher:true");
 
         var fqParam = "";
-        if ($("#taxonomyTab").hasClass('active')) {
+        if ($("#taxonomy-tab").hasClass('active')) {
             // show records based on taxonomy chart
             if (taxonomyChart.rank && taxonomyChart.name) {
                 fqParam = "&fq=" + taxonomyChart.rank + ":" + taxonomyChart.name;
@@ -918,7 +915,7 @@ var RegionMap = function (config) {
         }
 
         var fqParam = "";
-        if ($("#taxonomyTab").hasClass('active')) {
+        if ($("#taxonomy-tab").hasClass('active')) {
             // show records based on taxonomy chart
             if (taxonomyChart.rank && taxonomyChart.name) {
                 prms.push("fq=" + encodeURI(taxonomyChart.rank + ":" + taxonomyChart.name));
