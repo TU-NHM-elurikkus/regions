@@ -1,14 +1,13 @@
 package au.org.ala.regions
 
 import groovy.xml.StreamingMarkupBuilder
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class DataController {
 
     def metadataService
-    
+
     def index = { }
-    
+
     def regionsMetadata = {
         response.contentType = 'application/json'
         render metadataService.getRegionsMetadataAsJson()
