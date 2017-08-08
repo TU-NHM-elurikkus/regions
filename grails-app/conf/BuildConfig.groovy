@@ -22,12 +22,12 @@ grails.project.dependency.resolution = {
     repositories {
         mavenLocal()
         mavenRepo ("http://nexus.ala.org.au/content/groups/public/") {
-            updatePolicy 'always'
+            updatePolicy "always"
         }
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+        compile "org.codehaus.groovy.modules.http-builder:http-builder:0.7.1"
     }
 
     plugins {
