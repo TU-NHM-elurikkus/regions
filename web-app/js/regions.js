@@ -34,7 +34,7 @@
 var
     // represents the map and its associated properties and events
     map,
-    
+
     //  Urls are injected from config
     config = {},
 
@@ -734,4 +734,3 @@ function init (options) {
 
     windows.init_regions = init;
 }(this));
-
