@@ -1,10 +1,12 @@
 <g:if test="${!pageIndex || pageIndex == 0}">
-<tbody id="speciesZone">
+    <tbody id="speciesZone">
 </g:if>
 
 <g:if test="${species.totalRecords == 0}">
     <tr>
-        <td colspan="3">No records found.</td>
+        <td colspan="3">
+            No records found.
+        </td>
     </tr>
 </g:if>
 
@@ -21,7 +23,9 @@
         </td>
     </tr>
     <tr class="infoRowLinks" style="display: none;">
-        <td>&nbsp;</td>
+        <td>
+            &nbsp;
+        </td>
         <td colspan="2">
             <a href="${speciesPageUrl}/${singleSpecies.guid}" title="View Species page" class="species-list-button">
                 <i class="fa fa-share-square-o"></i>
@@ -55,6 +59,5 @@
 </tr>
 
 <g:if test="${!pageIndex || pageIndex == 0}">
-</tbody>
+    </tbody>
 </g:if>
-

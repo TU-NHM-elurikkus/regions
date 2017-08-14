@@ -179,7 +179,7 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
 
     // specify the type (for css tweaking)
     $container.addClass('chart-' + opts.chartType);
-            
+
     // create the chart
     var chart;
     switch (opts.chartType) {
@@ -427,11 +427,11 @@ var taxonomyChart = {
         // draw the back button / instructions
         var $backLink = $('#backLink');
         if ($backLink.length == 0) {
-            $backLink = $('<div class="erk-button erk-button--inline" id="backLink">&laquo; Previous rank</div>').appendTo($outerContainer);  // create it
+            $backLink = $('<div class="erk-link" id="backLink">&laquo; Previous rank</div>').appendTo($outerContainer);  // create it
             $backLink.css('position','relative').css('top','-75px');
             $backLink.click(function() {
                 // only act if link was real
-                if (!$backLink.hasClass('erk-button')) return;
+                if (!$backLink.hasClass('erk-link')) return;
                 $("i.loading").remove();
                 // show spinner while loading
                 $container.append($('<i class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></i>'));
@@ -448,11 +448,11 @@ var taxonomyChart = {
         }
         if (this.hasState()) {
             // show the prev link
-            $backLink.html("&laquo; Previous rank").addClass('erk-button');
+            $backLink.html("&laquo; Previous rank").addClass('erk-link');
         }
         else {
             // show the instruction
-            $backLink.html("Click a slice to drill into the next taxonomic level.").removeClass('erk-button');
+            $backLink.html("Click a slice to drill into the next taxonomic level.").removeClass('erk-link');
         }
 
         // draw records link
@@ -732,4 +732,3 @@ function addCommas(nStr)
     }
     return x1 + x2;
 }
-
