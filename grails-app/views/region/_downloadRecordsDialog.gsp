@@ -11,53 +11,56 @@
             </div>
             <div class="modal-body">
                 <p>
-                    By downloading this content you are agreeing to use it in accordance with the Atlas
-                    <a href="http://www.ala.org.au/about/terms-of-use/#TOUusingcontent">
-                        Terms of Use
+                    <g:message code="download.termsOfUse.desc.01" />
+                    <a href="https://plutof.ut.ee/#/privacy-policy">
+                        <g:message code="download.termsOfUse.desc.02" />
                     </a>
-                    and individual
-                    <a href=" http://www.ala.org.au/support/faq/#q29">
-                        Data Provider Terms
-                    </a>.
+                    <g:message code="download.termsOfUse.desc.03" />.
                 </p>
+
+                <br />
 
                 <p>
                     <h4>
-                        Please provide the following details before downloading:
+                        <g:message code="download.form.title" />:
                     </h4>
                 </p>
 
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'email', 'error')}">
                     <label class="control-label" for="email">
-                        Email
+                        <g:message code="download.form.field.email.label" /> *
                     </label>
                     <div class="controls">
-                        <g:textField id="email" name="email" value="${downloadParams.email}" />
+                        <g:textField id="email" name="email" value="${downloadParams.email}"/>
                     </div>
                 </div>
 
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'fileName', 'error')}">
                     <label class="control-label" for="fileName">
-                        File name
+                        <g:message code="download.form.field.fileName.label" />
                     </label>
                     <div class="controls">
-                        <g:textField id="fileName" name="fileName" value="${downloadParams.fileName?:'data'}" />
+                        <g:textField
+                            id="fileName"
+                            name="fileName"
+                            value="${downloadParams.fileName ?: message(code: 'download.form.field.fileName.value')}"
+                        />
                     </div>
                 </div>
 
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'downloadReason', 'error')}">
                     <label class="control-label" for="downloadReason">
-                        Download reason
+                        <g:message code="download.form.field.reason.label" /> *
                     </label>
                     <div class="controls">
                         <g:select
                             id="downloadReason"
                             name="downloadReason"
                             value="${downloadParams.downloadReason}"
-                            noSelection="${['':'Select One...']}"
+                            noSelection="${['': message(code: 'download.form.field.reason.placeHolder')]}"
                             from="${downloadReasons}"
                             optionKey="key"
-                            optionValue="value"
+                            optionValue="${{opt -> message(code: "download.form.field.reason.option.${opt.key}", default: "${opt.key}")}}"
                         >
                         </g:select>
                     </div>
@@ -65,17 +68,17 @@
 
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'downloadOption', 'error')}">
                     <label class="control-label" for="downloadOption">
-                        Download option
+                        <g:message code="download.form.field.downloadType.label" /> *
                     </label>
                     <div class="controls">
                         <g:select
                             id="downloadOption"
                             name="downloadOption"
                             value="${downloadParams.downloadOption}"
-                            noSelection="${['':'Select One...']}"
+                            noSelection="${['': message(code: 'download.form.field.downloadType.placeHolder')]}"
                             from="${downloadOptions}"
                             optionKey="key"
-                            optionValue="value"
+                            optionValue="${{opt -> message(code: "download.form.field.downloadType.option.${opt.key}", default: "${opt.key}")}}"
                         >
                         </g:select>
                     </div>
@@ -84,7 +87,7 @@
 
             <div class="modal-footer">
                 <button class="erk-button erk-button--light" data-dismiss="modal" aria-hidden="true">
-                    Close
+                    <g:message code="general.btn.close" />
                 </button>
                 <button
                     id='downloadStart'
@@ -93,7 +96,7 @@
                     js-before="AjaxAnywhere.dynamicParams=regionWidget.getCurrentState();"
                 >
                     <i class="fa fa-download"></i>
-                    Download
+                    <g:message code="download.btn.label" />
                 </button>
             </div>
         </g:form>
@@ -106,55 +109,52 @@
                 // start download button
                 $("#downloadStart").unbind("click").bind("click",function(e) {
                     e.preventDefault();
-                    var downloadReason = $( "#downloadReason option:selected").val()
-                    var downloadOption = $( "#downloadOption option:selected").val()
+                    var downloadUrl;
+                    let downloadReason = $("#downloadReason option:selected").val()
+                    let downloadOption = $("#downloadOption option:selected").val()
+                    let commonData = "&email=" + $("#email").val() +
+                        "&reasonTypeId=" + $("#downloadReason").val() +
+                        "&file=" + $("#fileName").val();
 
                     if (validateForm()) {
-                        if (downloadOption == "0") {
-                            var downloadUrl = decodeURIComponent('${downloadRecordsUrl}') + "&email=" + $("#email").val() + "&reasonTypeId=" +
-                                    $("#downloadReason").val() + "&file=" + $("#fileName").val() + "&extra=dataResourceUid,dataResourceName.p";
-
-                            //alert(downloadUrl)
-                            window.location.href = downloadUrl;
-                        } else if (downloadOption == "1") {
-                            var downloadUrl = decodeURIComponent('${downloadChecklistUrl}') + "&email=" + $("#email").val() + "&reasonTypeId=" +
-                                    $("#downloadReason").val() + "&file=" + $("#fileName").val();
-
-                            //alert(downloadUrl)
+                        if (downloadOption == "1") {
+                            downloadUrl = decodeURIComponent('${downloadChecklistUrl}') + commonData;
                             window.location.href = downloadUrl;
                         } else if (downloadOption == "2") {
-                            var downloadUrl = decodeURIComponent('${downloadFieldguideUrl}') +"&email="+$("#email").val()+"&reasonTypeId="+
-                                    $("#downloadReason").val()+"&file="+$("#fileName").val();
-
-                            //alert(downloadUrl)
+                            downloadUrl = decodeURIComponent('${downloadFieldguideUrl}') + commonData;
                             window.open(downloadUrl);
+                        } else { // (downloadOption == "0")
+                            downloadUrl = decodeURIComponent('${downloadRecordsUrl}') +
+                                commonData +  // for some parsing reasons, common must be in the middle...
+                                "&extra=dataResourceUid,dataResourceName.p";
+                            window.location.href = downloadUrl;
                         }
+
                         $('#downloadRecordsModal').modal('hide');
                     }
                 });
             });
 
             function validateForm() {
-                var isValid = false;
-                var downloadReason = $("#downloadReason option:selected").val();
-                var downloadOption = $( "#downloadOption option:selected").val()
-                var email = $( "#email").val()
+                let isValid = true;
+                let downloadOption = $("#downloadOption option:selected").val()
+                let downloadReason = $("#downloadReason option:selected").val();
+                let email = $("#email").val()
 
+                if (!downloadOption) {
+                    $("#downloadOption").focus();
+                    $("label[for='downloadOption']").css("color","red");
+                    isValid = false;
+                }
                 if (!downloadReason) {
                     $("#downloadReason").focus();
                     $("label[for='downloadReason']").css("color","red");
-                    alert("Please select a \"download reason\" from the drop-down list");
-                } else if (!downloadOption) {
-                    $("#downloadOption").focus();
-                    $("label[for='downloadOption']").css("color","red");
-                    alert("Please select a \"download option\" from the drop-down list");
-                    return
-                } else if (!email) {
+                    isValid = false;
+                }
+                if (!email) {
                     $("#email").focus();
                     $("label[for='email']").css("color","red");
-                    alert("Please enter an email address");
-                } else {
-                    isValid = true
+                    isValid = false;
                 }
 
                 return isValid;

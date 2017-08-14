@@ -922,12 +922,4 @@ class MetadataService {
 
         map
     }
-
-    def getHabitatConfig(){
-        def appName = Metadata.current.'app.name'
-        def json = new File("/data/${appName}/config/habitats.json").text
-        def js = new JsonSlurper()
-        def config = js.parseText(json)
-        config
-    }
 }
