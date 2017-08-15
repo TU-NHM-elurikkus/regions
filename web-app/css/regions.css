@@ -388,3 +388,7 @@ path {
 #map-container {
     margin-bottom: 1rem;
 }
+
+.top-map-buttons {
+    text-align: right;
+}
