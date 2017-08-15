@@ -24,27 +24,27 @@ modules = {
         resource url: '/vendor/jquery/jquery-1.11.2.js', disposition: 'head'
     }
 
-    'jquery-ui' {
+    jquery-ui {
         dependsOn 'jquery'
 
         resource url: '/vendor/jquery-ui/jquery-ui-1.11.2-no-autocomplete.js'
         resource url: '/vendor/jquery-ui/themes/smoothness/jquery-ui.css', attrs:[media:'all']
     }
 
-    'jquery-ui-slider-pips' {
+    jquery-ui-slider-pips {
         dependsOn 'jquery-ui'
 
         resource url: '/vendor/jquery-ui-slider-pips/jquery-ui-slider-pips.js'
         resource url: '/vendor/jquery-ui-slider-pips/jquery-ui-slider-pips.css', attrs:[media:'all']
     }
 
-    'jquery-bbq' {
+    jquery-bbq {
         dependsOn 'jquery'
 
         resource url: '/vendor/jquery-bbq/jquery.ba-bbq-1.2.1.js'
     }
 
-    'map' {
+    map {
         resource url: '/js/keydragzoom.js'
         resource url: '/js/wms.js'
     }
@@ -54,7 +54,7 @@ modules = {
         resource url: '/js/charts2.js'
     }
 
-    'number-functions' {
+    number-functions {
         resource url: '/vendor/number-functions/number-functions.js'
     }
 
@@ -64,7 +64,6 @@ modules = {
 
     // Used by the mdba skin
     mdba {
-
         resource url: [dir:'css', file:'mdba-styles.css']
     }
 
@@ -73,4 +72,3 @@ modules = {
         resource url: [dir:'/vendor/bootstrap-switch', file:'bootstrap-switch.min.js']
     }
 }
-
