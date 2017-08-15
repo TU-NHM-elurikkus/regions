@@ -15,7 +15,7 @@
                     <span class="fa fa-chevron-right"></span>
                 </g:if>
 
-                ${group.commonName == 'ALL_SPECIES' ? 'All Species' : group.commonName}
+                <g:message code="groups.dynamic.group.${group.name}" default="${group.name}"/>
             </td>
         </tr>
     </g:each>

@@ -2,10 +2,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="${grailsApplication.config.skin.layout?:'elurikkus'}" />
+        <meta name="layout" content="${grailsApplication.config.skin.layout ?: 'elurikkus'}" />
 
         <title>
-            Regions | ${grailsApplication.config.orgNameLong}
+            <g:message code="regions.header.title" /> | ${grailsApplication.config.orgNameLong}
         </title>
 
         <%-- Get regions metadata --%>
@@ -30,15 +30,11 @@
             </g:if>
 
             <h1 class="page-header__title">
-                Select a region to explore
+                <g:message code="regions.body.title.label" />
             </h1>
 
             <div class="page-header__subtitle">
-                Select the type of region on the left. Click a name or click on the map to select a region.
-                Use map controls or shift-drag with your mouse to zoom the map.
-                <br />
-                Click the region button
-                to explore occurrence records, images and documents associated with the region.
+                <g:message code="regions.body.title.desc" />
             </div>
         </div>
 
@@ -46,7 +42,7 @@
             <div class="col-md-5">
                 <p style="font-size:15px;padding-bottom:0;">
                     <span class="fa fa-info-circle"></span>
-                    Click on a region name to select an area.
+                    <g:message code="regions.regionsList.help" />
                 </p>
 
                 <div id="accordion">
@@ -59,7 +55,7 @@
 
                         <div id="${item.layerName}" layer="${item.label}">
                             <span class="loading">
-                                Loading...
+                                <g:message code="regions.regionsList.loading" />...
                             </span>
                         </div>
                     </g:each>
@@ -69,12 +65,12 @@
             <div class="col-md-7" id="rightPanel">
                 <span id="click-info">
                     <span class="fa fa-info-circle"></span>
-                    Click on the map to select an area.
+                    <g:message code="regions.map.help" />
                 </span>
 
                 <button id="reset-map" class="erk-button erk-button--light">
                     <span class="fa fa-refresh"></span>
-                    Reset map
+                    <g:message code="regions.map.btn.reset" />
                 </button>
 
                 <div id="map">
@@ -85,20 +81,20 @@
                     <div id="controls">
                         <label class="checkbox" for="toggleLayer">
                             <input type="checkbox" name="layer" id="toggleLayer" value="1" checked />
-                            All regions
+                            <g:message code="regions.map.layer.allRegions" />
                         </label>
 
                         <p id="layerOpacity"></p>
 
                         <label class="checkbox" for="toggleRegion">
                             <input type="checkbox" name="region" id="toggleRegion" value="1" checked disabled />
-                                Selected region
+                                <g:message code="regions.map.layer.selectedRegion" />
                             </label>
                         </div>
 
                         <p id="regionOpacity"></p>
                     </div>
-                </div><!--close map-->
+                </div>  <%-- close map --%>
             </div>
         </div>
 

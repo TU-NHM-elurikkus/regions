@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="${grailsApplication.config.skin.layout?:'main'}" />
+        <meta name="layout" content="${grailsApplication.config.skin.layout ?: 'main'}" />
 
         <title>
             ${region.name} | ${grailsApplication.config.orgNameLong}
@@ -34,12 +34,15 @@
             </h1>
 
             <div id="occurrenceRecords" class="page-header__subtitle">
-                Occurrence records
+                <g:message code="region.body.subTitle" />
                 <span class="totalRecords"></span>
 
                 <%-- XXX TODO Test the style of emblems. So far they have remained unseen. --%>
                 <g:if test="${emblems}">
-                    <aa:zone id="emblems" href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}">
+                    <aa:zone
+                        id="emblems"
+                        href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}"
+                    >
                         <i class="fa fa-cog fa-spin fa-2x"></i>
                     </aa:zone>
                 </g:if>
@@ -55,7 +58,7 @@
 
                         <g:if test="${region.notes}">
                             <strong>
-                                Notes on the map layer:
+                                <g:message code="region.region.notes" />:
                             </strong>
                             ${region.notes}
                         </g:if>
@@ -65,11 +68,11 @@
 
             <div class="page-header-links">
                 <a href="${g.createLink(uri: '/')}" class="page-header-links__link">
-                    Regions
+                    <g:message code="region.navBar.regions" />
                 </a>
 
                 <div id="viewRecords" class="erk-link page-header-links__link">
-                    View records
+                    <g:message code="region.navBar.viewRecords" />
                     <span class="totalRecords"></span>
                 </div>
             </div>
@@ -80,14 +83,14 @@
                 <ul class="nav nav-tabs" id="explorerTabs">
                     <li class="nav-item">
                         <a id="species-tab" data-toggle="tab" href="#species-tab-content" class="nav-link active">
-                            Explore by species
+                            <g:message code="region.speciesTab.header.table" />
                             <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a id="taxonomy-tab" data-toggle="tab" href="#taxonomy-tab-content" class="nav-link">
-                            Explore by taxonomy
+                            <g:message code="region.speciesTab.header.chart" />
                             <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                         </a>
                     </li>
@@ -97,7 +100,8 @@
                     <div class="tab-pane active" id="species-tab-content">
                         <div class="row no-gutters">
                             <div class="col-4">
-                                <table id="groups"
+                                <table
+                                    id="groups"
                                     tagName="tbody"
                                     class="table table-condensed table-hover"
                                     aa-href="${g.createLink(controller: 'region', action: 'showGroups', params: [regionFid: region.fid,regionType: region.type, regionName: region.name, regionPid: region.pid])}"
@@ -109,7 +113,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">
-                                                Group
+                                                <g:message code="region.speciesTab.table.speciesGroup" />
                                             </th>
                                         </tr>
                                     </thead>
@@ -130,10 +134,10 @@
                                         <tr>
                                             <th></th>
                                             <th>
-                                                Species: Common Name
+                                                <g:message code="region.speciesTab.table.taxonList" />
                                             </th>
                                             <th class="text-right">
-                                                Records
+                                                <g:message code="region.speciesTab.table.recordsCount" />
                                             </th>
                                         </tr>
                                     </thead>
@@ -161,8 +165,7 @@
             <div class="col-md-7">
                 <div>
                     <span class="fa fa-info-circle fa-lg"></span>
-
-                    How to use time control: drag handles to restrict date or play by decade.
+                    <g:message code="region.playBack.desc" />
 
                     <span id="exploreButtons">
                         <a
@@ -172,7 +175,7 @@
                         >
                             <button class="erk-button erk-button--light">
                                 <span class="fa fa-download"></span>
-                                Download Records
+                                <g:message code="download.btn.label" />
                             </button>
                         </a>
                     </span>
@@ -182,32 +185,50 @@
 
                 <div id="time-controls" class="text-center">
                     <div id="time-buttons">
-                        <span class="time-control link" id="playButton" title="Play timeline by decade" alt="Play timeline by decade"></span>
-                        <span class="time-control link" id="pauseButton" title="Pause play" alt="Pause play"></span>
-                        <span class="time-control link" id="stopButton" title="Stop" alt="Stop"></span>
-                        <span class="time-control link" id="resetButton" title="Reset" alt="Reset"></span>
+                        <span
+                            id="playButton"
+                            class="time-control link"
+                            title="${message(code: 'region.playBack.btn.play')}"
+                            alt="${message(code: 'region.playBack.btn.play')}"
+                        ></span>
+                        <span
+                            id="pauseButton"
+                            class="time-control link"
+                            title="${message(code: 'region.playBack.btn.pause')}"
+                            alt"${message(code: 'region.playBack.btn.pause')}"
+                        ></span>
+                        <span
+                            id="stopButton"
+                            class="time-control link"
+                            title="${message(code: 'region.playBack.btn.stop')}"
+                            alt="${message(code: 'region.playBack.btn.stop')}"
+                        ></span>
+                        <span
+                            id="resetButton"
+                            class="time-control link"
+                            title="${message(code: 'region.playBack.btn.reset')}"
+                            alt="${message(code: 'region.playBack.btn.reset')}"
+                        ></span>
                     </div>
                 </div>
 
                 <div id="timeSlider"></div>
 
                 <div id="time-range">
-                    <span id="timeFrom"></span>
-                     -
-                     <span id="timeTo"></span>
+                    <span id="timeFrom"></span> - <span id="timeTo"></span>
                 </div>
 
                 <div id="opacityControls">
                     <label class="checkbox" for="toggleOccurrences">
                         <input type="checkbox" name="occurrences" id="toggleOccurrences" checked />
-                        Occurrences
+                        <g:message code="region.map.control.show.occurrences" />
                     </label>
 
                     <p id="occurrencesOpacity"></p>
 
                     <label class="checkbox" for="toggleRegion">
                         <input type="checkbox" name="region" id="toggleRegion" checked />
-                        Region
+                        <g:message code="region.map.control.show.region" />
                     </label>
 
                     <p id="regionOpacity"></p>
@@ -224,7 +245,7 @@
                                 ×
                             </button>
                             <h3 id="myModalLabel">
-                                Download Records
+                                <g:message code="download.title" />
                             </h3>
                         </div>
 
@@ -240,7 +261,7 @@
             <div class="row">
                 <div class="col" id="subRegions">
                     <h2>
-                        Regions within ${region.name}
+                        <g:message code="region.subRegions.title" args="${[region.name]}" />
                     </h2>
 
                     <g:each in="${subRegions}" var="item">
@@ -262,16 +283,16 @@
             </div>
         </g:if>
 
-        <g:if test="${documents.factSheets||documents.publications||documents.links}">
+        <g:if test="${documents.factSheets || documents.publications || documents.links}">
             <div class="row">
                 <div class="col-12" id="docs">
                     <h2>
-                        Documents and Links
+                        <g:message code="region.info.documents" />
                     </h2>
 
                     <g:if test="${documents.factSheets}">
                         <h3>
-                            Fact sheets
+                            <g:message code="region.info.factSheets" />
                         </h3>
 
                         <ul>
@@ -288,7 +309,7 @@
 
                     <g:if test="${documents.publications}">
                         <h3>
-                            Publications
+                            <g:message code="region.info.publications" />
                         </h3>
 
                         <ul>
@@ -305,7 +326,7 @@
 
                     <g:if test="${documents.links}">
                         <h3>
-                            Links
+                            <g:message code="region.info.links" />
                         </h3>
 
                         <ul>
@@ -321,7 +342,7 @@
                     </g:if>
 
                     <g:link elementId="manage-doc-link" action="documents">
-                        Add or manage documents and links
+                        <g:message code="region.info.edit" />
                     </g:link>
                 </div>
             </div>
@@ -345,7 +366,6 @@
                         offText: "MDBA",
                         offColor: "success",
                         onSwitchChange: function(event, state) {
-                            console.log("switch toggled", state);
                             if (!state) {
                                 // MDBA visible
                                 regionWidget.getCurrentState().showHubData = true
@@ -379,11 +399,11 @@
                     q: '${region.q}'
 
                     <g:if test="${enableQueryContext}">
-                        ,qc:"${URLEncoder.encode(grailsApplication.config.biocache.queryContext, "UTF-8")}"
+                        ,qc: "${URLEncoder.encode(grailsApplication.config.biocache.queryContext, "UTF-8")}"
                     </g:if>
 
                     <g:if test="${enableHubData}">
-                        ,hubFilter:"${URLEncoder.encode(grailsApplication.config.hub.hubFilter , "UTF-8")}"
+                        ,hubFilter: "${URLEncoder.encode(grailsApplication.config.hub.hubFilter , "UTF-8")}"
                         ,showHubData: ${hubState}
                     </g:if>
                 });

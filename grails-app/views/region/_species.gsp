@@ -5,7 +5,7 @@
 <g:if test="${species.totalRecords == 0}">
     <tr>
         <td colspan="3">
-            No records found.
+            <g:message code="species.results.noRecords" />
         </td>
     </tr>
 </g:if>
@@ -27,17 +27,23 @@
             &nbsp;
         </td>
         <td colspan="2">
-            <a href="${speciesPageUrl}/${singleSpecies.guid}" title="View Species page" class="species-list-button">
+            <a
+                href="${speciesPageUrl}/${singleSpecies.guid}"
+                title="${message(code: 'species.results.speciesProfile.title')}"
+                class="species-list-button"
+            >
                 <i class="fa fa-share-square-o"></i>
-                Species Profile
+                <g:message code="species.results.speciesProfile" />
             </a>
 
+            &nbsp; | &nbsp;
+
             <a href="${rg.speciesRecordListUrl([guid: singleSpecies.guid, regionFid: regionFid, regionName: regionName, regionType: regionType, regionPid: regionPid, from: from, to: to, showHubData: showHubData])}"
-               title="View list of Records"
+               title="${message(code: 'species.results.recordList.title')}"
                class="species-list-button"
             >
                 <i class="fa fa-database"></i>
-                List of Records
+                <g:message code="species.results.recordList" />
             </a>
         </td>
     </tr>
@@ -52,7 +58,7 @@
            aa-queue="abort"
         >
             <i class="fa fa-plus"></i>
-            Show more species
+            <g:message code="species.results.showMore" />
         </a>
     </td>
     <td></td>

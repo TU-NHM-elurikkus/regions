@@ -98,7 +98,7 @@ class MetadataService {
         // lookup state emblems
         def emblems = getStateEmblems()[regionName]
         if (emblems) {
-            ['animal','plant','marine','bird'].each {
+            ['animal', 'plant', 'marine', 'bird'].each {
                 if (emblems[it]) {
                     emblemGuids[it] = emblems."${it}".guid
                 }
@@ -172,8 +172,6 @@ class MetadataService {
             query = params
             return it
         }.toString()
-
-        log.debug("URL to retrieve subgroups with records = $url")
 
         def response = new RESTClient(url).get([headers: userAgent]).data
 
@@ -312,7 +310,6 @@ class MetadataService {
             query = params
             return it
         }.toString()
-        log.debug "Download Records (${downloadParams.downloadOption}) - REST URL generated = ${url}"
         return url
     }
 
@@ -351,7 +348,6 @@ class MetadataService {
             query = params
             return it
         }.toString()
-        log.debug "Download Records prefix (${option}) - REST URL generated = ${url}"
         return url
     }
 
@@ -410,7 +406,6 @@ class MetadataService {
             query = buildSearchOccurrencesWsParams(regionFid, regionType, regionName, regionPid, groupName, isSubgroup, from, to, pageIndex, showHubData)
             return it
         }.toString()
-        log.debug "REST URL generated = ${url}"
         return url
     }
 
@@ -490,7 +485,6 @@ class MetadataService {
     }
 
     static def loadLoggerReasons(){
-        println("Refreshing the download reasons")
         String url = "${Holders.config.logger.baseURL}/service/logger/reasons"
         def conn = new URL(url).openConnection()
         def map = [:]
@@ -499,15 +493,11 @@ class MetadataService {
             conn.setReadTimeout(50000)
             def json = conn.content.text
             def result = JSON.parse(json)
-            println("JSON :: " + json)
-            println(result)
             result.each{
                 map[it.id] = it.name
             }
-            println("log reason map::" + map)
         } catch (Exception e){
             //load the default
-            println("Using the default list...")
             return defaultLoggerReasons
         }
         return map
@@ -525,7 +515,6 @@ class MetadataService {
      */
     def regionMetadata(type, name) {
         def fid = fidFor(type)
-        //println "MS: ${type} - ${fid}"
         def regionMd = getRegionMetadata(fid)
         if (name) {
             // if a specific region is named, then return that
@@ -549,12 +538,9 @@ class MetadataService {
      * @return
      */
     def getRegionMetadata(fid) {
-        //println "checking cache for ${fid}: cache date is ${regionCacheLastRefreshed[fid]}; current date is ${new Date()}"
         if (!regionCache[fid] || new Date().after(regionCacheLastRefreshed[fid] + 2)) {
             regionCache[fid] = new TreeMap() // clear any stale content
-            log.debug("clearing cache for ${fid}")
             regionCacheLastRefreshed[fid] = new Date()
-            //println "new cache date is ${regionCacheLastRefreshed[fid]}"
             if(ENABLE_OBJECT_INTERSECTION){
                 def url = grailsApplication.config.layersService.baseURL + '/intersect/object/' + fid + '/' + INTERSECT_OBJECT
                 def conn = new URL(url).openConnection()
@@ -570,12 +556,10 @@ class MetadataService {
                 } catch (SocketTimeoutException e) {
                     def message = "Timed out looking up pid. URL= ${url}."
                     log.warn message
-                    println message
                     return [error: true, errorMessage: message]
                 } catch (Exception e) {
                     def message = "Failed to lookup pid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
                     log.warn message
-                    println message
                     return [error: true, errorMessage: message]
                 }
             } else {
@@ -593,12 +577,10 @@ class MetadataService {
                 } catch (SocketTimeoutException e) {
                     def message = "Timed out looking up pid. URL= ${url}."
                     log.warn message
-                    println message
                     return [error: true, errorMessage: message]
                 } catch (Exception e) {
                     def message = "Failed to lookup pid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
                     log.warn message
-                    println message
                     return [error: true, errorMessage: message]
                 }
             }
@@ -694,10 +676,8 @@ class MetadataService {
             layersServiceLayers = map
         } catch (SocketTimeoutException e) {
             log.warn "Timed out looking up fid. URL= ${url}."
-            println "Timed out looking up fid. URL= ${url}."
         } catch (Exception e) {
             log.warn "Failed to lookup fid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
-            println "Failed to lookup fid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
         }
 
         return layersServiceLayers
@@ -724,10 +704,8 @@ class MetadataService {
             layersServiceFields = map
         } catch (SocketTimeoutException e) {
             log.warn "Timed out looking up fid. URL= ${url}."
-            println "Timed out looking up fid. URL= ${url}."
         } catch (Exception e) {
             log.warn "Failed to lookup fid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
-            println "Failed to lookup fid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
         }
 
         return layersServiceFields
@@ -778,10 +756,8 @@ class MetadataService {
             }
         } catch (SocketTimeoutException e) {
             log.warn "Timed out looking up fid. URL= ${url}."
-            println "Timed out looking up fid. URL= ${url}."
         } catch (Exception e) {
             log.warn "Failed to lookup fid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
-            println "Failed to lookup fid. ${e.getClass()} ${e.getMessage()} URL= ${url}."
         }
         return results
     }
@@ -794,7 +770,6 @@ class MetadataService {
      * @return
      */
     def parseBbox(String bbox) {
-        //println "bbox = ${bbox}"
         if (!bbox) return [:]
 
         def coords = bbox[9..-3]
@@ -866,7 +841,6 @@ class MetadataService {
 
                     if (layerName == null) {
                         log.warn "Failed to find layer name for fid= ${v.fid}"
-                        println "Failed to find layer name for fid= ${v.fid}"
                         layerName = v.label.replace(" ", "")
                     }
 
@@ -905,7 +879,6 @@ class MetadataService {
                             if (layer == null) {
                                 def message = "Failed to find layer for fid=" + v2.fid
                                 log.warn message
-                                println message
                             } else {
                                 map.put(v2.label, [
                                         name : v2.label, layerName: layer.name, id: layer.id, fid: v2.fid,
@@ -921,13 +894,5 @@ class MetadataService {
         }
 
         map
-    }
-
-    def getHabitatConfig(){
-        def appName = Metadata.current.'app.name'
-        def json = new File("/data/${appName}/config/habitats.json").text
-        def js = new JsonSlurper()
-        def config = js.parseText(json)
-        config
     }
 }
