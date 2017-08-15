@@ -1,7 +1,10 @@
 <ul class="thumbnails">
     <g:each in="${emblems}" var="emblem">
         <li class="span3">
-            <a href="${emblem?.speciesUrl}" title="Go to ${emblem?.commonName} details.">
+            <a
+                href="${emblem?.speciesUrl}"
+                title="${message(code: 'emblems.speciesUrl.title', args=[emblem?.commonName])}"
+            >
                 <div class="media thumbnail">
                     <img
                         class="pull-left"

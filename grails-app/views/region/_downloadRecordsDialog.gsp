@@ -143,17 +143,17 @@
 
                 if (!downloadOption) {
                     $("#downloadOption").focus();
-                    $("label[for='downloadOption']").css("color","red");
+                    $("label[for='downloadOption']").css("color", "red");
                     isValid = false;
                 }
                 if (!downloadReason) {
                     $("#downloadReason").focus();
-                    $("label[for='downloadReason']").css("color","red");
+                    $("label[for='downloadReason']").css("color", "red");
                     isValid = false;
                 }
                 if (!email) {
                     $("#email").focus();
-                    $("label[for='email']").css("color","red");
+                    $("label[for='email']").css("color", "red");
                     isValid = false;
                 }
 
