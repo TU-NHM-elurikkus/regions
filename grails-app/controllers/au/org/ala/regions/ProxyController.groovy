@@ -8,25 +8,25 @@ class ProxyController {
     def allowedHosts = null
 
     def badRequest = {text ->
-        render(status:400, text: text)
+        render(status: 400, text: text)
     }
 
     def success = { text ->
-        render(status:200, text: text)
+        render(status: 200, text: text)
     }
 
     def notFound = { text ->
-        render(status:404, text: text)
+        render(status: 404, text: text)
     }
 
     def notAllowed = {
         response.addHeader 'allow','POST'
-        render(status:405, text: 'Only POST supported')
+        render(status: 405, text: 'Only POST supported')
     }
 
     def badGateway = { host ->
         response.addHeader 'Content-Type','text/plain'
-        render(status:502, text: "This proxy does not allow you to access that location (${host}).")
+        render(status: 502, text: "This proxy does not allow you to access that location (${host}).")
     }
 
     private def getAllowedHosts(){
@@ -80,8 +80,8 @@ class ProxyController {
             conn.setRequestMethod('POST')
             conn.setAllowUserInteraction(false); // no user interact [like pop up]
             conn.setDoOutput(true); // want to send
-            conn.setRequestProperty( "Content-type", "text/xml" );
-            conn.setRequestProperty( "Content-length", Integer.toString(content.length()));
+            conn.setRequestProperty("Content-type", "text/xml" );
+            conn.setRequestProperty("Content-length", Integer.toString(content.length()));
             OutputStream ost = conn.getOutputStream();
             PrintWriter pw = new PrintWriter(ost);
             pw.print(content); // here we "send" our body!
@@ -91,8 +91,6 @@ class ProxyController {
         }
         else {
             def resp = new URL( params.url ).getText()
-            //println "Response = ${resp}"
-            //response.addHeader 'Content-Type', lookupContentType(params.format)
             render resp
         }
     }
