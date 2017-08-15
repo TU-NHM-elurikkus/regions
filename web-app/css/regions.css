@@ -20,7 +20,8 @@
 }
 
 #region-map label {
-    width: auto; display:inline;
+    display: inline;
+    width: auto;
 }
 
 /* Common */
@@ -32,9 +33,12 @@
     display: none;
 }
 
-/************************************************************************************\
-| Regions page
-\************************************************************************************/
+
+/**
+ * **********************************************************************************\ | Regions page
+ * \***********************************************************************************
+ */
+
 /* regions front page */
 
 #header h1 {
@@ -43,15 +47,15 @@
 
 #map_canvas {
     height: 470px;
+    margin: 9px 0 0 0;
     border: 1px solid #d3d3d3;
     border-radius: 5px;
-    margin: 9px 0 0 0;
 }
 
 #accordion {
+    height: 446px;
     margin: 0;
     margin-top: 18px;
-    height: 446px;
 }
 
 #accordion h2 {
@@ -59,8 +63,8 @@
 }
 
 #accordion h2 a {
-    font-size: 15px;
     color: #333;
+    font-size: 15px;
 }
 
 #accordion .ui-accordion-content {
@@ -69,7 +73,6 @@
 }
 
 #accordion ul {
-    /*list-style: none;*/
     margin: 0;
     font-size: 0.8em;
 }
@@ -86,17 +89,17 @@
     font-size: 15px;
 }
 
-#zoomTo, #reset-map {
-    font-size: 12px;
+#reset-map, #zoomTo {
     color: #666;
+    font-size: 12px;
     cursor: pointer;
 }
 
 li.regionLink {
-    cursor: pointer;
+    padding: 0.5rem;
     font-size: 14px;
     line-height: 1.5;
-    padding: 0.5rem;
+    cursor: pointer;
 }
 
 li.regionLink:hover {
@@ -109,8 +112,8 @@ li.regionLink:hover {
 
 #extra {
     margin-left: 1.5em;
-    font-size: 14px;
     color: #666;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -120,9 +123,6 @@ li.regionLink:hover {
     }
 }
 
-/************************************************************************************\
-| Region page
-\************************************************************************************/
 #emblems .span3 {
     margin-bottom: 0;
 }
@@ -136,8 +136,8 @@ li.regionLink:hover {
 }
 
 #emblems a:hover {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
 
 #region-map {
@@ -160,15 +160,14 @@ li.regionLink:hover {
     margin-bottom: .6em;
 }
 
-#explorerTabs.nav-tabs li a, #controlsMapTab.nav-tabs li a {
-    font-size: 14px;
-    border-radius: 0;
+#controlsMapTab.nav-tabs li a, #explorerTabs.nav-tabs li a {
     padding: 0 15px;
-    line-height: 28px; /* 30px height - 2 * 1px border */
+    border-radius: 0;
+    font-size: 14px;
+    line-height: 28px;
 }
 
-.nav-tabs li a .popover-content {
-}
+.nav-tabs li a .popover-content {}
 
 .nav-tabs li.active a {
     background-color: #ffffff;
@@ -182,12 +181,12 @@ li.regionLink:hover {
     margin-bottom: .8em;
 }
 
-#groups thead, #species thead{
+#groups thead, #species thead {
     height: 30px;
     border-bottom: 1px solid #dddddd;
 }
 
-#species thead tr, #groups thead tr {
+#groups thead tr, #species thead tr {
     position: relative;
     width: 100%;
 }
@@ -206,12 +205,12 @@ li.regionLink:hover {
     padding: 1px 0.5em 1px 0;
 }
 
-#species tbody .spinner, #groups tbody .spinner {
+#groups tbody .spinner, #species tbody .spinner {
     display: block;
     height: 99.5%;
 }
 
-#species tbody td.spinner i, #groups tbody td.spinner i {
+#groups tbody td.spinner i, #species tbody td.spinner i {
     margin-top: 230px !important;
 }
 
@@ -219,14 +218,11 @@ li.regionLink:hover {
     border-right: 1px solid #dddddd;
 }
 
-#groups thead th {
-}
+#groups thead th {}
 
-#groups tbody tr {
-}
+#groups tbody tr {}
 
-#groups tbody td {
-}
+#groups tbody td {}
 
 #groups td.level0 {
     font-weight: bold;
@@ -236,8 +232,7 @@ li.regionLink:hover {
     padding-left: 2em;
 }
 
-#species {
-}
+#species {}
 
 #species td:first-child {
     padding-right: 0;
@@ -247,7 +242,7 @@ li.regionLink:hover {
     background-color: #F0F0E8;
 }
 
-#species tr.infoRowLinks td{
+#species tr.infoRowLinks td {
     padding-bottom: 3px;
 }
 
@@ -256,13 +251,13 @@ li.regionLink:hover {
 }
 
 tr.groupSelected, tr.groupSelected:hover td {
-    background-color: #30d8ef !important;
     color: white;
+    background-color: #30d8ef !important;
 }
 
 tr.speciesSelected, tr.speciesSelected:hover td {
-    background-color: #30d8ef !important;
     color: white;
+    background-color: #30d8ef !important;
 }
 
 #showMoreSpeciesButton {
@@ -308,51 +303,51 @@ tr.speciesSelected, tr.speciesSelected:hover td {
 }
 
 #playButton {
-    background: url("../images/play.png") no-repeat ;
-    background-size: 26px 26px;
     display: inline-block;
+    background: url("../images/play.png") no-repeat;
+    background-size: 26px 26px;
 }
 
-#playButton:hover, #playButton.selected  {
-    background: url("../images/play-on.png") no-repeat ;
-    background-size: 26px 26px;
+#playButton.selected, #playButton:hover {
     display: inline-block;
+    background: url("../images/play-on.png") no-repeat;
+    background-size: 26px 26px;
 }
 
 #pauseButton {
-    background: url("../images/pause.png") no-repeat ;
-    background-size: 26px 26px;
     display: inline-block;
+    background: url("../images/pause.png") no-repeat;
+    background-size: 26px 26px;
 }
 
-#pauseButton:hover, #pauseButton.selected {
-    background: url("../images/pause-on.png") no-repeat ;
-    background-size: 26px 26px;
+#pauseButton.selected, #pauseButton:hover {
     display: inline-block;
+    background: url("../images/pause-on.png") no-repeat;
+    background-size: 26px 26px;
 }
 
 #stopButton {
-    background: url("../images/stop.png") no-repeat ;
-    background-size: 26px 26px;
     display: inline-block;
+    background: url("../images/stop.png") no-repeat;
+    background-size: 26px 26px;
 }
 
-#stopButton:hover, #stopButton.selected {
-    background: url("../images/stop-on.png") no-repeat ;
-    background-size: 26px 26px;
+#stopButton.selected, #stopButton:hover {
     display: inline-block;
+    background: url("../images/stop-on.png") no-repeat;
+    background-size: 26px 26px;
 }
 
 #resetButton {
-    background: url("../images/reset.png") no-repeat ;
-    background-size: 26px 26px;
     display: inline-block;
+    background: url("../images/reset.png") no-repeat;
+    background-size: 26px 26px;
 }
 
-#resetButton:hover, #resetButton.selected {
-    background: url("../images/reset-on.png") no-repeat ;
-    background-size: 26px 26px;
+#resetButton.selected, #resetButton:hover {
     display: inline-block;
+    background: url("../images/reset-on.png") no-repeat;
+    background-size: 26px 26px;
 }
 
 #opacityControls {
@@ -360,14 +355,14 @@ tr.speciesSelected, tr.speciesSelected:hover td {
     margin-top: .5em;
 }
 
-.switch-padding{
+.switch-padding {
     padding-top: 18px;
 }
 
 /* Taxonomy Chart */
 #charts {
-    text-align: center;
     overflow: hidden;
+    text-align: center;
 }
 
 /* XXX XXX XXX */
@@ -376,11 +371,10 @@ tr.speciesSelected, tr.speciesSelected:hover td {
 }
 
 #taxa {
+    margin-top: 2em;
     margin-bottom: 0 !important;
     margin-left: 20px;
-    margin-top: 2em;
     text-align: left;
-
 }
 
 path {
@@ -393,4 +387,8 @@ path {
 
 #map-container {
     margin-bottom: 1rem;
+}
+
+.top-map-buttons {
+    text-align: right;
 }

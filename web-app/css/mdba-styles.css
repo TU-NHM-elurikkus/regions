@@ -1,18 +1,14 @@
-
-
 body {
     padding-top: 0;
     background-color: #ffffff !important;
     font-family: FFDINWeb, sans-serif;
 }
 
-h1,h2,h3,h4,h5 {
+h1, h2, h3, h4, h5 {
     font-family: FFDINWebLight, sans-serif;
 }
 
-input,button,
-select,
-textarea {
+button, input, select, textarea {
     font-family: FFDINWeb, sans-serif;
 }
 
@@ -20,11 +16,11 @@ textarea {
     margin-top: 10px;
 }
 
-#main-content #searchInfoRow #customiseFacetsButton > .dropdown-menu {
+#main-content #searchInfoRow #customiseFacetsButton>.dropdown-menu {
     background-color: #ffffff;
 }
 
-body > #main-content {
+body>#main-content {
     margin-top: 20px;
 }
 
@@ -33,53 +29,44 @@ a {
     text-decoration: none;
 }
 
-a:hover,
-a:focus {
+a:focus, a:hover {
     color: #007777;
     text-decoration: underline;
 }
 
 .btn-primary {
-    background-color: #009080;
-    background-image: linear-gradient(to bottom, #00A18F,#009080);
     border-color: #009080 #009080 #00A18F #009080;
+    background-image: linear-gradient( to bottom, #00A18F, #009080);
+    background-color: #009080;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
+.btn-primary.active, .btn-primary.disabled, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .btn-primary[disabled] {
     color: #ffffff;
     background-color: #009080;
 }
 
-.btn-primary:active,
-.btn-primary.active {
+.btn-primary.active, .btn-primary:active {
     background-color: #007777 \9;
 }
 
-.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success,
-.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success {
-    background-color: #009080;
-    background-image: linear-gradient(to bottom, #00A18F,#009080);
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success, .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success {
     border-color: #009080 #009080 #00A18F #009080;
+    background-image: linear-gradient( to bottom, #00A18F, #009080);
+    background-color: #009080;
 }
 
-.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
-.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
-    background-color: #f2684c;
-    background-image: -moz-linear-gradient(top, #f37257, #f15a3b);
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-color: #f15a3b #f15a3b #d0300f;
+    background-image: linear-gradient( to bottom, #f37257, #f15a3b);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f37257), to(#f15a3b));
-    background-image: -webkit-linear-gradient(top, #f37257, #f15a3b);
-    background-image: -o-linear-gradient(top, #f37257, #f15a3b);
-    background-image: linear-gradient(to bottom, #f37257, #f15a3b);
+    background-image: -webkit-linear-gradient( top, #f37257, #f15a3b);
+    background-image: -o-linear-gradient( top, #f37257, #f15a3b);
+    background-image: -moz-linear-gradient( top, #f37257, #f15a3b);
+    background-color: #f2684c;
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff37257', endColorstr='#fff15a3b', GradientType=0);
-    border-color: #f15a3b #f15a3b #d0300f;
-    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 /* Navbar */
@@ -88,14 +75,14 @@ a:focus {
     margin-top: 20px;
 }
 
-#content .nav-tabs > li.active > a {
+#content .nav-tabs>li.active>a {
     background-color: #ffffff;
 }
 
 .brand .headerLogo {
     height: 36px;
-    padding-top: 10px;
     margin-top: -3px;
+    padding-top: 10px;
 }
 
 #alaLink .headerLogo {
@@ -108,8 +95,8 @@ a:focus {
 
 #alaHeadingText {
     display: inline-block;
-    margin-left: 5px;
     margin-top: 4px;
+    margin-left: 5px;
     line-height: 1.1em;
 }
 
@@ -120,8 +107,8 @@ a:focus {
 }
 
 #poweredBy {
-    font-size: 11px;
     display: block;
+    font-size: 11px;
 }
 
 #alaBy {
@@ -134,47 +121,40 @@ body .navbar {
 }
 
 .navbar-inverse .navbar-inner {
-    background-color: #1b1b1b;
-    background-image: linear-gradient(to bottom, #00A18F, #009080);
-    background-repeat: repeat-x;
     border-color: #009080;
+    background-image: linear-gradient( to bottom, #00A18F, #009080);
+    background-color: #1b1b1b;
+    background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
 }
 
 .navbar-inverse .contain-to-grid {
     min-height: 52px;
     padding-top: 5px;
-    /*background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwNjA2OCIvPjxzdG9wIG9mZnNldD0iMjAlIiBzdG9wLWNvbG9yPSIjMDA5ZDhjIi8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiMwMDYwNjgiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');*/
-    /*background: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #006068), color-stop(20%, #009d8c), color-stop(50%, #006068));*/
-    /*background: -moz-linear-gradient(left, #006068 0%, #009d8c 20%, #006068 50%);*/
-    /*background: -webkit-linear-gradient(left, #006068 0%, #009d8c 20%, #006068 50%);*/
-    /*background: linear-gradient(to right, #006068 0%, #009d8c 20%, #006068 50%);*/
 }
 
-.navbar-inverse .brand,
-.navbar-inverse .nav > li > a {
+.navbar-inverse .brand, .navbar-inverse .nav>li>a {
+    padding: 0;
     color: #efefef;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    padding: 0;
 }
 
 .navbar-inner ul.nav {
+    min-height: 18px;
     margin-top: 13px;
     font-size: 18px;
-    /*padding-top: 4px;*/
-    min-height: 18px;
 }
 
 .navbar-inner ul li:not(:last-child) {
-    border-right:2px solid white;
-    margin-right:14px;
-    padding-right:14px;
+    margin-right: 14px;
+    padding-right: 14px;
+    border-right: 2px solid white;
 }
 
 .navbar .brand {
+    margin: 0 10px 0 10px;
     font-size: 18px;
     font-weight: normal;
-    margin: 0 10px 0 10px;
 }
 
 .brand .headerLogo {
@@ -184,11 +164,11 @@ body .navbar {
 /* Footer */
 
 #footer {
-    background-color: #323334;
-    color: #efefef;
     margin-top: 50px;
     padding-top: 20px;
     padding-bottom: 25px;
+    color: #efefef;
+    background-color: #323334;
     font-size: 16px;
 }
 
@@ -197,67 +177,62 @@ body .navbar {
 }
 
 #footer .nav {
-    margin: 18px 0 20px 0;
-    /*margin-top: 13px;*/
-    font-size: 18px;
-    /*padding-top: 4px;*/
     height: 18px;
+    margin: 18px 0 20px 0;
+    font-size: 18px;
 }
 
-#footer ul.nav > li {
+#footer ul.nav>li {
     float: left;
 }
 
-#footer .navbar-inverse .nav > li > a {
+#footer .navbar-inverse .nav>li>a {
     float: none;
     padding: 0;
     color: #efefef;
     text-decoration: none;
-    /*text-shadow: 0 1px 0 #ffffff;*/
 }
 
-#footer .navbar-inverse .nav > li > a:hover {
-    /*background-color: #efefef;*/
+#footer .navbar-inverse .nav>li>a:hover {
     text-decoration: underline;
 }
 
 #footer .navbar-inverse ul li:not(:last-child) {
-    border-right:2px solid white;
-    margin-right:14px;
-    padding-right:14px;
+    margin-right: 14px;
+    padding-right: 14px;
+    border-right: 2px solid white;
 }
 
-#footer #smlinks  {
+#footer #smlinks {
     margin-top: 5px;
 }
 
 #footer #smlinks a {
+    margin-right: 5px;
     color: #000;
     text-decoration: none;
-    margin-right: 5px;
 }
 
 /* Home page */
 
 #homeBanner {
-    background-image: url("../images/mdba/kingfisher_strip.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #323334;
     height: 240px;
-    padding: 20px 40px;
     margin-top: 0px;
-    /*margin-left: -20px;*/
-    /*margin-right: -20px;*/
+    padding: 20px 40px;
+    background-image: url("../images/mdba/kingfisher_strip.jpg");
+    background-color: #323334;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #bannerImg {
-    max-height: 250px;
     display: block;
+    max-height: 250px;
     margin-left: 25px;
 }
+
 .indexBuffer {
-    margin-top:50px;
+    margin-top: 50px;
 }
 
 .nav-well {
@@ -266,33 +241,28 @@ body .navbar {
 }
 
 .homePageNav h4 {
-    font-size: 20px;
     margin-bottom: 0;
+    font-size: 20px;
 }
 
 .homePageNav h3 {
-    font-size: 36px;
     margin-top: 0;
     margin-bottom: 5px;
+    font-size: 36px;
 }
 
 .homePageNav h3.condensed {
-    /*font-family: FFDINWebCond, sans-serif;*/
     font-size: 30px;
-    letter-spacing: -1px;
     line-height: 35px;
+    letter-spacing: -1px;
 }
 
 .nav-well {
     min-height: 135px;
-    background-color: #e5e6e7;
-    border: 0px solid #e5e6e7;
     padding: 30px 15px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
+    border: 0px solid #e5e6e7;
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    background-color: #e5e6e7;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
@@ -302,40 +272,33 @@ body .navbar {
 }
 
 #quickSearchBox .input-append input {
-    font-size: 20px;
-    padding: 14px 20px 12px 25px;
     width: 200px;
-    -webkit-border-radius: 25px 0 0 25px;
-    -moz-border-radius: 25px 0 0 250px;
-    border-radius: 25px 0 0 25px;
     height: 20px !important;
+    padding: 14px 20px 12px 25px;
+    border-radius: 25px 0 0 25px;
+    font-size: 20px;
     line-height: normal;
 }
 
-#quickSearchBox .input-append .btn:last-child,
-#quickSearchBox .input-append .btn-group:last-child > .dropdown-toggle {
-    font-size: 20px;
+#quickSearchBox .input-append .btn-group:last-child>.dropdown-toggle, #quickSearchBox .input-append .btn:last-child {
     padding: 14px 12px 12px 10px;
-    -webkit-border-radius: 0 25px 25px 0;
-    -moz-border-radius: 25px 25px 0;
     border-radius: 0 25px 25px 0;
+    font-size: 20px;
     line-height: 20px;
 }
 
-
-#main-content #customiseFacetsButton > .dropdown-menu,
-#main-content #resultsReturned .dropdown-menu {
+#main-content #customiseFacetsButton>.dropdown-menu, #main-content #resultsReturned .dropdown-menu {
     background-color: #fff;
 }
 
 .staticContent {
     margin-top: 30px;
-    padding-left: 14px;
     padding-right: 14px;
+    padding-left: 14px;
 }
 
 .staticContent h2, .staticContent h3, .staticContent h4 {
-    color:#00A18F;
+    color: #00A18F;
 }
 
 .leaflet-container a {
@@ -345,30 +308,24 @@ body .navbar {
 /* Responsive rules */
 
 @media (max-width: 979px) {
-    .navbar-inverse .nav-collapse .nav > li > a,
-    .navbar-inverse .nav-collapse .dropdown-menu a {
+    .navbar-inverse .nav-collapse .dropdown-menu a, .navbar-inverse .nav-collapse .nav>li>a {
         color: #efefef;
     }
-
-    .navbar-inner ul li:not(:last-child), .navbar-inner ul li:last-child {
+    .navbar-inner ul li:last-child, .navbar-inner ul li:not(:last-child) {
+        margin: 8px;
+        padding: 0px;
         border-right: none;
-        margin:8px;
-        padding:0px;
     }
-
     #footer .nav {
         font-size: 15px;
     }
-
-
 }
 
 @media (max-width: 767px) {
-
-    #quickSearchBox .input-append input, #quickSearchBox .input-append .btn:last-child {
+    #quickSearchBox .input-append .btn:last-child, #quickSearchBox .input-append input {
+        box-sizing: inherit;
         height: 20px;
-        padding: 4px 12px 2px 10px;
         min-height: 30px;
-        box-sizing:inherit;
+        padding: 4px 12px 2px 10px;
     }
 }

@@ -63,15 +63,17 @@
             </div>
 
             <div class="col-md-7" id="rightPanel">
-                <span id="click-info">
-                    <span class="fa fa-info-circle"></span>
-                    <g:message code="regions.map.help" />
-                </span>
+                <div class="top-map-buttons">
+                    <span id="click-info">
+                        <span class="fa fa-info-circle"></span>
+                        <g:message code="regions.map.help" />
+                    </span>
 
-                <button id="reset-map" class="erk-button erk-button--light">
-                    <span class="fa fa-refresh"></span>
-                    <g:message code="regions.map.btn.reset" />
-                </button>
+                    <button id="reset-map" class="erk-button erk-button--light">
+                        <span class="fa fa-refresh"></span>
+                        <g:message code="regions.map.btn.reset" />
+                    </button>
+                </div>
 
                 <div id="map">
                     <div id="map-container">
