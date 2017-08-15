@@ -2,14 +2,14 @@
 modules = {
 
     regions {
-        dependsOn  'jquery', 'jquery-ui', 'jquery-bbq', 'map', 'font-awesome', 'he'
+        dependsOn  'jquery', 'jqueryUi', 'jqueryBbq', 'map', 'font-awesome', 'he'
 
         resource url: '/js/regions.js'
         resource url: [dir:'css', file:'regions.css']
     }
 
     region {
-        dependsOn 'jquery', 'jquery-ui', 'jquery-ui-slider-pips', 'jquery-bbq', 'ajaxanywhere', 'map', 'charts', 'number-functions', 'font-awesome'
+        dependsOn 'jquery', 'jqueryUi', 'jqueryUiSliderPips', 'jqueryBbq', 'ajaxanywhere', 'map', 'charts', 'numberFunctions', 'font-awesome'
 
         resource url: '/js/region.js'
         resource url: [dir:'css', file:'regions.css']
@@ -24,21 +24,19 @@ modules = {
         resource url: '/vendor/jquery/jquery-1.11.2.js', disposition: 'head'
     }
 
-    jquery-ui {
+    jqueryUi {
         dependsOn 'jquery'
 
         resource url: '/vendor/jquery-ui/jquery-ui-1.11.2-no-autocomplete.js'
         resource url: '/vendor/jquery-ui/themes/smoothness/jquery-ui.css', attrs:[media:'all']
     }
 
-    jquery-ui-slider-pips {
-        dependsOn 'jquery-ui'
-
+    jqueryUiSliderPips {
         resource url: '/vendor/jquery-ui-slider-pips/jquery-ui-slider-pips.js'
         resource url: '/vendor/jquery-ui-slider-pips/jquery-ui-slider-pips.css', attrs:[media:'all']
     }
 
-    jquery-bbq {
+    jqueryBbq {
         dependsOn 'jquery'
 
         resource url: '/vendor/jquery-bbq/jquery.ba-bbq-1.2.1.js'
@@ -54,7 +52,7 @@ modules = {
         resource url: '/js/charts2.js'
     }
 
-    number-functions {
+    numberFunctions {
         resource url: '/vendor/number-functions/number-functions.js'
     }
 
