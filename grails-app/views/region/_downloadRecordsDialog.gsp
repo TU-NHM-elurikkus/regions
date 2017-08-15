@@ -110,9 +110,9 @@
                 $("#downloadStart").unbind("click").bind("click",function(e) {
                     e.preventDefault();
                     var downloadUrl;
-                    let downloadReason = $("#downloadReason option:selected").val()
-                    let downloadOption = $("#downloadOption option:selected").val()
-                    let commonData = "&email=" + $("#email").val() +
+                    var downloadReason = $("#downloadReason option:selected").val()
+                    var downloadOption = $("#downloadOption option:selected").val()
+                    var commonData = "&email=" + $("#email").val() +
                         "&reasonTypeId=" + $("#downloadReason").val() +
                         "&file=" + $("#fileName").val();
 
@@ -136,10 +136,10 @@
             });
 
             function validateForm() {
-                let isValid = true;
-                let downloadOption = $("#downloadOption option:selected").val()
-                let downloadReason = $("#downloadReason option:selected").val();
-                let email = $("#email").val()
+                var isValid = true;
+                var downloadOption = $("#downloadOption option:selected").val()
+                var downloadReason = $("#downloadReason option:selected").val();
+                var email = $("#email").val()
 
                 if (!downloadOption) {
                     $("#downloadOption").focus();
