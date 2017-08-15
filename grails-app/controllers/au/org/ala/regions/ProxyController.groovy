@@ -80,7 +80,7 @@ class ProxyController {
             conn.setRequestMethod('POST')
             conn.setAllowUserInteraction(false); // no user interact [like pop up]
             conn.setDoOutput(true); // want to send
-            conn.setRequestProperty("Content-type", "text/xml" );
+            conn.setRequestProperty("Content-type", "text/xml");
             conn.setRequestProperty("Content-length", Integer.toString(content.length()));
             OutputStream ost = conn.getOutputStream();
             PrintWriter pw = new PrintWriter(ost);
