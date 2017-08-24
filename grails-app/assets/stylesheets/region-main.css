@@ -309,49 +309,49 @@ tr.speciesSelected, tr.speciesSelected:hover td {
 
 #playButton {
     display: inline-block;
-    background: url("../play.png") no-repeat;
+    background: url("play.png") no-repeat;
     background-size: 26px 26px;
 }
 
 #playButton.selected, #playButton:hover {
     display: inline-block;
-    background: url("../play-on.png") no-repeat;
+    background: url("play-on.png") no-repeat;
     background-size: 26px 26px;
 }
 
 #pauseButton {
     display: inline-block;
-    background: url("../pause.png") no-repeat;
+    background: url("pause.png") no-repeat;
     background-size: 26px 26px;
 }
 
 #pauseButton.selected, #pauseButton:hover {
     display: inline-block;
-    background: url("../pause-on.png") no-repeat;
+    background: url("pause-on.png") no-repeat;
     background-size: 26px 26px;
 }
 
 #stopButton {
     display: inline-block;
-    background: url("../stop.png") no-repeat;
+    background: url("stop.png") no-repeat;
     background-size: 26px 26px;
 }
 
 #stopButton.selected, #stopButton:hover {
     display: inline-block;
-    background: url("../stop-on.png") no-repeat;
+    background: url("stop-on.png") no-repeat;
     background-size: 26px 26px;
 }
 
 #resetButton {
     display: inline-block;
-    background: url("../reset.png") no-repeat;
+    background: url("reset.png") no-repeat;
     background-size: 26px 26px;
 }
 
 #resetButton.selected, #resetButton:hover {
     display: inline-block;
-    background: url("../reset-on.png") no-repeat;
+    background: url("reset-on.png") no-repeat;
     background-size: 26px 26px;
 }
 
