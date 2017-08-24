@@ -13,8 +13,9 @@
         <title>
             <g:layoutTitle />
         </title>
-        <r:require modules="bootstrap,mdba" />
-        <r:layoutResources />
+
+        <asset:stylesheet src="mdba-styles.css" />
+
         <g:layoutHead />
     </head>
 
@@ -157,12 +158,9 @@
                                 <%--<g:img dir="/images" file="facebook-icon.png" alt="MDBA on Facebook" />--%>
                             </a>
                         </div>
-                    </div><!--/.spanX -->
-                </div><!--/.row -->
-            </div><!--/.contaier -->
-        </div><!--/#footer -->
-
-        <!-- JS resources-->
-        <r:layoutResources />
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

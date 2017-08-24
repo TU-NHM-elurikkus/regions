@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="${grailsApplication.config.skin.layout ?: 'elurikkus'}" />
 
         <title>
@@ -11,14 +10,8 @@
         <%-- Get regions metadata --%>
         <script src="${g.createLink(controller: 'data', action: 'regionsMetadataJavascript')}"></script>
 
-        <g:if test="${grailsApplication.config.google.apikey}">
-            <script src="https://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.apikey}" type="text/javascript"></script>
-        </g:if>
-        <g:else>
-            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        </g:else>
+        <asset:javascript src="regions.js" />
 
-        <r:require modules="jquery, regions" />
     </head>
 
     <body class="nav-locations">
@@ -100,7 +93,7 @@
             </div>
         </div>
 
-        <r:script>
+        <script>
             var altMap = true;
             $(function() {
                 $('#dev-notes').dialog({autoOpen: false, show: 'blind', hide: 'blind'});
@@ -131,6 +124,6 @@
                     }
                 });
             })
-        </r:script>
+        </script>
     </body>
 </html>

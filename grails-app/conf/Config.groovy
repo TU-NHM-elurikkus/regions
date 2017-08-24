@@ -68,11 +68,6 @@ grails.mime.types = [ // the first one is the default format
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 
-// What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/js/*', '/images/*', '/css/*', '/plugins/*', '/vendor/*']
-grails.resources.adhoc.includes = ['/js/**', '/images/**', '/css/**','/plugins/**', '/vendor/**']
-
-
 // Legacy setting for codec used to encode data with ${}
 grails.views.default.codec = "html"
 
@@ -154,9 +149,6 @@ log4j = {
             'grails.spring.BeanBuilder',
             'grails.plugin.webxml',
             'grails.plugin.cache.web.filter',
-            'grails.app.services.org.grails.plugin.resource',
-            'grails.app.taglib.org.grails.plugin.resource',
-            'grails.app.resourceMappers.org.grails.plugin.resource'
 
     debug 'grails.app'
 }

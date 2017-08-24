@@ -8,10 +8,12 @@
             <g:layoutTitle />
         </title>
 
-        <r:require modules="jquery, bootstrap, menu" />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmpdTc4R7iLML5tHXpN0OzHsEm7duuPrg" type="text/javascript"></script>
+        <script src="https://www.google.com/jsapi?type=js/key=AIzaSyBmpdTc4R7iLML5tHXpN0OzHsEm7duuPrg" type="text/javascript"></script>
+        <asset:javascript src="region-main" />
+        <asset:stylesheet src="region-main" />
 
         <g:layoutHead />
-        <r:layoutResources />
 
         <style>
             body {
@@ -26,8 +28,6 @@
         <div>
             <g:layoutBody />
         </div>
-
-        <r:layoutResources />
 
         <g:render template="/footer" plugin="elurikkus-commons" />
     </body>
