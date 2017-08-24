@@ -2,6 +2,7 @@
 //= require charts2
 //= require number-functions
 //= require bootstrap-switch.min
+//= require aa.js
 
 var region = {
     /**

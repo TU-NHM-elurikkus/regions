@@ -8,7 +8,6 @@
         </title>
 
         <asset:javascript src="region.js" />
-        <asset:stylesheet src="region-main.css" />
         <asset:stylesheet src="bootstrap-switch.css" />
     </head>
 
