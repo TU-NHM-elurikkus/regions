@@ -18,10 +18,10 @@
             <g:layoutTitle />
         </title>
 
-        <%-- Do not include JS & CSS files here - add them to your app's "application" module (in "Configuration/ApplicationResources.groovy") --%>
-        <r:require modules="bootstrap,ala" />
+        <asset:javascript src="jquery-1.11.2.js" />
+        <asset:javascript src="common" />
+        <asset:stylesheet src="elurikkus-common" />
 
-        <r:layoutResources />
         <g:layoutHead />
     </head>
 
@@ -1162,9 +1162,5 @@
                 </div>
             </div>
         </footer>
-        <!-- End footer -->
-
-        <!-- JS resources-->
-        <r:layoutResources />
     </body>
 </html>
