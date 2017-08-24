@@ -13,13 +13,13 @@ var region = {
      * @returns {{q: *, pageSize: number}}
      */
     buildBiocacheQuery: function(q, start) {
-        var params = {q:q, pageSize: 50},
+        var params = { q: q, pageSize: 50 },
             timeFacet = region.buildTimeFacet();
-        if (start) {
+        if(start) {
             params.start = start
         }
 
-        if (timeFacet) {
+        if(timeFacet) {
             params.fq = timeFacet;
         }
         return params;
@@ -28,21 +28,21 @@ var region = {
     /**
      * Builds the query phrase for a range of dates - returns nothing for the default date range.
      */
-    buildTimeFacet: function () {
-        if (!regionWidget.isDefaultFromYear() || !regionWidget.isDefaultToYear()) {
-            var fromPhrase = regionWidget.isDefaultFromYear() ? '*' : regionWidget.getCurrentState().from + "-01-01T00:00:00Z";
-            var toPhrase = regionWidget.isDefaultToYear() ? "*" : regionWidget.getCurrentState().to + "-12-31T23:59:59Z";
-            return "occurrence_year:[" + fromPhrase + " TO " + toPhrase + "]";
+    buildTimeFacet: function() {
+        if(!regionWidget.isDefaultFromYear() || !regionWidget.isDefaultToYear()) {
+            var fromPhrase = regionWidget.isDefaultFromYear() ? '*' : regionWidget.getCurrentState().from + '-01-01T00:00:00Z';
+            var toPhrase = regionWidget.isDefaultToYear() ? '*' : regionWidget.getCurrentState().to + '-12-31T23:59:59Z';
+            return 'occurrence_year:[' + fromPhrase + ' TO ' + toPhrase + ']';
         } else {
             return '';
         }
     },
 
-    queryString: function () {
-        if (!this.isInit()) { return "" }
-        var fromPhrase = this.from() === this.defaultFrom ? '*' : this.from() + "-01-01T00:00:00Z",
-            toPhrase = this.to() === this.defaultTo ? "*" : (this.to() - 1) + "-12-31T23:59:59Z";
-        return "occurrence_year:[" + fromPhrase + " TO " + toPhrase + "]";
+    queryString: function() {
+        if(!this.isInit()) { return ''; }
+        var fromPhrase = this.from() === this.defaultFrom ? '*' : this.from() + '-01-01T00:00:00Z',
+            toPhrase = this.to() === this.defaultTo ? '*' : (this.to() - 1) + '-12-31T23:59:59Z';
+        return 'occurrence_year:[' + fromPhrase + ' TO ' + toPhrase + ']';
     },
 
     /**
@@ -50,8 +50,8 @@ var region = {
      * @param count the number
      */
     format: function(count) {
-        if (count >= 1000000) {
-            return count.numberFormat("#,#0,,.00 million");
+        if(count >= 1000000) {
+            return count.numberFormat('#,#0,,.00 million');
         }
         return region.addCommas(count);
     },
@@ -61,25 +61,24 @@ var region = {
      * @param nStr
      */
     addCommas: function(nStr) {
-        nStr += '';
-        x = nStr.split('.');
-        x1 = x[0];
-        x2 = x.length > 1 ? '.' + x[1] : '';
+        nStr = String(nStr);
+        var x = nStr.split('.');
+        var x1 = x[0];
+        var x2 = x.length > 1 ? '.' + x[1] : '';
         var rgx = /(\d+)(\d{3})/;
-        while (rgx.test(x1)) {
-            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        while(rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1,$2');
         }
         return x1 + x2;
     }
 };
 
 // This function has to be in the global scope for the chart to work
-function taxonChartChange (rank, name) {
+function taxonChartChange(rank, name) {
     regionWidget.getMap().reloadRecordsOnMap();
 }
 
-
-var RegionWidget = function (config) {
+var RegionWidget = function(config) {
 
     var defaultFromYear = 1850;
     var defaultToYear = new Date().getFullYear();
@@ -106,8 +105,8 @@ var RegionWidget = function (config) {
         tab: '',
         q: '',
         qc: '',
-        hubFilter:'',
-        showHubData:false
+        hubFilter: '',
+        showHubData: false
     };
 
     var urls = {};
@@ -116,7 +115,7 @@ var RegionWidget = function (config) {
      * Constructor
      * @param config
      */
-    var init =  function(config) {
+    var init = function(config) {
         state.regionName = config.regionName;
         state.regionType = config.regionType;
         state.regionFid = config.regionFid;
@@ -141,14 +140,14 @@ var RegionWidget = function (config) {
 
         // Initialize Ajax activity indicators
         $(document).ajaxStart(
-            function (e) {
+            function(e) {
                 showTabSpinner();
-            }).ajaxComplete(function () {
+            }).ajaxComplete(function() {
                 hideTabSpinner();
             });
 
         // Initialize click events on individual species
-        $(document).on('click', "#species tbody tr.link", function() {
+        $(document).on('click', '#species tbody tr.link', function() {
             selectSpecies(this);
         });
 
@@ -158,17 +157,17 @@ var RegionWidget = function (config) {
         initializeViewRecordsButton();
 
         // Initialize `nload records dialog
-        $('#downloadRecordsModal').modal({show: false});
+        $('#downloadRecordsModal').modal({ show: false });
     };
 
     /**
      *
      */
-    var initializeTabs = function () {
+    var initializeTabs = function() {
         // Initialize tabs
         $('#explorerTabs a').on('show', function(e) {
             var tabId = $(e.target).attr('id');
-            updateState({tab: tabId});
+            updateState({ tab: tabId });
         });
         $('#' + state.tab).click();
 
@@ -183,30 +182,29 @@ var RegionWidget = function (config) {
             // check what group is active
             var url = urls.biocacheWebappUrl + '/occurrences/search?q=' + decodeURI(state.q) +
                 '&fq=rank:(species OR subspecies)';
-            if (!regionWidget.isDefaultFromYear() || !regionWidget.isDefaultToYear()) {
+            if(!regionWidget.isDefaultFromYear() || !regionWidget.isDefaultToYear()) {
                 url += '&fq=' + region.buildTimeFacet();
             }
-            if (state.group != 'ALL_SPECIES') {
-                if (state.subgroup) {
+            if(state.group !== 'ALL_SPECIES') {
+                if(state.subgroup) {
                     url += '&fq=species_subgroup:"' + state.subgroup + '"';
                 } else {
                     url += '&fq=species_group:"' + state.group + '"';
                 }
             }
 
-            if(state.qc){
-                //when using qc, biocache search fails. AtlasOfLivingAustralia/biocache-hubs#176
-                url += '&fq=' +state.qc
+            if(state.qc) {
+                // when using qc, biocache search fails. AtlasOfLivingAustralia/biocache-hubs#176
+                url += '&fq=' + state.qc;
             }
 
-            if(state.showHubData){
-                url += "&fq=" + state.hubFilter
+            if(state.showHubData) {
+                url += '&fq=' + state.hubFilter;
             }
 
             document.location.href = url;
         });
     };
-
 
     /**
      * Updates state with new values and preserve state for when reloading page
@@ -214,7 +212,7 @@ var RegionWidget = function (config) {
      */
     var updateState = function(newPartialState) {
         $.extend(state, newPartialState);
-        //persist current state
+        // persist current state
         $.bbq.pushState({
             group: state.group,
             subgroup: state.subgroup,
@@ -230,14 +228,14 @@ var RegionWidget = function (config) {
      * @param row
      */
     var selectSpecies = function(row) {
-        $("#species tbody tr.link").removeClass('speciesSelected')
-        $("#species tbody tr.infoRowLinks").hide();
+        $('#species tbody tr.link').removeClass('speciesSelected');
+        $('#species tbody tr.infoRowLinks').hide();
         var nextTr = $(row).next('tr');
         $(row).addClass('speciesSelected');
         $(nextTr).addClass('speciesSelected');
         $(row).next('tr').show();
         // Update state
-        updateState({guid: $(row).attr('id')});
+        updateState({ guid: $(row).attr('id') });
         regionMap.reloadRecordsOnMap();
     };
 
@@ -245,9 +243,9 @@ var RegionWidget = function (config) {
      * Hides the tab spinners
      * @param tabId
      */
-    var hideTabSpinner = function (tabId) {
-        if ($.active == 1) {
-            if (tabId) {
+    var hideTabSpinner = function(tabId) {
+        if($.active === 1) {
+            if(tabId) {
                 $('#' + tabId + ' span').addClass('hidden');
             } else {
                 $('#' + state.tab + ' span').addClass('hidden');
@@ -259,8 +257,8 @@ var RegionWidget = function (config) {
      * Shows the tab spinners
      * @param tabId
      */
-    var showTabSpinner = function (tabId) {
-        if (tabId) {
+    var showTabSpinner = function(tabId) {
+        if(tabId) {
             $('#' + tabId + ' span').removeClass('hidden');
         } else {
             $('#' + state.tab + ' span').removeClass('hidden');
@@ -273,31 +271,31 @@ var RegionWidget = function (config) {
     var selectGroup = function(group) {
 
         $('.group-row').removeClass('groupSelected');
-        $("tr[parent]").hide();
-        if (group != state.group) {
+        $('tr[parent]').hide();
+        if(group !== state.group) {
             $('#' + state.group + '-row span').removeClass('fa-chevron-down').addClass('fa-chevron-right');
         }
-        var groupId = group.replace(/[^A-Za-z0-9\\d_]/g, "") + '-row';
+        var groupId = group.replace(/[^A-Za-z0-9\\d_]/g, '') + '-row';
 
         var isAlreadyExpanded = $('#' + groupId + ' span').hasClass('fa-chevron-down');
-        if (isAlreadyExpanded) {
-            $("tr[parent='" + groupId + "']").hide();
+        if(isAlreadyExpanded) {
+            $('tr[parent=\'' + groupId + '\']').hide();
             $('#' + groupId + ' span').removeClass('fa-chevron-down').addClass('fa-chevron-right');
         } else {
-            $("tr[parent='" + groupId + "']").show();
+            $('tr[parent=\'' + groupId + '\']').show();
             $('#' + groupId + ' span').removeClass('fa-chevron-right').addClass('fa-chevron-down');
         }
 
         // Update widget state
-        updateState({group: group, subgroup:'', guid: ''});
+        updateState({ group: group, subgroup: '', guid: '' });
         // Mark as selected
         $('#' + groupId).addClass('groupSelected');
 
         // Last
-        if (regionMap) {
+        if(regionMap) {
             regionMap.reloadRecordsOnMap();
         }
-        AjaxAnywhere.dynamicParams=state;
+        AjaxAnywhere.dynamicParams = state;
     };
 
     /**
@@ -306,36 +304,36 @@ var RegionWidget = function (config) {
      */
     var selectSubgroup = function(subgroup) {
         $('.group-row').removeClass('groupSelected');
-        var subgroupId = subgroup.replace(/[^A-Za-z\\d_]/g, "") + '-row';
+        var subgroupId = subgroup.replace(/[^A-Za-z\\d_]/g, '') + '-row';
 
         // Update widget state
-        updateState({subgroup: subgroup, guid: ''});
+        updateState({ subgroup: subgroup, guid: '' });
         // Mark as selected
         $('#' + subgroupId).addClass('groupSelected');
 
         // Last
-        if (regionMap) {
+        if(regionMap) {
             regionMap.reloadRecordsOnMap();
         }
-        AjaxAnywhere.dynamicParams=state;
+        AjaxAnywhere.dynamicParams = state;
     };
 
     var getGroupId = function() {
-        return state.group.replace(/[^A-Za-z0-9\\d_]/g, "") + '-row';
+        return state.group.replace(/[^A-Za-z0-9\\d_]/g, '') + '-row';
     };
 
     var getSubgroupId = function() {
-        return state.subgroup.replace(/[^A-Za-z0-9\\d_]/g, "") + '-row';
+        return state.subgroup.replace(/[^A-Za-z0-9\\d_]/g, '') + '-row';
     }
 
     var _public = {
 
         isDefaultFromYear: function() {
-            return state.from == defaultFromYear;
+            return state.from === defaultFromYear;
         },
 
         isDefaultToYear: function() {
-            return state.to == defaultToYear;
+            return state.to === defaultToYear;
         },
 
         getDefaultFromYear: function() {
@@ -355,14 +353,14 @@ var RegionWidget = function (config) {
                 from: from,
                 to: to
             });
-            if (state.subgroup) {
+            if(state.subgroup) {
                 $('#' + getSubgroupId()).click();
             } else {
                 $('#' + getGroupId()).click();
             }
             // Update taxonomy chart
-            if (taxonomyChart) {
-                taxonomyChart.updateQuery(taxonomyWidget.getQuery() + "&fq=" + region.buildTimeFacet());
+            if(taxonomyChart) {
+                taxonomyChart.updateQuery(taxonomyWidget.getQuery() + '&fq=' + region.buildTimeFacet());
             }
         },
 
@@ -375,10 +373,10 @@ var RegionWidget = function (config) {
         },
 
         groupsLoaded: function() {
-            $('#groups').effect('highlight', {color: '#fee6d2'}, 2000);
-            if (state.subgroup) {
+            $('#groups').effect('highlight', { color: '#fee6d2' }, 2000);
+            if(state.subgroup) {
                 // Display group hidden rows
-                $("tr[parent='" + getGroupId() + "']").show();
+                $('tr[parent=\'' + getGroupId() + '\']').show();
                 $('#' + getGroupId() + ' span').removeClass('fa-chevron-right').addClass('fa-chevron-down');
                 $('#' + getSubgroupId()).click();
             } else {
@@ -387,7 +385,7 @@ var RegionWidget = function (config) {
         },
 
         selectGroupHandler: function(group, isSubgroup) {
-            if (isSubgroup) {
+            if(isSubgroup) {
                 selectSubgroup(group);
             } else {
                 selectGroup(group);
@@ -395,20 +393,20 @@ var RegionWidget = function (config) {
         },
 
         speciesLoaded: function() {
-            $('#species').effect('highlight', {color: '#fee6d2'}, 2000);
+            $('#species').effect('highlight', { color: '#fee6d2' }, 2000);
             var totalRecords = $('#moreSpeciesZone').attr('totalRecords');
-            if (isNaN(totalRecords)) {
+            if(isNaN(totalRecords)) {
                 $('.totalRecords').text('');
             } else {
                 $('.totalRecords').text('(' + region.format(parseInt($('#moreSpeciesZone').attr('totalRecords'))) + ')');
             }
 
-            $('#occurrenceRecords').effect('highlight', {color: '#fee6d2'}, 2000);
+            $('#occurrenceRecords').effect('highlight', { color: '#fee6d2' }, 2000);
         },
 
         showMoreSpecies: function() {
-            $('#showMoreSpeciesButton').html("<span class='fa fa-cog fa-spin'></span>");
-            AjaxAnywhere.dynamicParams=this.getCurrentState();
+            $('#showMoreSpeciesButton').html('<span class=\'fa fa-cog fa-spin\'></span>');
+            AjaxAnywhere.dynamicParams = this.getCurrentState();
         },
 
         setMap: function(map) {
@@ -432,7 +430,7 @@ var RegionWidget = function (config) {
         },
 
         showDownloadDialog: function() {
-            AjaxAnywhere.dynamicParams=this.getCurrentState();
+            AjaxAnywhere.dynamicParams = this.getCurrentState();
             $('#downloadRecordsModal').modal('show');
         }
     };
@@ -469,45 +467,45 @@ var RegionTimeControls = function(config) {
                 create: function() {
                     updateTimeRange($('#timeSlider').slider('values'));
                 },
-                slide: function( event, ui ) {
+                slide: function(event, ui) {
                     updateTimeRange(ui.values);
                 },
-                change: function( event, ui ) {
-                    if (!(state === CONTROL_STATES.PLAYING)
-                            || (ui.values[0] != ui.values[1] && ui.values[1] - ui.values[0] <= 10 )) {
+                change: function(event, ui) {
+                    if(!(state === CONTROL_STATES.PLAYING)
+                            || (ui.values[0] !== ui.values[1] && ui.values[1] - ui.values[0] <= 10)) {
                         regionWidget.updateDateRange(ui.values[0], ui.values[1]);
                     }
                     updateTimeRange(ui.values);
                 }
             })
 
-            .slider("pips", {
-                rest: "pip",
+            .slider('pips', {
+                rest: 'pip',
                 step: 10
             })
-            .slider("float", {});
+            .slider('float', {});
 
         initializeTimeControlsEvents();
     };
 
     var initializeTimeControlsEvents = function() {
         // Initialize play button
-        $('#playButton').on('click', function(){
+        $('#playButton').on('click', function() {
             play();
         });
 
         // Initialize stop button
-        $('#stopButton').on('click', function(){
+        $('#stopButton').on('click', function() {
             stop();
         });
 
         // Initialize pause button
-        $('#pauseButton').on('click', function(){
+        $('#pauseButton').on('click', function() {
             pause();
         });
 
         // Initialize reset button
-        $('#resetButton').on('click', function(){
+        $('#resetButton').on('click', function() {
             reset();
         });
 
@@ -515,7 +513,7 @@ var RegionTimeControls = function(config) {
 
     var increaseTimeRangeByADecade = function() {
         var incrementTo = (regionWidget.getDefaultToYear() - playTimeRange[1]) < 10 ? regionWidget.getDefaultToYear() - playTimeRange[1] : 10;
-        if (incrementTo != 0) {
+        if(incrementTo !== 0) {
             $('#timeSlider').slider('values', [playTimeRange[0] + 10, playTimeRange[1] + incrementTo]);
             playTimeRange = $('#timeSlider').slider('values');
         } else {
@@ -525,7 +523,7 @@ var RegionTimeControls = function(config) {
 
     var play = function() {
 
-        switch (state) {
+        switch(state) {
             case CONTROL_STATES.STOPPED:
                 // Start playing from the beginning
                 // Update state before updating slider values
@@ -544,7 +542,7 @@ var RegionTimeControls = function(config) {
         $('#pauseButton').removeClass('selected').trigger('selected');
         $('#playButton').addClass('selected').trigger('selected');
         playTimeRange = $('#timeSlider').slider('values');
-        refreshInterval = setInterval(function () {
+        refreshInterval = setInterval(function() {
             increaseTimeRangeByADecade();
         }, 4000);
     };
@@ -557,7 +555,7 @@ var RegionTimeControls = function(config) {
     };
 
     var pause = function() {
-        if (state === CONTROL_STATES.PLAYING) {
+        if(state === CONTROL_STATES.PLAYING) {
             $('#pauseButton').addClass('selected').trigger('selected');
             $('#playButton').removeClass('selected').trigger('selected');
             clearInterval(refreshInterval);
@@ -585,11 +583,11 @@ var RegionTimeControls = function(config) {
     return _public;
 };
 
-var TaxonomyWidget = function(config){
+var TaxonomyWidget = function(config) {
 
     var taxonomyChartOptions, query;
 
-    var TaxonomyWidget = function(config){
+    var TaxonomyWidget = function(config) {
         var currentState = regionWidget.getCurrentState();
         query = currentState.q;
 
@@ -598,11 +596,11 @@ var TaxonomyWidget = function(config){
             qc: currentState.qc,
             currentState: currentState,
             subquery: region.buildTimeFacet(),
-            rank: "kingdom",
+            rank: 'kingdom',
             width: 550,
             height: 420,
             clickThru: false,
-            notifyChange: "taxonChartChange",
+            notifyChange: 'taxonChartChange',
             collectionsUrl: regionWidget.getUrls().regionsApp,
             biocacheServicesUrl: regionWidget.getUrls().biocacheServiceUrl,
             displayRecordsUrl: regionWidget.getUrls().biocacheWebappUrl,
@@ -628,7 +626,7 @@ var TaxonomyWidget = function(config){
  * @returns
  * @constructor
  */
-var RegionMap = function (config) {
+var RegionMap = function(config) {
 
     var map;
     var overlays = [null, null];  // first is the region, second is the occurrence data
@@ -637,10 +635,10 @@ var RegionMap = function (config) {
     var initialBounds;
     var infoWindow;
     var useReflectService = true;
-    var overlayFormat = "image/png";
+    var overlayFormat = 'image/png';
     var enableRegionOverlay = true;
 
-    var init = function (config) {
+    var init = function(config) {
         initialBounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(config.bbox.sw.lat, config.bbox.sw.lng),
             new google.maps.LatLng(config.bbox.ne.lat, config.bbox.ne.lng));
@@ -661,48 +659,48 @@ var RegionMap = function (config) {
             },
             panControl: false,
             draggableCursor: 'crosshair',
-            mapTypeId: google.maps.MapTypeId.TERRAIN  /*google.maps.MapTypeId.TERRAIN*/
+            mapTypeId: google.maps.MapTypeId.TERRAIN  /* google.maps.MapTypeId.TERRAIN */
         };
 
-        map = new google.maps.Map(document.getElementById("region-map"), myOptions);
+        map = new google.maps.Map(document.getElementById('region-map'), myOptions);
         map.fitBounds(initialBounds);
         map.enableKeyDragZoom();
 
         initializeOpacityControls();
 
-        /*****************************************\
+        /** ***************************************\
          | Overlay the region shape
          \*****************************************/
         drawRegionOverlay();
 
-        /*****************************************\
+        /** ***************************************\
          | Overlay the occurrence data
          \*****************************************/
         drawRecordsOverlay();
 
-        google.maps.event.addListener(map, 'click', function (event) {
+        google.maps.event.addListener(map, 'click', function(event) {
             info(event.latLng);
         });
 
-        /*******************************************************\
+        /** *****************************************************\
          | Hack the viewport if we don't have good bbox data
          \*******************************************************/
         // fall-back attempt at bounding box if all of Oz
-        if (initialBounds.equals(new google.maps.LatLngBounds(
+        if(initialBounds.equals(new google.maps.LatLngBounds(
                 new google.maps.LatLng(-42, 113),
                 new google.maps.LatLng(-14, 153)))) {
             $.ajax({
-                url: regionWidget.getUrls().proxyUrlBbox + "?q=" + decodeURI(regionWidget.getCurrentState().q),
-                //url: url,
+                url: regionWidget.getUrls().proxyUrlBbox + '?q=' + decodeURI(regionWidget.getCurrentState().q),
+                // url: url,
                 dataType: 'json',
-                success: function (data) {
-                    if (data[0] != 0.0) {
+                success: function(data) {
+                    if(data[0] !== 0.0) {
                         initialBounds = new google.maps.LatLngBounds(
                             new google.maps.LatLng(data[1], data[0]),
                             new google.maps.LatLng(data[3], data[2]));
                         map.fitBounds(initialBounds);
-                        $('#using-bbox-hack').html("Using occurrence bounds")
-                        $('#bbox').html("Using bbox " + newBbox.toString());
+                        $('#using-bbox-hack').html('Using occurrence bounds')
+                        $('#bbox').html('Using bbox ' + newBbox.toString());
                     }
                 }
             });
@@ -718,7 +716,7 @@ var RegionMap = function (config) {
             min: 0,
             max: 100,
             value: defaultOccurrenceOpacity * 100,
-            change: function (event, ui) {
+            change: function(event, ui) {
                 drawRecordsOverlay();
             }
         });
@@ -726,13 +724,13 @@ var RegionMap = function (config) {
             min: 0,
             max: 100,
             value: defaultRegionOpacity * 100,
-            change: function (event, ui) {
+            change: function(event, ui) {
                 drawRegionOverlay();
             }
         });
 
         $('#opacityControls a').on('click', function() {
-            if ($('#opacityControlsContent').hasClass('in')) {
+            if($('#opacityControlsContent').hasClass('in')) {
                 $('#opacityControls span').switchClass('fa-chevron-down', 'fa-chevron-right');
             } else {
                 $('#opacityControls span').switchClass('fa-chevron-right', 'fa-chevron-down');
@@ -740,10 +738,10 @@ var RegionMap = function (config) {
         });
 
         // layer toggling
-        $("#toggleOccurrences").click(function () {
+        $('#toggleOccurrences').click(function() {
             toggleOverlay(1, this.checked);
         });
-        $("#toggleRegion").click(function () {
+        $('#toggleRegion').click(function() {
             toggleOverlay(0, this.checked);
         });
     };
@@ -753,7 +751,7 @@ var RegionMap = function (config) {
     * @param numtiles
     */
     var wmsTileLoaded = function(numtiles) {
-        $('#maploading').fadeOut("slow");
+        $('#maploading').fadeOut('slow');
     };
 
     /**
@@ -769,7 +767,7 @@ var RegionMap = function (config) {
     * Returns the value of the opacity slider for the region overlay.
     */
     var getRegionOpacity = function() {
-        var opacity = $('#regionOpacity').slider("value");
+        var opacity = $('#regionOpacity').slider('value');
         return isNaN(opacity) ? defaultRegionOpacity : opacity / 100;
     };
 
@@ -777,35 +775,35 @@ var RegionMap = function (config) {
      * Returns the value of the opacity slider for the occurrence overlay.
      */
     var getOccurrenceOpacity = function() {
-        var opacity = $('#occurrencesOpacity').slider("value");
+        var opacity = $('#occurrencesOpacity').slider('value');
         return isNaN(opacity) ? defaultOccurrenceOpacity : opacity / 100;
     };
 
     /**
      * Load the region as a WMS overlay.
      */
-    var drawRegionOverlay = function () {
+    var drawRegionOverlay = function() {
 
         if(enableRegionOverlay) {
             var currentState = regionWidget.getCurrentState();
             var urls = regionWidget.getUrls();
 
-            if (currentState.q.indexOf("%3A*") == currentState.q.length - 4) {
+            if(currentState.q.indexOf('%3A*') === currentState.q.length - 4) {
                 /* this draws the region as a WMS layer */
                 var layerParams = [
-                    "FORMAT=" + overlayFormat,
-                    "LAYERS=ALA:" + currentState.regionLayerName,
-                    "STYLES=polygon"
+                    'FORMAT=' + overlayFormat,
+                    'LAYERS=ALA:' + currentState.regionLayerName,
+                    'STYLES=polygon'
                 ];
                 overlays[0] = new WMSTileLayer(currentState.regionLayerName, urls.spatialCacheUrl, layerParams, wmsTileLoaded, getRegionOpacity());
                 map.overlayMapTypes.setAt(0, overlays[0]);
 
             } else {
                 var params = [
-                    "FORMAT=" + overlayFormat,
-                    "LAYERS=ALA:Objects",
-                    "viewparams=s:" + currentState.regionPid,
-                    "STYLES=polygon"
+                    'FORMAT=' + overlayFormat,
+                    'LAYERS=ALA:Objects',
+                    'viewparams=s:' + currentState.regionPid,
+                    'STYLES=polygon'
                 ];
                 overlays[0] = new WMSTileLayer(currentState.regionLayerName, urls.spatialWmsUrl, params, wmsTileLoaded, getRegionOpacity());
                 map.overlayMapTypes.setAt(0, overlays[0]);
@@ -819,63 +817,62 @@ var RegionMap = function (config) {
      * - if taxonomy chart is selected, show the current named rank
      * - use date restriction specified by the time slider
      */
-    var drawRecordsOverlay = function () {
+    var drawRecordsOverlay = function() {
 
         var currentState = regionWidget.getCurrentState();
         var urls = regionWidget.getUrls();
 
-        if (useReflectService) {
+        if(useReflectService) {
             drawRecordsOverlay2();
             return;
         }
 
         var customParams = [
-            "FORMAT=" + overlayFormat,
-            "colourby=3368652",
-            "symsize=4"
+            'FORMAT=' + overlayFormat,
+            'colourby=3368652',
+            'symsize=4'
         ];
 
-        //Add query string params to custom params
+        // Add query string params to custom params
         var query = region.buildBiocacheQuery(currentState.q, 0, true);
-        var searchParam = encodeURI("?q=" + decodeURI(query.q) + "&fq=" + query.fq + "&fq=geospatial_kosher:true");
+        var searchParam = encodeURI('?q=' + decodeURI(query.q) + '&fq=' + query.fq + '&fq=geospatial_kosher:true');
 
-        var fqParam = "";
-        if ($("#taxonomy-tab").hasClass('active')) {
+        var fqParam = '';
+        if($('#taxonomy-tab').hasClass('active')) {
             // show records based on taxonomy chart
-            if (taxonomyChart.rank && taxonomyChart.name) {
-                fqParam = "&fq=" + taxonomyChart.rank + ":" + taxonomyChart.name;
+            if(taxonomyChart.rank && taxonomyChart.name) {
+                fqParam = '&fq=' + taxonomyChart.rank + ':' + taxonomyChart.name;
             }
         }
         else {
             // show records based on taxa box
-            if (currentState.guid) {
-                fqParam = "&fq=taxon_concept_lsid:" + currentState.guid;
-            }
-            else if (currentState.group != "ALL_SPECIES") {
-                if (currentState.subgroup) {
-                    fqParam = "&fq=species_subgroup:" + currentState.subgroup;
+            if(currentState.guid) {
+                fqParam = '&fq=taxon_concept_lsid:' + currentState.guid;
+            } else if(currentState.group !== 'ALL_SPECIES') {
+                if(currentState.subgroup) {
+                    fqParam = '&fq=species_subgroup:' + currentState.subgroup;
                 } else {
-                    fqParam = "&fq=species_group:" + currentState.group;
+                    fqParam = '&fq=species_group:' + currentState.group;
                 }
             }
         }
 
         searchParam += fqParam;
 
-        if(currentState.qc){
-            searchParam += "&qc=" + currentState.qc
+        if(currentState.qc) {
+            searchParam += '&qc=' + currentState.qc
         }
 
-        if(currentState.showHubData){
-            searchParam += "&fq=" + currentState.hubFilter
+        if(currentState.showHubData) {
+            searchParam += '&fq=' + currentState.hubFilter
         }
 
         var pairs = searchParam.substring(1).split('&');
-        for (var j = 0; j < pairs.length; j++) {
+        for(var j = 0; j < pairs.length; j++) {
             customParams.push(pairs[j]);
         }
-        overlays[1] = new WMSTileLayer("Occurrences",
-            urlConcat(urls.biocacheServiceUrl, "occurrences/wms?"), customParams, wmsTileLoaded, getOccurrenceOpacity());
+        overlays[1] = new WMSTileLayer('Occurrences',
+            urlConcat(urls.biocacheServiceUrl, 'occurrences/wms?'), customParams, wmsTileLoaded, getOccurrenceOpacity());
 
         map.overlayMapTypes.setAt(1, $('#toggleOccurrences').is(':checked') ? overlays[1] : null);
     };
@@ -884,56 +881,53 @@ var RegionMap = function (config) {
         var currentState = regionWidget.getCurrentState();
         var urls = regionWidget.getUrls();
 
-        var url = urls.biocacheServiceUrl + "/mapping/wms/reflect?",
+        var url = urls.biocacheServiceUrl + '/mapping/wms/reflect?',
             query = region.buildBiocacheQuery(currentState.q, 0, true);
         var prms = [
-            "FORMAT=" + overlayFormat,
-            "LAYERS=ALA%3Aoccurrences",
-            "STYLES=",
-            "BGCOLOR=0xFFFFFF",
+            'FORMAT=' + overlayFormat,
+            'LAYERS=ALA%3Aoccurrences',
+            'STYLES=',
+            'BGCOLOR=0xFFFFFF',
             'q=' + query.q,
-            "fq=geospatial_kosher:true",
-            "fq=rank:(species OR subspecies)",
+            'fq=geospatial_kosher:true',
+            'fq=rank:(species OR subspecies)',
             'CQL_FILTER=',
-            "symsize=3",
-            "ENV=color:046e8b;name:circle;size:3;opacity:" + getOccurrenceOpacity(),
-            "EXCEPTIONS=application-vnd.ogc.se_inimage"
+            'symsize=3',
+            'ENV=color:046e8b;name:circle;size:3;opacity:' + getOccurrenceOpacity(),
+            'EXCEPTIONS=application-vnd.ogc.se_inimage'
         ];
 
-        if (query.fq) {
-            prms.push("fq=" + query.fq);
+        if(query.fq) {
+            prms.push('fq=' + query.fq);
         }
 
-        var fqParam = "";
-        if ($("#taxonomy-tab").hasClass('active')) {
+        if($('#taxonomy-tab').hasClass('active')) {
             // show records based on taxonomy chart
-            if (taxonomyChart.rank && taxonomyChart.name) {
-                prms.push("fq=" + encodeURI(taxonomyChart.rank + ":" + taxonomyChart.name));
+            if(taxonomyChart.rank && taxonomyChart.name) {
+                prms.push('fq=' + encodeURI(taxonomyChart.rank + ':' + taxonomyChart.name));
             }
-        }
-        else {
+        } else {
             // show records based on taxa box
-            if (currentState.guid) {
-                prms.push("fq=taxon_concept_lsid:" + encodeURI(currentState.guid));
-            }
-            else if (currentState.group != "ALL_SPECIES") {
-                if (currentState.subgroup) {
-                    prms.push("fq=species_subgroup:" + encodeURI('"' + currentState.subgroup + '"'));
+            if(currentState.guid) {
+                prms.push('fq=taxon_concept_lsid:' + encodeURI(currentState.guid));
+            } else if(currentState.group !== 'ALL_SPECIES') {
+                if(currentState.subgroup) {
+                    prms.push('fq=species_subgroup:' + encodeURI('"' + currentState.subgroup + '"'));
                 } else {
-                    prms.push("fq=species_group:" + encodeURI('"' + currentState.group + '"'));
+                    prms.push('fq=species_group:' + encodeURI('"' + currentState.group + '"'));
                 }
             }
         }
 
-        if(currentState.qc){
-            prms.push("qc=" + currentState.qc)
+        if(currentState.qc) {
+            prms.push('qc=' + currentState.qc)
         }
 
-        if(currentState.showHubData){
-            prms.push("fq=" + currentState.hubFilter)
+        if(currentState.showHubData) {
+            prms.push('fq=' + currentState.hubFilter)
         }
 
-        overlays[1] = new WMSTileLayer("Occurrences (by reflect service)", url, prms, wmsTileLoaded, 0.8);
+        overlays[1] = new WMSTileLayer('Occurrences (by reflect service)', url, prms, wmsTileLoaded, 0.8);
 
         map.overlayMapTypes.setAt(1, $('#toggleOccurrences').is(':checked') ? overlays[1] : null);
     };
@@ -947,26 +941,26 @@ var RegionMap = function (config) {
         var urls = regionWidget.getUrls();
 
         $.ajax({
-            url: urls.proxyUrl + "?format=json&url=" + urls.spatialServiceUrl + "/intersect/" + currentState.regionFid + "/" +
-            location.lat() + "/" + location.lng(),
+            url: urls.proxyUrl + '?format=json&url=' + urls.spatialServiceUrl + '/intersect/' + currentState.regionFid + '/' +
+            location.lat() + '/' + location.lng(),
             dataType: 'json',
             success: function(data) {
-                if (data.length == 0) { return; }
-                if (infoWindow) { infoWindow.close(); }
+                if(data.length === 0) { return; }
+                if(infoWindow) { infoWindow.close(); }
 
                 var anyInfo = false;  // keep track of whether we actually add anything
                 var desc = '<ol>';
                 $.each(data, function(i, obj) {
-                    if (obj.value) {
+                    if(obj.value) {
                         anyInfo = true;
-                        var lyr = obj.layername == obj.value ? "" : " (" + obj.layername + ")";
-                        desc += "<li>" + obj.value + lyr + "</li>";
+                        var lyr = obj.layername === obj.value ? '' : ' (' + obj.layername + ')';
+                        desc += '<li>' + obj.value + lyr + '</li>';
                     }
                 });
-                desc += "</ol>";
-                if (anyInfo) {
+                desc += '</ol>';
+                if(anyInfo) {
                     infoWindow = new google.maps.InfoWindow({
-                        content: "<div style='font-size:90%;padding-right:15px;'>" + desc + "</div>",
+                        content: '<div style=\'font-size:90%;padding-right:15px;\'>' + desc + '</div>',
                         position: location
                     });
                     infoWindow.open(map);
@@ -976,7 +970,7 @@ var RegionMap = function (config) {
     };
 
     var _public = {
-        reloadRecordsOnMap: function () {
+        reloadRecordsOnMap: function() {
             drawRecordsOverlay();
         }
     };
