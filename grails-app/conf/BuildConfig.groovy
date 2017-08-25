@@ -8,8 +8,6 @@ grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 grails.project.dependency.resolver = "maven"
 
-//grails.plugin.location."ala-bootstrap2" = "../ala-bootstrap2"
-
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {

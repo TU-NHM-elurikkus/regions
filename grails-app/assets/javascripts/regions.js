@@ -1,4 +1,3 @@
-//= require jquery-ui-1.11.2-no-autocomplete
 //= require he-0.5.0
 
 (function(windows) {
@@ -158,17 +157,13 @@
                         this.error = data.errorMessage;
                         $('#' + this.name).html(this.error);
                     } else {
-                        // optionally filter regions (lats are -ve in AUS)
                         if(mapBounds) {
-                            var i, name, obj, bbox, names = [], objs = {};
+                            var i, name, obj;
+                            var names = [];
+                            var objs = {};
+
                             for(i = 0; i < data.names.length; i++) {
                                 obj = data.objects[name = data.names[i]];
-                                bbox = obj.bbox;
-                                // if (!bbox) continue;
-                                // if (bbox.minLat > mapBounds[0]) continue; // too north
-                                // if (bbox.maxLng < mapBounds[1]) continue; // too west
-                                // if (bbox.maxLat < mapBounds[2]) continue; // too south
-                                // if (bbox.minLng > mapBounds[3]) continue; // too east
                                 names.push(name);
                                 objs[name] = obj;
                             }
@@ -190,8 +185,9 @@
         /* Write the list of regions to the regionSet's DOM container - loading first if required
          * @param callbackOnComplete a global-scope function to call when the list is written */
         writeList: function(callbackOnComplete) {
-            var $content = $('#' + layers[this.name].layerName), me = this,
-                id;
+            var $content = $('#' + layers[this.name].layerName);
+            var me = this;
+            var id;
             var html = '<ul class="erk-ulist">';
             if(!this.loaded()) {
                 // load content asynchronously and execute this method when complete
@@ -226,9 +222,9 @@
         },
         /* Draw the layer for this set (or sub-set) */
         drawLayer: function(colour, order) {
-            var redraw = false,
-                layerParams,
-                sld_body = '<?xml version="1.0" encoding="UTF-8"?><StyledLayerDescriptor version="1.0.0" xmlns="http://www.opengis.net/sld"><NamedLayer><Name>ALA:LAYERNAME</Name><UserStyle><FeatureTypeStyle><Rule><Title>Polygon</Title><PolygonSymbolizer><Fill><CssParameter name="fill">COLOUR</CssParameter></Fill><Stroke><CssParameter name="stroke">#000000</CssParameter><CssParameter name="stroke-width">1</CssParameter></Stroke></PolygonSymbolizer></Rule></FeatureTypeStyle></UserStyle></NamedLayer></StyledLayerDescriptor>';
+            var redraw = false;
+            var layerParams;
+            var sld_body = '<?xml version="1.0" encoding="UTF-8"?><StyledLayerDescriptor version="1.0.0" xmlns="http://www.opengis.net/sld"><NamedLayer><Name>ALA:LAYERNAME</Name><UserStyle><FeatureTypeStyle><Rule><Title>Polygon</Title><PolygonSymbolizer><Fill><CssParameter name="fill">COLOUR</CssParameter></Fill><Stroke><CssParameter name="stroke">#000000</CssParameter><CssParameter name="stroke-width">1</CssParameter></Stroke></PolygonSymbolizer></Rule></FeatureTypeStyle></UserStyle></NamedLayer></StyledLayerDescriptor>';
 
             colour = colour || '#FFFFFF';
             order = order === undefined ? 1 : order;
@@ -263,9 +259,9 @@
             if(selectedRegion === null) { return; }
             var layerName = this.objects[selectedRegion.name].layerName,
                 layerParams = [
-                    "FORMAT=image/png8",
-                    "LAYERS=ALA:" + layerName,
-                    "STYLES=polygon"
+                    'FORMAT=image/png8',
+                    'LAYERS=ALA:' + layerName,
+                    'STYLES=polygon'
                 ],
                 wms = new WMSTileLayer(layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded,
                         getLayerOpacity());

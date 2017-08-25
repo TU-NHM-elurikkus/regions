@@ -19,8 +19,6 @@
         </title>
 
         <asset:javascript src="jquery-1.11.2.js" />
-        <asset:javascript src="common" />
-        <asset:stylesheet src="elurikkus-common" />
 
         <g:layoutHead />
     </head>
