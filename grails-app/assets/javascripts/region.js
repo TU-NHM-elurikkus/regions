@@ -1,8 +1,9 @@
 //= require jquery-ui-slider-pips
 //= require charts2
 //= require number-functions
+//= require common
 //= require bootstrap-switch.min
-//= require aa.js
+//= require aa
 
 var region = {
     /**
@@ -17,7 +18,7 @@ var region = {
         var params = { q: q, pageSize: 50 },
             timeFacet = region.buildTimeFacet();
         if(start) {
-            params.start = start
+            params.start = start;
         }
 
         if(timeFacet) {
@@ -79,7 +80,7 @@ function taxonChartChange(rank, name) {
     regionWidget.getMap().reloadRecordsOnMap();
 }
 
-var RegionWidget = function(config) {
+function RegionWidget(config) {
 
     var defaultFromYear = 1850;
     var defaultToYear = new Date().getFullYear();
@@ -325,7 +326,7 @@ var RegionWidget = function(config) {
 
     var getSubgroupId = function() {
         return state.subgroup.replace(/[^A-Za-z0-9\\d_]/g, '') + '-row';
-    }
+    };
 
     var _public = {
 
