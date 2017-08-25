@@ -3,3 +3,4 @@
 //= require wms
 //= require keydragzoom
 //= require jquery.ba-bbq-1.2.1
+//= require common
