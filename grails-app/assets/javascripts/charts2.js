@@ -470,7 +470,7 @@ var taxonomyChart = {
             $recordsLink.html('View records for ' + this.rank + ' ' + this.name);
         }
         else {
-            $recordsLink.html('View all records');
+            $recordsLink.html('<div class="fa fa-list"></div> View records');
         }
 
         // setup a click handler - if requested

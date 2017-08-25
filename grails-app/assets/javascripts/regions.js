@@ -79,7 +79,7 @@
 
     /** * RegionSet represents a set of regions such as all states ********************************************************/
     // assumes this is a single field of a single layer
-    var RegionSet = function(name, layerName, fid, bieContext, order, displayName) {
+    function RegionSet(name, layerName, fid, bieContext, order, displayName) {
         this.name = name;
         this.layerName = layerName;
         this.fid = fid;
@@ -90,7 +90,7 @@
         this.sortedList = [];
         this.error = null;
         this.other = fid === null;
-    };
+    }
 
     RegionSet.prototype = {
         /* Set this instance as the selected set */
@@ -302,7 +302,7 @@
      * May be an object in a field, eg an individual state, OR
      * a region in 'Other regions' which is really a layer/field with 1 or more sub-regions
      */
-    var Region = function(name) {
+    function Region(name) {
         // the name of the region
         this.name = name;
         // the id - this may be a pid if it's an object in a field or a fid if it's an 'other' region
@@ -313,13 +313,12 @@
         this.subregion = null;
         // the pid of a selected 'sub-region'
         this.subregionPid = null;
-    };
+    }
 
     Region.prototype = {
         /* Set this instance as the currently selected region */
         set: function() {
             clearSelectedRegion();
-            var prevSelection = selectedRegion
             selectedRegion = this;
             if(this.name.toLowerCase() !== 'n/a') {
                 $.bbq.pushState({ region: this.name });

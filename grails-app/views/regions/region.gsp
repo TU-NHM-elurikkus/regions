@@ -66,6 +66,7 @@
                 </a>
 
                 <div id="viewRecords" class="erk-link page-header-links__link">
+                    <span class="fa fa-list"></span>
                     <g:message code="region.navBar.viewRecords" />
                     <span class="totalRecords"></span>
                 </div>
