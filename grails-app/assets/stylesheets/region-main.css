@@ -94,6 +94,12 @@
     font-size: 15px;
 }
 
+#click-info a {
+    height: 30px;
+    padding-top: 2px;
+    border-radius: 0;
+}
+
 #reset-map, #zoomTo {
     color: #666;
     font-size: 12px;

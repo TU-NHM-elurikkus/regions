@@ -390,7 +390,7 @@
                 var regionName = this.name;
 
                 var html =
-                    '<a href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
+                    '<a class="btn erk-button erk-button--dark" href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
                         regionName +
                     '</a>' +
                     '\n' +
