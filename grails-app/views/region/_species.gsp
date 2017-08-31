@@ -50,14 +50,13 @@
 </g:each>
 
 <tr id="moreSpeciesZone" totalRecords="${species.totalRecords}" style="${species.records.size() > 0 && species.records.size() % 50 == 0 ? "" : "display:none;"}">
-    <td colspan="2" class="text-center">
+    <td colspan="2">
         <a aa-refresh-zones="moreSpeciesZone" id="showMoreSpeciesButton"
            href="${g.createLink(controller: 'region', action: 'showSpecies', params: [pageIndex: pageIndex ? pageIndex + 1 : '1'])}"
            aa-js-before="regionWidget.showMoreSpecies();"
            aa-js-after="regionWidget.speciesLoaded();"
            aa-queue="abort"
         >
-            <i class="fa fa-plus"></i>
             <g:message code="species.results.showMore" />&hellip;
         </a>
     </td>
