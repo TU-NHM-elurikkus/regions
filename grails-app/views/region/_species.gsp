@@ -32,7 +32,7 @@
                 title="${message(code: 'species.results.speciesProfile.title')}"
                 class="species-list-button"
             >
-                <i class="fa fa-share-square-o"></i>
+                <i class="fa fa-tag"></i>
                 <g:message code="species.results.speciesProfile" />
             </a>
 
@@ -42,7 +42,7 @@
                title="${message(code: 'species.results.recordList.title')}"
                class="species-list-button"
             >
-                <i class="fa fa-database"></i>
+                <i class="fa fa-list"></i>
                 <g:message code="species.results.recordList" />
             </a>
         </td>
@@ -58,7 +58,7 @@
            aa-queue="abort"
         >
             <i class="fa fa-plus"></i>
-            <g:message code="species.results.showMore" />
+            <g:message code="species.results.showMore" />&hellip;
         </a>
     </td>
     <td></td>

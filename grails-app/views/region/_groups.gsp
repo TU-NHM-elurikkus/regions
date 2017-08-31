@@ -12,7 +12,7 @@
         >
             <td class="level${group.parent ? '1' : '0'}">
                 <g:if test="${!group.parent}">
-                    <span class="fa fa-chevron-right"></span>
+                    <i class="fa fa-chevron-right"></i>
                 </g:if>
 
                 <g:message code="groups.dynamic.group.${group.name}" default="${group.name}"/>

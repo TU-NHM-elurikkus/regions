@@ -395,7 +395,7 @@
                     '</a>' +
                     '\n' +
                     '<button id="zoomTo" class="erk-button erk-button--light">' +
-                        '<span class="fa fa-search-plus"></span>\n' +
+                        '<i class="fa fa-search-plus"></i>\n' +
                         'Zoom to region' +
                     '</button>';
 

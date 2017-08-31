@@ -62,11 +62,12 @@
 
             <div class="page-header-links">
                 <a href="${g.createLink(uri: '/')}" class="page-header-links__link">
+                    <i class="fa fa-arrow-left"></i>
                     <g:message code="region.navBar.regions" />
                 </a>
 
                 <div id="viewRecords" class="erk-link page-header-links__link">
-                    <span class="fa fa-list"></span>
+                    <i class="fa fa-list"></i>
                     <g:message code="region.navBar.viewRecords" />
                     <span class="totalRecords"></span>
                 </div>
@@ -79,14 +80,14 @@
                     <li class="nav-item">
                         <a id="species-tab" data-toggle="tab" href="#species-tab-content" class="nav-link active">
                             <g:message code="region.speciesTab.header.table" />
-                            <span class="fa fa-cog fa-spin fa-lg hidden"></span>
+                            <i class="fa fa-cog fa-spin fa-lg hidden"></i>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a id="taxonomy-tab" data-toggle="tab" href="#taxonomy-tab-content" class="nav-link">
                             <g:message code="region.speciesTab.header.chart" />
-                            <span class="fa fa-cog fa-spin fa-lg hidden"></span>
+                            <i class="fa fa-cog fa-spin fa-lg hidden"></i>
                         </a>
                     </li>
                 </ul>
@@ -151,7 +152,7 @@
 
                     <div class="tab-pane" id="taxonomy-tab-content">
                         <div id="charts">
-                            <span class="spinner fa fa-cog fa-spin fa-3x"></span>
+                            <i class="spinner fa fa-cog fa-spin fa-3x"></i>
                         </div>
                     </div>
                 </div>
@@ -159,7 +160,7 @@
 
             <div class="col-md-7">
                 <div>
-                    <span class="fa fa-info-circle fa-lg"></span>
+                    <i class="fa fa-info-circle fa-lg"></i>
                     <g:message code="region.playBack.desc" />
 
                     <span id="exploreButtons">
@@ -169,7 +170,7 @@
                             aa-js-before="regionWidget.showDownloadDialog();"
                         >
                             <button class="erk-button erk-button--light">
-                                <span class="fa fa-download"></span>
+                                <i class="fa fa-download"></i>
                                 <g:message code="download.btn.label" />
                             </button>
                         </a>
@@ -245,7 +246,7 @@
                         </div>
 
                         <div class="modal-body text-center">
-                            <span class="fa fa-cog fa-spin fa-2x"></span>
+                            <i class="fa fa-cog fa-spin fa-2x"></i>
                         </div>
                     </aa:zone>
                 </div>
