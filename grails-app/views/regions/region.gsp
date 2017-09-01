@@ -28,7 +28,7 @@
             </h1>
 
             <div id="occurrenceRecords" class="page-header__subtitle">
-                <g:message code="region.body.subTitle" />
+                <g:message code="region.body.subTitle" args="${[region.name]}" />
                 <span class="totalRecords"></span>
 
                 <%-- XXX TODO Test the style of emblems. So far they have remained unseen. --%>
@@ -76,21 +76,28 @@
 
         <div class="row">
             <div class="col-md-5">
-                <ul class="nav nav-tabs" id="explorerTabs">
-                    <li class="nav-item">
-                        <a id="species-tab" data-toggle="tab" href="#species-tab-content" class="nav-link active">
-                            <g:message code="region.speciesTab.header.table" />
-                            <span class="fa fa-cog fa-spin fa-lg hidden"></span>
-                        </a>
-                    </li>
+                <div class="vertical-block">
+                    <span class="fa fa-info-circle"></span>
+                    <g:message code="region.map.info.filterspecies" />
+                </div>
 
-                    <li class="nav-item">
-                        <a id="taxonomy-tab" data-toggle="tab" href="#taxonomy-tab-content" class="nav-link">
-                            <g:message code="region.speciesTab.header.chart" />
-                            <span class="fa fa-cog fa-spin fa-lg hidden"></span>
-                        </a>
-                    </li>
-                </ul>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="explorerTabs">
+                        <li class="nav-item">
+                            <a id="species-tab" data-toggle="tab" href="#species-tab-content" class="nav-link active">
+                                <g:message code="region.speciesTab.header.table" />
+                                <span class="fa fa-cog fa-spin fa-lg hidden"></span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a id="taxonomy-tab" data-toggle="tab" href="#taxonomy-tab-content" class="nav-link">
+                                <g:message code="region.speciesTab.header.chart" />
+                                <span class="fa fa-cog fa-spin fa-lg hidden"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="species-tab-content">
@@ -159,22 +166,23 @@
             </div>
 
             <div class="col-md-7">
-                <div>
-                    <span class="fa fa-info-circle fa-lg"></span>
-                    <g:message code="region.playBack.desc" />
-
-                    <span id="exploreButtons">
-                        <a
-                            href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
-                            aa-refresh-zones="dialogZone"
-                            aa-js-before="regionWidget.showDownloadDialog();"
-                        >
-                            <button class="erk-button erk-button--light">
-                                <span class="fa fa-download"></span>
-                                <g:message code="download.btn.label" />
-                            </button>
-                        </a>
+                <div class="vertical-block">
+                    <span>
+                        <span class="fa fa-info-circle"></span>
+                        <g:message code="region.playBack.desc" />
                     </span>
+
+                    <a
+                        href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
+                        aa-refresh-zones="dialogZone"
+                        aa-js-before="regionWidget.showDownloadDialog();"
+                        class="float-right"
+                    >
+                        <button class="erk-button erk-button--light">
+                            <span class="fa fa-download"></span>
+                            <g:message code="download.btn.label" />
+                        </button>
+                    </a>
                 </div>
 
                 <div id="region-map"></div>

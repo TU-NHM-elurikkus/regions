@@ -375,7 +375,8 @@ function RegionWidget(config) {
         },
 
         groupsLoaded: function() {
-            $('#groups').effect('highlight', { color: '#fee6d2' }, 2000);
+            $('#groups').effect('highlight', { color: 'rgba(61, 200, 211, .66)' }, 2000);
+
             if(state.subgroup) {
                 // Display group hidden rows
                 $('tr[parent=\'' + getGroupId() + '\']').show();
@@ -395,15 +396,17 @@ function RegionWidget(config) {
         },
 
         speciesLoaded: function() {
-            $('#species').effect('highlight', { color: '#fee6d2' }, 2000);
+            $('#species').effect('highlight', { color: 'rgba(61, 200, 211, .66)' }, 2000);
+
             var totalRecords = $('#moreSpeciesZone').attr('totalRecords');
+
             if(isNaN(totalRecords)) {
                 $('.totalRecords').text('');
             } else {
                 $('.totalRecords').text('(' + region.format(parseInt($('#moreSpeciesZone').attr('totalRecords'))) + ')');
             }
 
-            $('#occurrenceRecords').effect('highlight', { color: '#fee6d2' }, 2000);
+            $('#occurrenceRecords').effect('highlight', { color: 'rgba(61, 200, 211, .66)' }, 2000);
         },
 
         showMoreSpecies: function() {
@@ -626,11 +629,10 @@ function TaxonomyWidget(config) {
  * @constructor
  */
 function RegionMap(config) {
-
     var map;
     var overlays = [null, null];  // first is the region, second is the occurrence data
-    var defaultOccurrenceOpacity = 0.7;
-    var defaultRegionOpacity = 0.5;
+    var defaultOccurrenceOpacity = 1.0;
+    var defaultRegionOpacity = 0.2;
     var initialBounds;
     var infoWindow;
     var useReflectService = true;
@@ -891,7 +893,7 @@ function RegionMap(config) {
             'fq=rank:(species OR subspecies)',
             'CQL_FILTER=',
             'symsize=3',
-            'ENV=color:046e8b;name:circle;size:3;opacity:' + getOccurrenceOpacity(),
+            'ENV=color:3dc8d3;name:circle;size:3;opacity:' + getOccurrenceOpacity(),
             'EXCEPTIONS=application-vnd.ogc.se_inimage'
         ];
 
