@@ -100,12 +100,6 @@
     border-radius: 0;
 }
 
-#reset-map, #zoomTo {
-    color: #666;
-    font-size: 12px;
-    cursor: pointer;
-}
-
 li.regionLink {
     padding: 0.5rem;
     font-size: 14px;
@@ -114,7 +108,7 @@ li.regionLink {
 }
 
 li.regionLink:hover {
-    background-color: #30d8ef;
+    background-color: #3dc8d3;
 }
 
 .ui-accordion-content li.selected {
@@ -158,34 +152,8 @@ li.regionLink:hover {
     border-radius: 5px;
 }
 
-#exploreButtons {
-    float: right;
-    padding-bottom: 0.5rem;
-}
-
 #species .scrollContent {
     height: 400px;
-}
-
-#explorerTabs {
-    margin-bottom: .6em;
-}
-
-#controlsMapTab.nav-tabs li a, #explorerTabs.nav-tabs li a {
-    padding: 0 15px;
-    border-radius: 0;
-    font-size: 14px;
-    line-height: 28px;
-}
-
-.nav-tabs li a .popover-content {}
-
-.nav-tabs li.active a {
-    background-color: #ffffff;
-}
-
-#speciesTabContent thead th {
-    padding: 0;
 }
 
 #groups, #species {
@@ -263,12 +231,14 @@ li.regionLink:hover {
 
 tr.groupSelected, tr.groupSelected:hover td {
     color: white;
-    background-color: #30d8ef !important;
+    background-color: #3dc8d3 !important;
+    font-weight: bold;
 }
 
 tr.speciesSelected, tr.speciesSelected:hover td {
     color: white;
-    background-color: #30d8ef !important;
+    background-color: #3dc8d3 !important;
+    font-weight: bold;
 }
 
 #showMoreSpeciesButton {
@@ -398,8 +368,4 @@ path {
 
 #map-container {
     margin-bottom: 1rem;
-}
-
-.top-map-buttons {
-    text-align: right;
 }
