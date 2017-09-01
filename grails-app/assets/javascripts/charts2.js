@@ -434,7 +434,7 @@ var taxonomyChart = {
                 if (!$backLink.hasClass('erk-link')) return;
                 $("i.loading").remove();
                 // show spinner while loading
-                $container.append($('<i class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></i>'));
+                $container.append($('<span class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></span>'));
                 // get state from history
                 var previous = thisChart.popState();
 
@@ -470,7 +470,7 @@ var taxonomyChart = {
             $recordsLink.html('View records for ' + this.rank + ' ' + this.name);
         }
         else {
-            $recordsLink.html('<div class="fa fa-list"></div> View records');
+            $recordsLink.html('<span class="fa fa-list"></span> View records');
         }
 
         // setup a click handler - if requested
@@ -485,7 +485,7 @@ var taxonomyChart = {
                 /* DRILL DOWN */
                 if (drillDown && data.rank != "species") {
                     // show spinner while loading
-                    $container.append($('<i class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></i>'));
+                    $container.append($('<span class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></span>'));
 
                     // save current state as history - for back-tracking
                     thisChart.pushState();

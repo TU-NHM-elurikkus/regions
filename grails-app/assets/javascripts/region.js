@@ -407,7 +407,7 @@ function RegionWidget(config) {
         },
 
         showMoreSpecies: function() {
-            $('#showMoreSpeciesButton').html('<span class=\'fa fa-cog fa-spin\'></span>');
+            $('#showMoreSpeciesButton').html('<span class="fa fa-cog fa-spin"></span>');
             AjaxAnywhere.dynamicParams = this.getCurrentState();
         },
 
@@ -449,7 +449,6 @@ function RegionWidget(config) {
  */
 function RegionTimeControls(config) {
 
-    var timeSlider;
     var CONTROL_STATES = {
         PLAYING: 0,
         PAUSED: 1,
@@ -460,26 +459,25 @@ function RegionTimeControls(config) {
     var playTimeRange;
 
     function init(config) {
-        timeSlider = $('#timeSlider')
-            .slider({
-                min: regionWidget.getDefaultFromYear(),
-                max: regionWidget.getDefaultToYear(),
-                range: true,
-                values: [regionWidget.getCurrentState().from, regionWidget.getCurrentState().to],
-                create: function() {
-                    updateTimeRange($('#timeSlider').slider('values'));
-                },
-                slide: function(event, ui) {
-                    updateTimeRange(ui.values);
-                },
-                change: function(event, ui) {
-                    if(!(state === CONTROL_STATES.PLAYING)
-                            || (ui.values[0] !== ui.values[1] && ui.values[1] - ui.values[0] <= 10)) {
-                        regionWidget.updateDateRange(ui.values[0], ui.values[1]);
-                    }
-                    updateTimeRange(ui.values);
+        $('#timeSlider').slider({
+            min: regionWidget.getDefaultFromYear(),
+            max: regionWidget.getDefaultToYear(),
+            range: true,
+            values: [regionWidget.getCurrentState().from, regionWidget.getCurrentState().to],
+            create: function() {
+                updateTimeRange($('#timeSlider').slider('values'));
+            },
+            slide: function(event, ui) {
+                updateTimeRange(ui.values);
+            },
+            change: function(event, ui) {
+                if(!(state === CONTROL_STATES.PLAYING)
+                        || (ui.values[0] !== ui.values[1] && ui.values[1] - ui.values[0] <= 10)) {
+                    regionWidget.updateDateRange(ui.values[0], ui.values[1]);
                 }
-            })
+                updateTimeRange(ui.values);
+            }
+        })
 
             .slider('pips', {
                 rest: 'pip',
@@ -524,7 +522,6 @@ function RegionTimeControls(config) {
     }
 
     function play() {
-
         switch(state) {
             case CONTROL_STATES.STOPPED:
                 // Start playing from the beginning

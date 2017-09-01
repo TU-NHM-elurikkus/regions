@@ -37,7 +37,7 @@
                         id="emblems"
                         href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}"
                     >
-                        <i class="fa fa-cog fa-spin fa-2x"></i>
+                        <span class="fa fa-cog fa-spin fa-2x"></span>
                     </aa:zone>
                 </g:if>
 
@@ -62,6 +62,7 @@
 
             <div class="page-header-links">
                 <a href="${g.createLink(uri: '/')}" class="page-header-links__link">
+                    <span class="fa fa-arrow-left"></span>
                     <g:message code="region.navBar.regions" />
                 </a>
 
@@ -116,7 +117,7 @@
                                     <tbody id="groupsZone" tagName="tbody">
                                         <tr class="spinner">
                                             <td class="spinner text-center">
-                                                <i class="fa fa-cog fa-spin fa-2x"></i>
+                                                <span class="fa fa-cog fa-spin fa-2x"></span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -140,7 +141,7 @@
                                     <aa:zone id="speciesZone" tag="tbody" jsAfter="regionWidget.speciesLoaded();">
                                         <tr class="spinner">
                                             <td colspan="3" class="spinner text-center">
-                                                <i class="fa fa-cog fa-spin fa-2x"></i>
+                                                <span class="fa fa-cog fa-spin fa-2x"></span>
                                             </td>
                                         </tr>
                                     </aa:zone>
