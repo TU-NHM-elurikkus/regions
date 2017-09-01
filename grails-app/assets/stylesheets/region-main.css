@@ -203,10 +203,6 @@ li.regionLink:hover {
 
 #groups tbody td {}
 
-#groups td.level0 {
-    font-weight: bold;
-}
-
 #groups td.level1 {
     padding-left: 2em;
 }
