@@ -32,7 +32,7 @@
                 title="${message(code: 'species.results.speciesProfile.title')}"
                 class="species-list-button"
             >
-                <i class="fa fa-share-square-o"></i>
+                <span class="fa fa-tag"></span>
                 <g:message code="species.results.speciesProfile" />
             </a>
 
@@ -42,14 +42,14 @@
                title="${message(code: 'species.results.recordList.title')}"
                class="species-list-button"
             >
-                <i class="fa fa-database"></i>
+                <span class="fa fa-list"></span>
                 <g:message code="species.results.recordList" />
             </a>
         </td>
     </tr>
 </g:each>
 
-<tr id="moreSpeciesZone" totalRecords="${species.totalRecords}"
+<tr id="moreSpeciesZone" totalRecords="${species.totalRecords}" style="${species.records.size() > 0 && species.records.size() % 50 == 0 ? "" : "display:none;"}">
     <td colspan="3">
         <a aa-refresh-zones="moreSpeciesZone" id="showMoreSpeciesButton"
            href="${g.createLink(controller: 'region', action: 'showSpecies', params: [pageIndex: pageIndex ? pageIndex + 1 : '1'])}"

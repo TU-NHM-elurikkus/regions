@@ -95,7 +95,7 @@
                     aa-refresh-zones="dialogZone"
                     js-before="AjaxAnywhere.dynamicParams=regionWidget.getCurrentState();"
                 >
-                    <i class="fa fa-download"></i>
+                    <span class="fa fa-download"></span>
                     <g:message code="download.btn.label" />
                 </button>
             </div>
