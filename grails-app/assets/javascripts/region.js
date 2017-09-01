@@ -407,7 +407,7 @@ function RegionWidget(config) {
         },
 
         showMoreSpecies: function() {
-            $('#showMoreSpeciesButton').html('<i class="fa fa-cog fa-spin"></i>');
+            $('#showMoreSpeciesButton').html('<span class="fa fa-cog fa-spin"></span>');
             AjaxAnywhere.dynamicParams = this.getCurrentState();
         },
 

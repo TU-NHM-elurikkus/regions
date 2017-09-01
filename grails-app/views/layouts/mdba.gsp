@@ -138,22 +138,22 @@
                         <div id="smlinks">
                             <a href="https://twitter.com/MD_Basin_Auth">
                                 <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-                                    <i class="fa fa-twitter fa-stack-1x"></i>
+                                    <span class="fa fa-circle fa-stack-2x fa-inverse"></span>
+                                    <span class="fa fa-twitter fa-stack-1x"></span>
                                 </span>
                                 <%--<g:img dir="/images" file="twitter-icon.png" alt="MDBA on Twitter" />--%>
                             </a>
                             <a href="https://www.youtube.com/user/mdbamedia">
                                 <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-                                    <i class="fa fa-youtube fa-stack-1x"></i>
+                                    <span class="fa fa-circle fa-stack-2x fa-inverse"></span>
+                                    <span class="fa fa-youtube fa-stack-1x"></span>
                                 </span>
                                 <%--<g:img dir="/images" file="youtube-icon.png" alt="MDBA on Youtube" />--%>
                             </a>
                             <a href="https://www.facebook.com/MDBAuth">
                                 <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-                                    <i class="fa fa-facebook fa-stack-1x"></i>
+                                    <span class="fa fa-circle fa-stack-2x fa-inverse"></span>
+                                    <span class="fa fa-facebook fa-stack-1x"></span>
                                 </span>
                                 <%--<g:img dir="/images" file="facebook-icon.png" alt="MDBA on Facebook" />--%>
                             </a>

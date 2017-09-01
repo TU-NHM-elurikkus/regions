@@ -32,7 +32,7 @@
                 title="${message(code: 'species.results.speciesProfile.title')}"
                 class="species-list-button"
             >
-                <i class="fa fa-tag"></i>
+                <span class="fa fa-tag"></span>
                 <g:message code="species.results.speciesProfile" />
             </a>
 
@@ -42,7 +42,7 @@
                title="${message(code: 'species.results.recordList.title')}"
                class="species-list-button"
             >
-                <i class="fa fa-list"></i>
+                <span class="fa fa-list"></span>
                 <g:message code="species.results.recordList" />
             </a>
         </td>

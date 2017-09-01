@@ -37,7 +37,7 @@
                         id="emblems"
                         href="${g.createLink(controller: 'region', action: 'showEmblems', params: [regionType: region.type, regionName: region.name, regionPid: region.pid])}"
                     >
-                        <i class="fa fa-cog fa-spin fa-2x"></i>
+                        <span class="fa fa-cog fa-spin fa-2x"></span>
                     </aa:zone>
                 </g:if>
 
@@ -62,12 +62,12 @@
 
             <div class="page-header-links">
                 <a href="${g.createLink(uri: '/')}" class="page-header-links__link">
-                    <i class="fa fa-arrow-left"></i>
+                    <span class="fa fa-arrow-left"></span>
                     <g:message code="region.navBar.regions" />
                 </a>
 
                 <div id="viewRecords" class="erk-link page-header-links__link">
-                    <i class="fa fa-list"></i>
+                    <span class="fa fa-list"></span>
                     <g:message code="region.navBar.viewRecords" />
                     <span class="totalRecords"></span>
                 </div>
@@ -80,14 +80,14 @@
                     <li class="nav-item">
                         <a id="species-tab" data-toggle="tab" href="#species-tab-content" class="nav-link active">
                             <g:message code="region.speciesTab.header.table" />
-                            <i class="fa fa-cog fa-spin fa-lg hidden"></i>
+                            <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a id="taxonomy-tab" data-toggle="tab" href="#taxonomy-tab-content" class="nav-link">
                             <g:message code="region.speciesTab.header.chart" />
-                            <i class="fa fa-cog fa-spin fa-lg hidden"></i>
+                            <span class="fa fa-cog fa-spin fa-lg hidden"></span>
                         </a>
                     </li>
                 </ul>
@@ -117,7 +117,7 @@
                                     <tbody id="groupsZone" tagName="tbody">
                                         <tr class="spinner">
                                             <td class="spinner text-center">
-                                                <i class="fa fa-cog fa-spin fa-2x"></i>
+                                                <span class="fa fa-cog fa-spin fa-2x"></span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -141,7 +141,7 @@
                                     <aa:zone id="speciesZone" tag="tbody" jsAfter="regionWidget.speciesLoaded();">
                                         <tr class="spinner">
                                             <td colspan="3" class="spinner text-center">
-                                                <i class="fa fa-cog fa-spin fa-2x"></i>
+                                                <span class="fa fa-cog fa-spin fa-2x"></span>
                                             </td>
                                         </tr>
                                     </aa:zone>
@@ -152,7 +152,7 @@
 
                     <div class="tab-pane" id="taxonomy-tab-content">
                         <div id="charts">
-                            <i class="spinner fa fa-cog fa-spin fa-3x"></i>
+                            <span class="spinner fa fa-cog fa-spin fa-3x"></span>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
 
             <div class="col-md-7">
                 <div>
-                    <i class="fa fa-info-circle fa-lg"></i>
+                    <span class="fa fa-info-circle fa-lg"></span>
                     <g:message code="region.playBack.desc" />
 
                     <span id="exploreButtons">
@@ -170,7 +170,7 @@
                             aa-js-before="regionWidget.showDownloadDialog();"
                         >
                             <button class="erk-button erk-button--light">
-                                <i class="fa fa-download"></i>
+                                <span class="fa fa-download"></span>
                                 <g:message code="download.btn.label" />
                             </button>
                         </a>
@@ -246,7 +246,7 @@
                         </div>
 
                         <div class="modal-body text-center">
-                            <i class="fa fa-cog fa-spin fa-2x"></i>
+                            <span class="fa fa-cog fa-spin fa-2x"></span>
                         </div>
                     </aa:zone>
                 </div>

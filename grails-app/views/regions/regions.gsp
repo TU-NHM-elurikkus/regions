@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-md-5">
                 <p style="font-size:15px;padding-bottom:0;">
-                    <i class="fa fa-info-circle"></i>
+                    <span class="fa fa-info-circle"></span>
                     <g:message code="regions.regionsList.help" />
                 </p>
 
@@ -58,12 +58,12 @@
             <div class="col-md-7" id="rightPanel">
                 <div class="top-map-buttons">
                     <span id="click-info">
-                        <i class="fa fa-info-circle"></i>
+                        <span class="fa fa-info-circle"></span>
                         <g:message code="regions.map.help" />
                     </span>
 
                     <button id="reset-map" class="erk-button erk-button--light">
-                        <i class="fa fa-refresh"></i>
+                        <span class="fa fa-refresh"></span>
                         <g:message code="regions.map.btn.reset" />
                     </button>
                 </div>
