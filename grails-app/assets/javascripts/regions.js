@@ -66,7 +66,7 @@
      * Removes region-specific info from the map title. Replaces with generic text.
      */
     function hideInfo() {
-        $('#click-info').html('Click on the map to select an area.');
+        $('#click-info').html('');
     }
 
     /**
@@ -390,12 +390,11 @@
                 var regionName = this.name;
 
                 var html =
-                    '<a class="btn erk-button erk-button--dark" href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
+                    '<a class="erk-button erk-button-link erk-button--dark" href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
                         regionName +
                     '</a>' +
                     '\n' +
                     '<button id="zoomTo" class="erk-button erk-button--light">' +
-                        '<span class="fa fa-search-plus"></span>\n' +
                         'Zoom to region' +
                     '</button>';
 
