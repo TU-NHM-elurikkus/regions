@@ -56,21 +56,25 @@
             </div>
 
             <div class="col-md-7" id="rightPanel">
-                <div class="vertical-block">
-                    <span id="click-info">
+                <div class="row">
+                    <div class="col vertical-block">
                         <span class="fa fa-info-circle"></span>
                         <g:message code="regions.map.help" />
-                    </span>
 
-                    <button id="reset-map" class="erk-button erk-button--light float-right">
-                        <span class="fa fa-refresh"></span>
-                        <g:message code="regions.map.btn.reset" />
-                    </button>
+                        <span class="float-right">
+                            <span id="click-info">
+                            </span>
+
+                            <button id="reset-map" class="erk-button erk-button--light">
+                                <g:message code="regions.map.btn.reset" />
+                            </button>
+                        </span>
+                    </div>
                 </div>
 
                 <div id="map">
                     <div id="map-container">
-                        <div id="map_canvas"></div>
+                        <div id="map-canvas"></div>
                     </div>
 
                     <div id="controls">
@@ -89,7 +93,7 @@
 
                         <p id="regionOpacity"></p>
                     </div>
-                </div>  <%-- close map --%>
+                </div>
             </div>
         </div>
 
@@ -110,7 +114,7 @@
                     accordionPanelMaxHeight: '${grailsApplication.config.accordion.panel.maxHeight}',
                     mapBounds: JSON.parse('${grailsApplication.config.map.bounds?:[]}'),
                     mapHeight: '${grailsApplication.config.map.height}',
-                    mapContainer: 'map_canvas',
+                    mapContainer: 'map-canvas',
                     defaultRegionType: "${grailsApplication.config.default.regionType}",
                     defaultRegion: "${grailsApplication.config.default.region}",
                     showQueryContextLayer: ${grailsApplication.config.layers.showQueryContext},
