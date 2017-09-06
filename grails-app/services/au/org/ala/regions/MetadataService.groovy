@@ -29,7 +29,21 @@ class MetadataService {
      */
     static regionsMetadataCache = null
 
-    static logReasonCache = loadLoggerReasons()
+    static defaultLoggerReasons = [
+        0: "conservation management/planning",
+        1: "biosecurity management",
+        2: "environmental impact, site assessment",
+        3: "education",
+        4: "scientific research",
+        5: "collection management",
+        6: "other",
+        7: "ecological research",
+        8: "systematic research",
+        9: "other scientific research",
+        10: "testing"
+    ]
+
+    static logReasonCache = defaultLoggerReasons
 
     /* cache management */
     def clearCaches = {
@@ -489,7 +503,8 @@ class MetadataService {
         String url = "${Holders.config.logger.baseURL}/service/logger/reasons"
         def conn = new URL(url).openConnection()
         def map = [:]
-        try{
+
+        try {
             conn.setConnectTimeout(5000)
             conn.setReadTimeout(5000)
             def json = conn.content.text
@@ -497,7 +512,7 @@ class MetadataService {
             result.each{
                 map[it.id] = it.name
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             //load the default
             return defaultLoggerReasons
         }
@@ -792,20 +807,6 @@ class MetadataService {
         }
         return regionMetadata(regionType, regionName)?.pid
     }
-
-    static defaultLoggerReasons = [
-        0: "conservation management/planning",
-        1: "biosecurity management",
-        2: "environmental impact, site assessment",
-        3: "education",
-        4: "scientific research",
-        5: "collection management",
-        6: "other",
-        7: "ecological research",
-        8: "systematic research",
-        9: "other scientific research",
-        10: "testing"
-    ]
 
     def getLayerNameForFid(String fid) {
         def layerName = null
