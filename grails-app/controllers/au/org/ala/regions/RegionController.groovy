@@ -57,10 +57,12 @@ class RegionController {
         DownloadParams downloadParams = params.downloadParams
         String downloadUrl = params.downloadUrl
         Boolean showHubData = params.boolean('showHubData', false)
-        downloadParams = downloadParams?:new DownloadParams(email: params.email)
+        def downloadReasons = MetadataService.logReasonCache
+        downloadParams = downloadParams ?: new DownloadParams(email: params.email)
 
         render template: 'downloadRecordsDialog', model: [
-                downloadParams: downloadParams, downloadReasons:MetadataService.logReasonCache,
+                downloadParams: downloadParams,
+                downloadReasons: downloadReasons,
                 downloadOptions: MetadataService.DOWNLOAD_OPTIONS,
                 downloadUrl: downloadUrl,
                 downloadRecordsUrl: URLEncoder.encode(metadataService.buildDownloadRecordsUrlPrefix(0, params.regionFid, params.regionType, params.regionName, params.regionPid, params.subgroup?:params.group, params.subgroup ? true : false, params.from, params.to, showHubData), "UTF-8"),
