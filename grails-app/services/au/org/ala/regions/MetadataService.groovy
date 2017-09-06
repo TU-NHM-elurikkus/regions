@@ -36,7 +36,7 @@ class MetadataService {
         regionsMetadataCache = null
         regionCache = [:]
 
-        logReasonCache=loadLoggerReasons()
+        logReasonCache = loadLoggerReasons()
         layersServiceFields = [:]
         layersServiceLayers = [:]
         menu = null
@@ -50,8 +50,8 @@ class MetadataService {
     AuthService authService
 
     static final Map DOWNLOAD_OPTIONS = [
-            0: 'Download All Records',
-            1: 'Download Species Checklist'
+        0: 'Download All Records',
+        1: 'Download Species Checklist'
     ]
 
 
@@ -182,6 +182,7 @@ class MetadataService {
 
         return subgroups
     }
+
     /**
      *
      * @param regionFid
@@ -484,13 +485,13 @@ class MetadataService {
         "occurrence_year:[${from} TO ${to}]"
     }
 
-    static def loadLoggerReasons(){
+    static def loadLoggerReasons() {
         String url = "${Holders.config.logger.baseURL}/service/logger/reasons"
         def conn = new URL(url).openConnection()
         def map = [:]
         try{
-            conn.setConnectTimeout(10000)
-            conn.setReadTimeout(50000)
+            conn.setConnectTimeout(5000)
+            conn.setReadTimeout(5000)
             def json = conn.content.text
             def result = JSON.parse(json)
             result.each{
@@ -792,18 +793,18 @@ class MetadataService {
         return regionMetadata(regionType, regionName)?.pid
     }
 
-    static defaultLoggerReasons =[
-            0: "conservation management/planning",
-            1: "biosecurity management",
-            2: "environmental impact, site assessment",
-            3: "education",
-            4: "scientific research",
-            5: "collection management",
-            6: "other",
-            7: "ecological research",
-            8: "systematic research",
-            9: "other scientific research",
-            10: "testing"
+    static defaultLoggerReasons = [
+        0: "conservation management/planning",
+        1: "biosecurity management",
+        2: "environmental impact, site assessment",
+        3: "education",
+        4: "scientific research",
+        5: "collection management",
+        6: "other",
+        7: "ecological research",
+        8: "systematic research",
+        9: "other scientific research",
+        10: "testing"
     ]
 
     def getLayerNameForFid(String fid) {
