@@ -572,8 +572,9 @@ var taxonomyChart = {
         if($recordsLink.length == 0) {
             recordsLinkDiv =
                 '<div class="erk-link" id="recordsLink">' +
+                    '<span class="fa fa-list"></span>' +
                     'View records' +  // TODO: Translate
-                '</div>'
+                '</div>';
             $recordsLink = $(recordsLinkDiv).appendTo($outerContainer);  // create it
             $recordsLink.css('position', 'relative').css('top', '-75px');
             $recordsLink.click(function () {
@@ -898,6 +899,7 @@ function urlConcat(base, context) {
 * Add commas to number strings
 \************************************************************/
 function addCommas(nStr) {
+    nStr += '';
     x = nStr.split('.');
     x1 = x[0];
     x2 = x.length > 1 ? '.' + x[1] : '';
