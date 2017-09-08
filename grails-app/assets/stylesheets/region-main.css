@@ -44,7 +44,6 @@
     display: none;
 }
 
-
 /**
  *  Regions page
  */
@@ -118,41 +117,43 @@ li.regionLink:hover {
     height: 400px;
 }
 
-#groups, #species {
+#groups,
+#species {
     margin-bottom: .8em;
 }
 
-#groups thead, #species thead {
+#groups thead,
+#species thead {
     height: 30px;
     border-bottom: 1px solid #dddddd;
 }
 
-#groups thead tr, #species thead tr {
+#groups thead tr,
+#species thead tr {
     position: relative;
     width: 100%;
 }
 
-#groups tbody, #species tbody {
+#groups tbody,
+#species tbody {
     height: 530px;
     max-height: 530px;
     overflow-y: auto;
 }
 
-#groups tbody td, #species tbody td {
+#groups tbody td,
+#species tbody td {
     border: 0;
 }
 
-#groups td, #species td {
+#groups td,
+#species td {
     padding: 1px 0.5em 1px 0;
 }
 
-#groups tbody .spinner, #species tbody .spinner {
+tbody .spinner {
     display: block;
     height: 99.5%;
-}
-
-#groups tbody td.spinner i, #species tbody td.spinner i {
-    margin-top: 230px !important;
 }
 
 #groups {
@@ -187,13 +188,15 @@ li.regionLink:hover {
     color: white;
 }
 
-tr.groupSelected, tr.groupSelected:hover td {
+tr.groupSelected,
+tr.groupSelected:hover td {
     color: white;
     background-color: #3dc8d3 !important;
     font-weight: bold;
 }
 
-tr.speciesSelected, tr.speciesSelected:hover td {
+tr.speciesSelected,
+tr.speciesSelected:hover td {
     color: white;
     background-color: #3dc8d3 !important;
     font-weight: bold;
@@ -247,7 +250,8 @@ tr.speciesSelected, tr.speciesSelected:hover td {
     background-size: 26px 26px;
 }
 
-#playButton.selected, #playButton:hover {
+#playButton.selected,
+#playButton:hover {
     display: inline-block;
     background: url("play-on.png") no-repeat;
     background-size: 26px 26px;
@@ -259,7 +263,8 @@ tr.speciesSelected, tr.speciesSelected:hover td {
     background-size: 26px 26px;
 }
 
-#pauseButton.selected, #pauseButton:hover {
+#pauseButton.selected,
+#pauseButton:hover {
     display: inline-block;
     background: url("pause-on.png") no-repeat;
     background-size: 26px 26px;
@@ -271,7 +276,8 @@ tr.speciesSelected, tr.speciesSelected:hover td {
     background-size: 26px 26px;
 }
 
-#stopButton.selected, #stopButton:hover {
+#stopButton.selected,
+#stopButton:hover {
     display: inline-block;
     background: url("stop-on.png") no-repeat;
     background-size: 26px 26px;
@@ -283,7 +289,8 @@ tr.speciesSelected, tr.speciesSelected:hover td {
     background-size: 26px 26px;
 }
 
-#resetButton.selected, #resetButton:hover {
+#resetButton.selected,
+#resetButton:hover {
     display: inline-block;
     background: url("reset-on.png") no-repeat;
     background-size: 26px 26px;
@@ -302,11 +309,6 @@ tr.speciesSelected, tr.speciesSelected:hover td {
 #charts {
     overflow: hidden;
     text-align: center;
-}
-
-/* XXX XXX XXX */
-#charts i.spinner {
-    margin-top: 150px;
 }
 
 #taxa {
