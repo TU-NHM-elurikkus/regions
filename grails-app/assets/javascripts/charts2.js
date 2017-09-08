@@ -168,7 +168,7 @@ function cleanUp(chartOptions) {
 \*********************************************************************/
 function drawFacetCharts(data, chartOptions) {
     // check that we have results
-    if(!data.length || !data.totalRecords || !data.totalRecords) {
+    if(data.length === 0 || !data.totalRecords) {
         return;
     }
 
@@ -460,7 +460,7 @@ var taxonomyChart = {
             },
             success: function(data) {
                 // check for errors
-                if(data != undefined && data.taxa.length > 0) {
+                if(data && data.taxa.length !== 0) {
                     // draw the chart
                     thisChart.draw(data);
                 } else {
@@ -479,7 +479,7 @@ var taxonomyChart = {
         // create the data table
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn('string', chartLabels[name] ? chartLabels[name] : name);
-        dataTable.addColumn('number','records');
+        dataTable.addColumn('number', 'records');
         $.each(data.taxa, function(i, obj) {
             dataTable.addRow([obj.label, obj.count]);
         });
@@ -495,8 +495,8 @@ var taxonomyChart = {
         // create the outer div that will contain the chart and the additional links
         var $outerContainer = $('#taxa');
         if(!$outerContainer.length) {
-            $outerContainer = $('<div id="taxa"></div>'); // create it
-            $outerContainer.css('margin-bottom','-50px');
+            $outerContainer = $('<div id="taxa"></div>');  // create it
+            $outerContainer.css('margin-bottom', '-50px');
             var chartsDiv = $('div#' + (this.chartOptions.targetDivId ? this.chartOptions.targetDivId : 'charts'));
             // append it
             chartsDiv.prepend($outerContainer);
@@ -528,16 +528,17 @@ var taxonomyChart = {
             $('#taxaChart').css('cursor', 'default');
         });
 
+        var $linksDiv = $('<div></div>');
+
         // draw the back button / instructions
         var $backLink = $('#backLink');
         if(!$backLink.length) {
-            varbackLinkDiv =
+            $backLink = $(
                 '<div class="erk-link" id="backLink">' +
                     '&laquo; ' +
                     'Previous rank' +  // TODO: Translate
-                '</div>'
-            $backLink = $(varbackLinkDiv).appendTo($outerContainer);  // create it
-            $backLink.css('position', 'relative').css('top', '-75px');
+                '</div>');
+            $backLink.css('position', 'relative').css('top', '-45px');
             $backLink.click(function() {
                 // only act if link was real
                 if(!$backLink.hasClass('erk-link')) {
@@ -556,12 +557,12 @@ var taxonomyChart = {
                 // redraw chart
                 thisChart.load();
             });
+            $backLink.appendTo($outerContainer);
         }
         if(this.hasState()) {
             // show the prev link
-            $backLink.html('&laquo; Previous rank').addClass('erk-link');  // TODO: Translate
-        }
-        else {
+            $backLink.html('&laquo;Previous rank').addClass('erk-link');  // TODO: Translate
+        } else {
             // show the instruction
             // TODO: Translate
             $backLink.html('Click a slice to drill into the next taxonomic level.').removeClass('erk-link');
@@ -570,23 +571,26 @@ var taxonomyChart = {
         // draw records link
         var $recordsLink = $('#recordsLink');
         if($recordsLink.length == 0) {
-            recordsLinkDiv =
+            $recordsLink = $(
                 '<div class="erk-link" id="recordsLink">' +
                     '<span class="fa fa-list"></span>' +
-                    'View records' +  // TODO: Translate
-                '</div>';
-            $recordsLink = $(recordsLinkDiv).appendTo($outerContainer);  // create it
-            $recordsLink.css('position', 'relative').css('top', '-75px');
+                    '&nbsp;' +
+                    '<span id="recordsLink-text">' +
+                        'View records' +  // TODO: Translate
+                    '</span>'+
+                '</div>');
+            $recordsLink.css('position', 'relative').css('top', '-45px');
             $recordsLink.click(function () {
                 thisChart.showRecords();  // called explicitly so we have the correct 'this' context
             });
+            $recordsLink.appendTo($outerContainer);
         }
 
         // set link text
         if(this.hasState()) {
-            $recordsLink.html('View records for ' + this.rank + ' ' + this.name);  // TODO: Translate
+            $('#recordsLink-text').text('View records for ' + this.rank + ' ' + this.name);  // TODO: Translate
         } else {
-            $recordsLink.html('<span class="fa fa-list"></span> View records');  // TODO: Translate
+            $('#recordsLink-text').text('View records');  // TODO: Translate
         }
 
         // setup a click handler - if requested
@@ -623,7 +627,7 @@ var taxonomyChart = {
             });
         }
 
-        $('#charts span').hide();
+        $('#charts span.fa-cog').hide();
     },
 
     showRecords: function () {
