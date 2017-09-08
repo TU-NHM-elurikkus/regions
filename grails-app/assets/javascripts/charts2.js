@@ -528,8 +528,6 @@ var taxonomyChart = {
             $('#taxaChart').css('cursor', 'default');
         });
 
-        var $linksDiv = $('<div></div>');
-
         // draw the back button / instructions
         var $backLink = $('#backLink');
         if(!$backLink.length) {
@@ -570,7 +568,7 @@ var taxonomyChart = {
 
         // draw records link
         var $recordsLink = $('#recordsLink');
-        if($recordsLink.length == 0) {
+        if($recordsLink.length === 0) {
             $recordsLink = $(
                 '<div class="erk-link" id="recordsLink">' +
                     '<span class="fa fa-list"></span>' +
