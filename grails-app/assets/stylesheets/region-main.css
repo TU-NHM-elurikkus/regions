@@ -44,7 +44,6 @@
     display: none;
 }
 
-
 /**
  *  Regions page
  */
@@ -152,15 +151,9 @@ li.regionLink:hover {
     padding: 1px 0.5em 1px 0;
 }
 
-#groups tbody .spinner,
-#species tbody .spinner {
+tbody .spinner {
     display: block;
     height: 99.5%;
-}
-
-#groups tbody td.spinner i,
-#species tbody td.spinner i {
-    margin-top: 230px !important;
 }
 
 #groups {
@@ -316,11 +309,6 @@ tr.speciesSelected:hover td {
 #charts {
     overflow: hidden;
     text-align: center;
-}
-
-/* XXX XXX XXX */
-#charts i.spinner {
-    margin-top: 150px;
 }
 
 #taxa {
