@@ -1,4 +1,5 @@
 //= require he-0.5.0
+//= require common
 
 (function(windows) {
 

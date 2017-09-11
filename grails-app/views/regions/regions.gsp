@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="${grailsApplication.config.skin.layout ?: 'elurikkus'}" />
+        <meta name="layout" content="elurikkus" />
 
         <title>
             <g:message code="regions.header.title" />
@@ -98,7 +98,6 @@
         </div>
 
         <script>
-            var altMap = true;
             $(function() {
                 $('#dev-notes').dialog({autoOpen: false, show: 'blind', hide: 'blind'});
                 $('#dev-notes-link').click(function() {

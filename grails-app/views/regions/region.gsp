@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="${grailsApplication.config.skin.layout ?: 'main'}" />
+        <meta name="layout" content="elurikkus" />
 
         <title>
             ${region.name}
