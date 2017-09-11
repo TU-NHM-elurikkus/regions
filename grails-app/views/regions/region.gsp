@@ -4,7 +4,7 @@
         <meta name="layout" content="${grailsApplication.config.skin.layout ?: 'main'}" />
 
         <title>
-            ${region.name} | ${grailsApplication.config.orgNameLong}
+            ${region.name}
         </title>
 
         <asset:javascript src="region.js" />
