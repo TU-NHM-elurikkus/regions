@@ -4,7 +4,7 @@
         <meta name="layout" content="${grailsApplication.config.skin.layout ?: 'elurikkus'}" />
 
         <title>
-            <g:message code="regions.header.title" /> | ${grailsApplication.config.orgNameLong}
+            <g:message code="regions.header.title" />
         </title>
 
         <%-- Get regions metadata --%>
@@ -23,7 +23,7 @@
             </g:if>
 
             <h1 class="page-header__title">
-                <g:message code="regions.body.title.label" />
+                <g:message code="regions.header.title" />
             </h1>
 
             <div class="page-header__subtitle">
