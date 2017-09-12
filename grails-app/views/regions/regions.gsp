@@ -32,7 +32,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-lg-5">
                 <div class="vertical-block">
                     <span class="fa fa-info-circle"></span>
                     <g:message code="regions.regionsList.help" />
@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="col-md-7" id="rightPanel">
+            <div class="col-lg-7" id="rightPanel">
                 <div class="row">
                     <div class="col vertical-block">
                         <span class="fa fa-info-circle"></span>

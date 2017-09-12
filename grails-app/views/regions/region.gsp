@@ -75,7 +75,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-lg-5">
                 <div class="vertical-block">
                     <span class="fa fa-info-circle"></span>
                     <g:message code="region.map.info.filterspecies" />
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-lg-7">
                 <div class="vertical-block">
                     <span>
                         <span class="fa fa-info-circle"></span>
