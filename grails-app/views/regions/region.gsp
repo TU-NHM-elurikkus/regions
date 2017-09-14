@@ -65,12 +65,6 @@
                     <span class="fa fa-arrow-left"></span>
                     <g:message code="region.navBar.regions" />
                 </a>
-
-                <div id="viewRecords" class="erk-link page-header-links__link">
-                    <span class="fa fa-list"></span>
-                    <g:message code="region.navBar.viewRecords" />
-                    <span class="totalRecords"></span>
-                </div>
             </div>
         </div>
 
@@ -172,17 +166,24 @@
                         <g:message code="region.playBack.desc" />
                     </span>
 
-                    <a
-                        href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
-                        aa-refresh-zones="dialogZone"
-                        aa-js-before="regionWidget.showDownloadDialog();"
-                        class="float-right"
-                    >
-                        <button class="erk-button erk-button--light">
-                            <span class="fa fa-download"></span>
-                            <g:message code="download.btn.label" />
+                    <div class="float-right">
+                        <button id="viewRecords" class="erk-button erk-button--light">
+                            <span class="fa fa-list"></span>
+                            <g:message code="species.results.recordList" />
+                            <span class="totalRecords"></span>
                         </button>
-                    </a>
+
+                        <a
+                            href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
+                            aa-refresh-zones="dialogZone"
+                            aa-js-before="regionWidget.showDownloadDialog();"
+                        >
+                            <button class="erk-button erk-button--light">
+                                <span class="fa fa-download"></span>
+                                <g:message code="download.btn.label" />
+                            </button>
+                        </a>
+                    </div>
                 </div>
 
                 <div id="region-map"></div>
