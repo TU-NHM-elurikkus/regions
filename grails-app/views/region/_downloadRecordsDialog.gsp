@@ -1,29 +1,36 @@
-<div id="downloadRecordsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+    id="downloadRecordsModal"
+    class="modal hide fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+>
     <aa:zone id="dialogZone">
-        <g:form controller="region" action="download" params="[regionType : region.type, regionName : region.regionName, regionFid : region.regionFid, regionPid : region.regionPid]" class="form-horizontal">
+        <g:form
+            class="form-horizontal"
+            controller="region"
+            action="download"
+            params="[regionType: region.type, regionName: region.regionName, regionFid: region.regionFid, regionPid: region.regionPid]"
+        >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     ×
                 </button>
                 <h3 id="myModalLabel">
-                    Download Records
+                    <g:message code="download.title" />
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
                     <g:message code="download.termsOfUse.desc.01" />
-                    <a href="https://plutof.ut.ee/#/privacy-policy">
+                    <a href="https://plutof.ut.ee/#/privacy-policy" target="_blank">
                         <g:message code="download.termsOfUse.desc.02" />
                     </a>
                     <g:message code="download.termsOfUse.desc.03" />.
-                </p>
-
-                <br />
-
-                <p>
-                    <h4>
-                        <g:message code="download.form.title" />:
-                    </h4>
+                    <br />
+                    <br />
+                    <g:message code="download.form.title" />:
                 </p>
 
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'email', 'error')}">
@@ -34,6 +41,8 @@
                         <g:textField id="email" name="email" value="${downloadParams.email}"/>
                     </div>
                 </div>
+
+                <br />
 
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'fileName', 'error')}">
                     <label class="control-label" for="fileName">
@@ -48,10 +57,13 @@
                     </div>
                 </div>
 
+                <br />
+
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'downloadReason', 'error')}">
                     <label class="control-label" for="downloadReason">
                         <g:message code="download.form.field.reason.label" /> *
                     </label>
+
                     <div class="controls">
                         <g:select
                             id="downloadReason"
@@ -66,22 +78,27 @@
                     </div>
                 </div>
 
+                <br />
+
                 <div class="control-group ${g.hasErrors(bean: downloadParams, field: 'downloadOption', 'error')}">
                     <label class="control-label" for="downloadOption">
                         <g:message code="download.form.field.downloadType.label" /> *
                     </label>
-                    <div class="controls">
-                        <g:select
-                            id="downloadOption"
-                            name="downloadOption"
-                            value="${downloadParams.downloadOption}"
-                            noSelection="${['': message(code: 'download.form.field.downloadType.placeHolder')]}"
-                            from="${downloadOptions}"
-                            optionKey="key"
-                            optionValue="${{opt -> message(code: "download.form.field.downloadType.option.${opt.key}", default: "${opt.key}")}}"
-                        >
-                        </g:select>
-                    </div>
+
+                    <g:each in="${downloadOptions}">
+                        <div id="download-types">
+                            <label class="erk-radio-label">
+                                <input
+                                    type="radio"
+                                    class="erk-radio-input"
+                                    name="download-types"
+                                    value="${it.key}"
+                                    ${it.key==0 ? 'checked' : ''}
+                                >
+                                &nbsp;<g:message code="download.form.field.downloadType.option.${it.key}" default="${it.value}" />
+                            </label>
+                        </div>
+                    </g:each>
                 </div>
             </div>
 
@@ -110,8 +127,8 @@
                 $("#downloadStart").unbind("click").bind("click",function(e) {
                     e.preventDefault();
                     var downloadUrl;
-                    var downloadReason = $("#downloadReason option:selected").val()
-                    var downloadOption = $("#downloadOption option:selected").val()
+                    var downloadReason = $("#downloadReason option:selected").val();
+                    var downloadOption = $('#download-types input[name=download-types]:checked').val();
                     var commonData = "&email=" + $("#email").val() +
                         "&reasonTypeId=" + $("#downloadReason").val() +
                         "&file=" + $("#fileName").val();
@@ -120,10 +137,7 @@
                         if (downloadOption == "1") {
                             downloadUrl = decodeURIComponent('${downloadChecklistUrl}') + commonData;
                             window.location.href = downloadUrl;
-                        } else if (downloadOption == "2") {
-                            downloadUrl = decodeURIComponent('${downloadFieldguideUrl}') + commonData;
-                            window.open(downloadUrl);
-                        } else { // (downloadOption == "0")
+                        } else {  // (downloadOption == "0")
                             downloadUrl = decodeURIComponent('${downloadRecordsUrl}') +
                                 commonData +  // for some parsing reasons, common must be in the middle...
                                 "&extra=dataResourceUid,dataResourceName.p";
@@ -137,30 +151,27 @@
 
             function validateForm() {
                 var isValid = true;
-                var downloadOption = $("#downloadOption option:selected").val()
                 var downloadReason = $("#downloadReason option:selected").val();
                 var email = $("#email").val()
 
-                if (!downloadOption) {
-                    $("#downloadOption").focus();
-                    $("label[for='downloadOption']").css("color", "red");
-                    isValid = false;
-                }
                 if (!downloadReason) {
                     $("#downloadReason").focus();
                     $("label[for='downloadReason']").css("color", "red");
                     isValid = false;
+                } else {
+                    $("label[for='downloadReason']").css("color", "inherit");
                 }
+
                 if (!email) {
                     $("#email").focus();
                     $("label[for='email']").css("color", "red");
                     isValid = false;
+                } else {
+                    $("label[for='email']").css("color", "inherit");
                 }
 
                 return isValid;
             }
-
-
         </script>
     </aa:zone>
 </div>
