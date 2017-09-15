@@ -167,7 +167,7 @@
                     </span>
 
                     <div class="float-right">
-                        <button id="viewRecords" class="erk-button erk-button--light">
+                        <button id="viewRecords" class="erk-button erk-button--dark">
                             <span class="fa fa-list"></span>
                             <g:message code="species.results.recordList" />
                             <span class="totalRecords"></span>
