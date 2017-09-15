@@ -67,7 +67,6 @@ class RegionController {
                 downloadUrl: downloadUrl,
                 downloadRecordsUrl: URLEncoder.encode(metadataService.buildDownloadRecordsUrlPrefix(0, params.regionFid, params.regionType, params.regionName, params.regionPid, params.subgroup?:params.group, params.subgroup ? true : false, params.from, params.to, showHubData), "UTF-8"),
                 downloadChecklistUrl: URLEncoder.encode(metadataService.buildDownloadRecordsUrlPrefix(1, params.regionFid, params.regionType, params.regionName, params.regionPid, params.subgroup?:params.group, params.subgroup ? true : false, params.from, params.to, showHubData), "UTF-8"),
-                downloadFieldguideUrl: URLEncoder.encode(metadataService.buildDownloadRecordsUrlPrefix(2, params.regionFid, params.regionType, params.regionName, params.regionPid, params.subgroup?:params.group, params.subgroup ? true : false, params.from, params.to, showHubData), "UTF-8"),
                 region: [regionType: params.regionType, regionName: params.regionName, regionFid: params.regionFid, regionPid: params.regionPid]
         ]
     }

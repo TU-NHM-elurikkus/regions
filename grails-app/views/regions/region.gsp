@@ -241,8 +241,15 @@
             </div>
         </div>
 
-        <div id="downloadRecordsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div
+            id="downloadRecordsModal"
+            class="modal hide fade"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <aa:zone id="dialogZone">
                         <div class="modal-header">
