@@ -128,7 +128,7 @@
                     e.preventDefault();
                     var downloadUrl;
                     var downloadReason = $("#downloadReason option:selected").val();
-                    var downloadOption = $('#download-types input[name=download-types]:checked').val()
+                    var downloadOption = $('#download-types input[name=download-types]:checked').val();
                     var commonData = "&email=" + $("#email").val() +
                         "&reasonTypeId=" + $("#downloadReason").val() +
                         "&file=" + $("#fileName").val();
