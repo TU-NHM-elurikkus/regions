@@ -253,9 +253,6 @@
                 <div class="modal-content">
                     <aa:zone id="dialogZone">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                ×
-                            </button>
                             <h3 id="myModalLabel">
                                 <g:message code="download.title" />
                             </h3>
