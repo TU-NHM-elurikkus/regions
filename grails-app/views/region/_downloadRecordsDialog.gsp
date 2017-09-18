@@ -14,13 +14,11 @@
             params="[regionType: region.type, regionName: region.regionName, regionFid: region.regionFid, regionPid: region.regionPid]"
         >
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    ×
-                </button>
                 <h3 id="myModalLabel">
                     <g:message code="download.title" />
                 </h3>
             </div>
+
             <div class="modal-body">
                 <p>
                     <g:message code="download.termsOfUse.desc.01" />
@@ -86,7 +84,7 @@
                     </label>
 
                     <g:each in="${downloadOptions}">
-                        <div id="download-types">
+                        <div>
                             <label class="erk-radio-label">
                                 <input
                                     type="radio"
@@ -128,7 +126,7 @@
                     e.preventDefault();
                     var downloadUrl;
                     var downloadReason = $("#downloadReason option:selected").val();
-                    var downloadOption = $('#download-types input[name=download-types]:checked').val();
+                    var downloadOption = $('input[name=download-types]:checked').val();
                     var commonData = "&email=" + $("#email").val() +
                         "&reasonTypeId=" + $("#downloadReason").val() +
                         "&file=" + $("#fileName").val();
