@@ -395,7 +395,7 @@
                 $('#zoomTo').parent().removeClass('hidden');
 
                 if(this.other && subregion) {
-                    var $subRegion = $('#extra')
+                    var $subRegion = $('#extra');
                     $subRegion.html('(' + subregion + ')');
                     $subRegion.parent().removeClass('hidden');
                 }

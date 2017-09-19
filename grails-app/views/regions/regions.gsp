@@ -76,7 +76,7 @@
                                     id="show-region"
                                     class="erk-button erk-button-link erk-button--dark"
                                     href=""
-                                    title="Go to region"
+                                    title="${message(code: 'regions.map.showRegion')}"
                                 ></a>
                             </div>
 
