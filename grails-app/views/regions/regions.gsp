@@ -32,12 +32,18 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-5">
-                <div class="vertical-block">
-                    <span class="fa fa-info-circle"></span>
-                    <g:message code="regions.regionsList.help" />
+            <%-- Region selection info --%>
+            <div class="col-sm-12 col-md-6 col-lg-5">
+                <div class="column-reverse">
+                    <p>
+                        <span class="fa fa-info-circle"></span>
+                        <g:message code="regions.regionsList.help" />
+                    </p>
                 </div>
+            </div>
 
+            <%-- Region selection menu --%>
+            <div class="col-sm-12 col-md-6 col-lg-5 order-md-3">
                 <div id="accordion">
                     <g:each in="${menu}" var="item">
                         <h2>
@@ -48,30 +54,64 @@
 
                         <div id="${item.layerName}" layer="${item.label}">
                             <span class="loading">
-                                <g:message code="regions.regionsList.loading" />...
+                                <g:message code="regions.regionsList.loading" />&hellip;
                             </span>
                         </div>
                     </g:each>
                 </div>
             </div>
 
-            <div class="col-lg-7" id="rightPanel">
+            <%-- MAP CONTROLS & INFO --%>
+            <div class="col-sm-12 col-md-6 col-lg-7 order-md-2" id="rightPanel">
                 <div class="row">
-                    <div class="col vertical-block">
-                        <span class="fa fa-info-circle"></span>
-                        <g:message code="regions.map.help" />
-
-                        <span class="float-right">
-                            <span id="click-info">
+                    <div class="col-md-12 col-lg-9 col-xl-8 order-lg-2">
+                        <%-- Buttons --%>
+                        <div class="inline-controls inline-controls--right">
+                            <span id="click-info" class="hidden">
+                                <g:message code="regions.map.noInfo" />
                             </span>
 
-                            <button id="reset-map" class="erk-button erk-button--light">
-                                <g:message code="regions.map.btn.reset" />
-                            </button>
-                        </span>
+                            <div class="inline-controls__group hidden">
+                                <a
+                                    id="show-region"
+                                    class="erk-button erk-button-link erk-button--dark"
+                                    href=""
+                                    title="Go to region"
+                                ></a>
+                            </div>
+
+                            <div class="inline-controls__group hidden">
+                                <button id="zoomTo" class="erk-button erk-button--light">
+                                    <g:message code="regions.map.btn.zoom" />
+                                </button>
+                            </div>
+
+                            <div class="inline-controls__group hidden">
+                                <button class="erk-button erk-button--light" id="extra"></button>
+                            </div>
+
+                            <div class="inline-controls__group">
+                                <button id="reset-map" class="erk-button erk-button--light">
+                                    <g:message code="regions.map.btn.reset" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%-- Info --%>
+                    <div class="col-md-12 col-lg-3 col-xl-4">
+                        <div class="column-reverse">
+                            <p>
+                                <span class="fa fa-info-circle"></span>
+                                <g:message code="regions.map.help" />
+                            </p>
+                        </div>
                     </div>
                 </div>
+            </div>
 
+            <%-- MAP --%>
+            <div class="col-sm-12 col-md-6 col-lg-7 order-md-3">
                 <div id="map">
                     <div id="map-container">
                         <div id="map-canvas"></div>
@@ -88,11 +128,10 @@
                         <label class="checkbox" for="toggleRegion">
                             <input type="checkbox" name="region" id="toggleRegion" value="1" checked disabled />
                                 <g:message code="regions.map.layer.selectedRegion" />
-                            </label>
-                        </div>
-
-                        <p id="regionOpacity"></p>
+                        </label>
                     </div>
+
+                    <p id="regionOpacity"></p>
                 </div>
             </div>
         </div>

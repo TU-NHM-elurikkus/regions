@@ -67,15 +67,10 @@
      * Removes region-specific info from the map title. Replaces with generic text.
      */
     function hideInfo() {
-        $('#click-info').html('');
-    }
-
-    /**
-     * Sets the specified text to the map title.
-     * @param text
-     */
-    function showInfo(text) {
-        $('#click-info').html(text);
+        $('#click-info').addClass('hidden');
+        $('#show-region').addClass('hidden');
+        $('#zoomTo').addClass('hidden');
+        $('#extra').addClass('hidden');
     }
 
     /** * RegionSet represents a set of regions such as all states ********************************************************/
@@ -366,6 +361,7 @@
             map.removeRegionOverlay();
             disableRegionsSlider();
             $('#extra').html('');
+            $('#extra').addClass('hidden');
         },
         /* Draw this region on the map */
         displayRegion: function() {
@@ -386,24 +382,23 @@
          * @param subregion the name of the subregion */
         setLinks: function(subregion) {
             if(this.name.toLowerCase() === 'n/a') {
-                showInfo('N/A');
+                $('#click-info').removeClass('hidden');
             } else {
                 var regionName = this.name;
+                var $showRegion = $('#show-region');
+                $('#click-info').addClass('hidden');
 
-                var html =
-                    '<a class="erk-button erk-button-link erk-button--dark" href="' + this.urlToViewRegion() + '" title="Go to ' + regionName + '">' +
-                        regionName +
-                    '</a>' +
-                    '\n' +
-                    '<button id="zoomTo" class="erk-button erk-button--light">' +
-                        'Zoom to region' +
-                    '</button>';
+                $showRegion.attr('href', this.urlToViewRegion());
+                $showRegion.attr('title', 'Go to ' + regionName);
+                $showRegion.html(regionName);
+                $showRegion.parent().removeClass('hidden');
+                $('#zoomTo').parent().removeClass('hidden');
 
                 if(this.other && subregion) {
-                    html += '<button class="erk-button erk-button--light" id="extra">(' + subregion + ')</button>';
+                    var $subRegion = $('#extra')
+                    $subRegion.html('(' + subregion + ')');
+                    $subRegion.parent().removeClass('hidden');
                 }
-
-                showInfo(html);
 
                 $('#zoomTo').on('click', function() {
                     map.zoomToRegion(regionName);
