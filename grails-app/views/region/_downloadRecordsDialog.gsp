@@ -88,7 +88,7 @@
 
                 <div class="form-group">
                     <label class="col control-label" for="downloadOption">
-                        <g:message code="download.form.downloadType.label" /> *
+                        <g:message code="download.form.downloadType.label" />
                     </label>
 
                     <g:each in="${downloadOptions}">
