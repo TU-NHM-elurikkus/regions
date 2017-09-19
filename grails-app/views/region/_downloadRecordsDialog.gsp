@@ -68,7 +68,7 @@
 
                 <div class="form-group">
                     <label class="col control-label" for="downloadReason">
-                        <g:message code="download.form.field.reason.label" /> *
+                        <g:message code="download.form.reason.label" /> *
                     </label>
 
                     <div class="col">
@@ -77,7 +77,7 @@
                             name="downloadReason"
                             class="erk-select"
                             value="${downloadParams.downloadReason}"
-                            noSelection="${['': message(code: 'download.form.field.reason.placeHolder')]}"
+                            noSelection="${['': message(code: 'download.form.reason.placeholder')]}"
                             from="${downloadReasons}"
                             optionKey="key"
                             optionValue="${{opt -> message(code: "download.form.reason.${opt.key}", default: "${opt.value}")}}"
@@ -120,7 +120,7 @@
                 js-before="AjaxAnywhere.dynamicParams=regionWidget.getCurrentState();"
             >
                 <span class="fa fa-download"></span>
-                <g:message code="download.btn.label" />
+                <g:message code="general.btn.download.label" />
             </button>
         </div>
 

@@ -180,7 +180,7 @@
                         >
                             <button class="erk-button erk-button--light">
                                 <span class="fa fa-download"></span>
-                                <g:message code="download.btn.label" />
+                                <g:message code="general.btn.download.label" />
                             </button>
                         </a>
                     </div>
