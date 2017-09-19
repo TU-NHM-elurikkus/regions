@@ -25,7 +25,7 @@
             <br />
 
             <p>
-                <g:message code="download.form.title" />:
+                <g:message code="download.form.title" />
             </p>
 
             <g:form
