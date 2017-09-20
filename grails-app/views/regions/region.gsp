@@ -203,8 +203,8 @@
                 </div>
             </div>
 
+            <%-- Map and controls--%>
             <div class="col-sm-12 col-md-6 col-lg-7 order-md-3">
-                <%-- Map and controls--%>
                 <div id="region-map"></div>
 
                 <div id="time-controls" class="text-center">
