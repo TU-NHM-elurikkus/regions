@@ -1,6 +1,6 @@
-/*------------------------- RECORD BREAKDOWN CHARTS ------------------------------*/
+/* ------------------------- RECORD BREAKDOWN CHARTS ------------------------------*/
 
-/***** external services & links *****/
+/** *** external services & links *****/
 // an instance of the collections app - used for name lookup services
 var collectionsUrl = 'http://collections.ala.org.au';  // should be overridden from config by the calling page
 // an instance of the biocache web services app - used for facet and taxonomic breakdowns
@@ -93,7 +93,7 @@ var individualChartOptions = {
     }
 };
 
-/*----------------- FACET-BASED CHARTS USING DIRECT CALLS TO BIO-CACHE SERVICES ---------------------*/
+/* ----------------- FACET-BASED CHARTS USING DIRECT CALLS TO BIO-CACHE SERVICES ---------------------*/
 // these override the facet names in chart titles
 var chartLabels = {
     institution_uid: 'institution',
@@ -101,7 +101,7 @@ var chartLabels = {
     assertions: 'data assertion',
     biogeographic_region: 'biogeographic region',
     occurrence_year: 'decade'
-}
+};
 // asynchronous transforms are applied after the chart is drawn, ie the chart is drawn with the original values
 // then redrawn when the ajax call for transform data returns
 var asyncTransforms = {
@@ -113,15 +113,15 @@ var asyncTransforms = {
         method: 'lookupEntityName',
         param: 'dataResource'
     }
-}
+};
 // synchronous transforms are applied to the json data before the data table is built
 var syncTransforms = {
     occurrence_year: {
         method: 'transformDecadeData'
     }
-}
+};
 
-/********************************************************************************\
+/** ******************************************************************************\
 * Ajax request for charts based on the facets available in the biocache breakdown.
 \********************************************************************************/
 function loadFacetCharts(chartOptions) {
@@ -159,10 +159,10 @@ function loadFacetCharts(chartOptions) {
 function cleanUp(chartOptions) {
     $('i.loading').remove();
     if(chartOptions != undefined && chartOptions.error) {
-         window[chartOptions.error]();
+        window[chartOptions.error]();
     }
 }
-/*********************************************************************\
+/** *******************************************************************\
 * Loads charts based on the facets declared in the config object.
 * - does not require any markup other than div#charts element
 \*********************************************************************/
@@ -174,13 +174,13 @@ function drawFacetCharts(data, chartOptions) {
 
     // update total if requested
     if(chartOptions.totalRecordsSelector) {
-      $(chartOptions.totalRecordsSelector).html(addCommas(data.totalRecords));
+        $(chartOptions.totalRecordsSelector).html(addCommas(data.totalRecords));
     }
 
     // transform facet results into map
     var facetMap = {};
     $.each(data.facetResults, function(idx, obj) {
-      facetMap[obj.fieldName] = obj.fieldResult;
+        facetMap[obj.fieldName] = obj.fieldResult;
     });
 
     // draw the charts
@@ -192,7 +192,7 @@ function drawFacetCharts(data, chartOptions) {
         }
     });
 }
-/************************************************************\
+/** **********************************************************\
 * Create and show a generic facet chart
 \************************************************************/
 function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
@@ -206,7 +206,6 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
     var individualOptions = individualChartOptions[name] ? individualChartOptions[name] : {};
     // merge generic, individual and user options
     opts = $.extend(true, {}, opts, individualOptions, chartOptions[name]);
-    //Dumper.alert(opts);
 
     // optionally transform the data
     var xformedData = data;
@@ -220,11 +219,10 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
     dataTable.addColumn('number', 'records');
     $.each(xformedData, function(i, obj) {
         // filter any crap
-        if(!opts || !opts.ignore || $.inArray(obj.label, opts.ignore) == -1) {
+        if(!opts || !opts.ignore || $.inArray(obj.label, opts.ignore) === -1) {
             if(detectCamelCase(obj.label)) {
-                dataTable.addRow([{v: obj.label, f: capitalise(expandCamelCase(obj.label))}, obj.count]);
-            }
-            else {
+                dataTable.addRow([{ v: obj.label, f: capitalise(expandCamelCase(obj.label)) }, obj.count]);
+            } else {
                 dataTable.addRow([obj.label, obj.count]);
             }
         }
@@ -237,7 +235,7 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
 
     // create the container
     var $container = $('#' + name);
-    if($container.length == 0) {
+    if($container.length === 0) {
         $container = $('<div id="' + name + '"></div>');
         chartsDiv.append($container);
     }
@@ -247,7 +245,7 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
 
     // create the chart
     var chart;
-    switch (opts.chartType) {
+    switch(opts.chartType) {
         case 'column':
             chart = new google.visualization.ColumnChart(document.getElementById(name));
             break;
@@ -277,11 +275,10 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
             var facetQuery = name + ':' + id;
 
             // the facet query can be overridden for date ranges
-            if(name == 'occurrence_year') {
-                if(id.match('^before') == 'before') {
-                    facetQuery = 'occurrence_year:[*%20TO%20' + '1850' + '-01-01T12:00:00Z]';
-                }
-                else {
+            if(name === 'occurrence_year') {
+                if(id.match('^before') === 'before') {
+                    facetQuery = 'occurrence_year:[*%20TO%201850-01-01T12:00:00Z]';
+                } else {
                     var decade = id.substr(0, 4);
                     var dateTo = parseInt(decade) + 10;
                     facetQuery = 'occurrence_year:[' + decade + '-01-01T12:00:00Z%20TO%20' + dateTo + '-01-01T12:00:00Z]';
@@ -294,20 +291,19 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
     }
 }
 
-/*---------------------- DATA TRANSFORMATION METHODS ----------------------*/
+/* ---------------------- DATA TRANSFORMATION METHODS ----------------------*/
 function transformDecadeData(data) {
     var firstDecade;
     var transformedData = [];
     $.each(data, function(i, obj) {
-        if(obj.label == 'before') {
+        if(obj.label === 'before') {
             transformedData.splice(0, 0, {
                 label: 'before ' + firstDecade,
                 count: obj.count
             });
-        }
-        else {
+        } else {
             var decade = obj.label.substr(0, 4);
-            if(i == 0) {
+            if(i === 0) {
                 firstDecade = decade;
             }
             transformedData.push({
@@ -319,20 +315,20 @@ function transformDecadeData(data) {
     return transformedData;
 }
 
-/*--------------------- LABEL TRANSFORMATION METHODS ----------------------*/
+/* --------------------- LABEL TRANSFORMATION METHODS ----------------------*/
 function detectCamelCase(name) {
-    return /[a-z][A-Z]/.test(name);
+    return (/[a-z][A-Z]/).test(name);
 }
 
 function expandCamelCase(name) {
-    return name.replace(/([a-z])([A-Z])/g, function(s, str1, str2){return str1 + ' ' + str2.toLowerCase();});
+    return name.replace(/([a-z])([A-Z])/g, function(s, str1, str2) { return str1 + ' ' + str2.toLowerCase(); });
 }
 
 /* capitalises the first letter of the passed string */
 function capitalise(item) {
     return item.replace(/^./, function(str) {
         return str.toUpperCase();
-    })
+    });
 }
 
 function lookupEntityName(chart, table, opts, entity) {
@@ -341,22 +337,22 @@ function lookupEntityName(chart, table, opts, entity) {
         uidList.push(table.getValue(i, 0));
     }
     $.jsonp({
-      url: collectionsUrl + '/ws/resolveNames/' + uidList.join(',') + '?callback=?',
-      cache: true,
-      success: function(data) {
-          for(var i = 0; j + table.getNumberOfRows(), i < j; i++) {
-              var uid = table.getValue(i, 0);
-              table.setCell(i, 0, uid, data[uid]);
-          }
-          chart.draw(table, opts);
-      },
-      error: function(d,msg) {
-          console.warn(msg);
-      }
+        url: collectionsUrl + '/ws/resolveNames/' + uidList.join(',') + '?callback=?',
+        cache: true,
+        success: function(data) {
+            for(var i = 0; j + table.getNumberOfRows(), i < j; i++) {
+                var uid = table.getValue(i, 0);
+                table.setCell(i, 0, uid, data[uid]);
+            }
+            chart.draw(table, opts);
+        },
+        error: function(d, msg) {
+            console.warn(msg);
+        }
     });
 }
 
-/*----------- TAXONOMY BREAKDOWN CHARTS USING DIRECT CALLS TO BIO-CACHE SERVICES ------------*/
+/* ----------- TAXONOMY BREAKDOWN CHARTS USING DIRECT CALLS TO BIO-CACHE SERVICES ------------*/
 // works for uid-based queries or q/fq general queries
 
 var taxonomyChart = {
@@ -375,22 +371,22 @@ var taxonomyChart = {
     // history of chart state
     historyState: [],
 
-    hasState: function () {
+    hasState: function() {
         return this.historyState.length > 0;
     },
 
-    pushState: function () {
+    pushState: function() {
         this.historyState.push({
             rank: this.rank,
             name: this.name
         });
     },
 
-    popState: function () {
+    popState: function() {
         return this.hasState() ? this.historyState.pop() : {};
     },
 
-    cleanUp: function () {
+    cleanUp: function() {
         $('i.loading').remove();
         if(this.chartOptions && this.chartOptions.error) {
             window[this.chartOptions.error]();
@@ -398,7 +394,7 @@ var taxonomyChart = {
     },
 
     // loads a new chart with the passed configuration
-    load: function (chartOptions) {
+    load: function(chartOptions) {
         var thisChart = this;
 
         if(chartOptions) {
@@ -430,7 +426,7 @@ var taxonomyChart = {
 
         // add url params to set state
         if(this.rank) {
-            url += '&rank=' + this.rank + (this.name ? '&name=' + this.name: '');
+            url += '&rank=' + this.rank + (this.name ? '&name=' + this.name : '');
         } else {
             url += '&max=' + (this.threshold ? this.threshold : '55');
         }
@@ -448,13 +444,13 @@ var taxonomyChart = {
             dataType: 'jsonp',
             timeout: 30000,
             complete: function(jqXHR, textStatus) {
-                if(textStatus == 'timeout') {
+                if(textStatus === 'timeout') {
                     alert('Sorry - the request was taking too long so it has been cancelled.');
                 }
-                if(textStatus == 'error') {
+                if(textStatus === 'error') {
                     alert('Sorry - the chart cannot be redrawn due to an error.');
                 }
-                if(textStatus != 'success') {
+                if(textStatus !== 'success') {
                     thisChart.cleanUp();
                 }
             },
@@ -468,12 +464,12 @@ var taxonomyChart = {
                     thisChart.draw({
                         taxa: [],
                         rank: ''
-                    })
+                    });
                 }
             }
         });
     },
-    draw: function (data) {
+    draw: function(data) {
         var thisChart = this;
 
         // create the data table
@@ -487,7 +483,7 @@ var taxonomyChart = {
         // resolve the chart options
         var opts = $.extend({}, taxonomyPieChartOptions);
         opts = $.extend(true, opts, this.chartOptions);
-        opts.title = opts.name ? opts.name + ' records by ' + data.rank : 'By ' + data.rank;
+        opts.title = opts.name ? opts.name + ' records by ' + data.rank : $.i18n.prop('charts.taxonomy.byRank.' + data.rank);
         opts.backgroundColor = {
             fill: 'transparent'
         };
@@ -534,14 +530,14 @@ var taxonomyChart = {
             $backLink = $(
                 '<div class="erk-link" id="backLink">' +
                     '&laquo; ' +
-                    'Previous rank' +  // TODO: Translate
+                    $.i18n.prop('charts.taxonPie.previousRank') +
                 '</div>');
             $backLink.css('position', 'relative').css('top', '-45px');
             $backLink.click(function() {
                 // only act if link was real
                 if(!$backLink.hasClass('erk-link')) {
-                    return
-                };
+                    return;
+                }
                 $('i.loading').remove();
                 // show spinner while loading
                 $container.append($('<span class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></span>'));
@@ -559,11 +555,11 @@ var taxonomyChart = {
         }
         if(this.hasState()) {
             // show the prev link
-            $backLink.html('&laquo;Previous rank').addClass('erk-link');  // TODO: Translate
+            $backLink.html('&laquo;' + $.i18n.prop('charts.taxonPie.previousRank')).addClass('erk-link');
         } else {
             // show the instruction
             // TODO: Translate
-            $backLink.html('Click a slice to drill into the next taxonomic level.').removeClass('erk-link');
+            $backLink.html($.i18n.prop('charts.taxonPie.sliceToDrill')).removeClass('erk-link');
         }
 
         // draw records link
@@ -574,11 +570,11 @@ var taxonomyChart = {
                     '<span class="fa fa-list"></span>' +
                     '&nbsp;' +
                     '<span id="recordsLink-text">' +
-                        'View records' +  // TODO: Translate
-                    '</span>'+
+                        $.i18n.prop('charts.taxonPie.viewRecords') +
+                    '</span>' +
                 '</div>');
             $recordsLink.css('position', 'relative').css('top', '-45px');
-            $recordsLink.click(function () {
+            $recordsLink.click(function() {
                 thisChart.showRecords();  // called explicitly so we have the correct 'this' context
             });
             $recordsLink.appendTo($outerContainer);
@@ -586,9 +582,9 @@ var taxonomyChart = {
 
         // set link text
         if(this.hasState()) {
-            $('#recordsLink-text').text('View records for ' + this.rank + ' ' + this.name);  // TODO: Translate
+            $('#recordsLink-text').text($.i18n.prop('charts.taxonPie.viewRecordsFor', this.rank, this.name));
         } else {
-            $('#recordsLink-text').text('View records');  // TODO: Translate
+            $('#recordsLink-text').text($.i18n.prop('charts.taxonPie.viewRecords'));
         }
 
         // setup a click handler - if requested
@@ -601,7 +597,7 @@ var taxonomyChart = {
                 var name = dataTable.getValue(chart.getSelection()[0].row, 0);
 
                 /* DRILL DOWN */
-                if(drillDown && data.rank != 'species') {
+                if(drillDown && data.rank !== 'species') {
                     // show spinner while loading
                     $container.append($('<span class="fa fa-cog fa-spin fa-3x loading" style="position:relative;left:152px;top:-280px;z-index:2000"></span>'));
 
@@ -614,10 +610,7 @@ var taxonomyChart = {
 
                     // redraw chart
                     thisChart.load();
-                }
-
-                /* SHOW RECORDS */
-                else if(clickThru) {
+                } else if(clickThru) {
                     // show occurrence records
                     document.location = urlConcat(biocacheWebappUrl, '/occurrences/search?q=') + query +
                         '&fq=' + data.rank + ':' + name;
@@ -628,7 +621,7 @@ var taxonomyChart = {
         $('#charts span.fa-cog').hide();
     },
 
-    showRecords: function () {
+    showRecords: function() {
         // show occurrence records
         var fq = '';
         var state = this.chartOptions.currentState;
@@ -636,18 +629,18 @@ var taxonomyChart = {
             fq = '&fq=' + this.rank + ':' + this.name;
         }
 
-        if(state.showHubData){
-            fq += '&fq=' + state.hubFilter
+        if(state.showHubData) {
+            fq += '&fq=' + state.hubFilter;
         }
 
-        if(state.qc){
-            fq += '&fq=' + state.qc
+        if(state.qc) {
+            fq += '&fq=' + state.qc;
         }
 
         document.location = urlConcat(biocacheWebappUrl, '/occurrences/search?q=') + this.query + fq;
     },
 
-    reset: function () {
+    reset: function() {
         if(this.hasState()) {
             var firstState = this.historyState[0];
 
@@ -664,13 +657,13 @@ var taxonomyChart = {
         this.load();
     },
 
-    updateQuery: function (query) {
+    updateQuery: function(query) {
         this.query = query;
         this.load();
     }
 };
 
-/*------------------------- TAXON TREE -----------------------------*/
+/* ------------------------- TAXON TREE -----------------------------*/
 function initTaxonTree(treeOptions) {
     var query = treeOptions.query ? treeOptions.query : buildQueryString(treeOptions.instanceUid);
 
@@ -689,7 +682,7 @@ function initTaxonTree(treeOptions) {
     .bind('after_open.jstree', function(event, data) {
         var children = $.jstree._reference(data.rslt.obj)._get_children(data.rslt.obj);
         // automatically open if only one child node
-        if(children.length == 1) {
+        if(children.length === 1) {
             $tree.jstree('open_node', children[0]);
         }
         // adjust container size
@@ -701,13 +694,13 @@ function initTaxonTree(treeOptions) {
             });
         }
     })
-    .bind('select_node.jstree', function (event, data) {
+    .bind('select_node.jstree', function(event, data) {
         // click will show the context menu
         $tree.jstree('show_contextmenu', data.rslt.obj);
     })
-    .bind('loaded.jstree', function (event, data) {
-         // get rid of the anchor click handler because it hides the context menu (which we are 'binding' to click)
-         $tree.jstree('open_node', '#top');
+    .bind('loaded.jstree', function(event, data) {
+        // get rid of the anchor click handler because it hides the context menu (which we are 'binding' to click)
+        $tree.jstree('open_node', '#top');
     })
     .jstree({
         json_data: {
@@ -723,7 +716,7 @@ function initTaxonTree(treeOptions) {
                 url: function(node) {
                     var rank = $(node).attr('rank');
                     var u = urlConcat(biocacheServicesUrl, '/breakdown.json?q=') + query + '&rank=';
-                    if(rank == 'kingdoms') {
+                    if(rank === 'kingdoms') {
                         u += 'kingdom';  // starting node
                     } else {
                         u += rank + '&name=' + $(node).attr('id');
@@ -736,7 +729,7 @@ function initTaxonTree(treeOptions) {
                     var rank = data.rank;
                     $.each(data.taxa, function(i, obj) {
                         var label = obj.label + ' - ' + obj.count;
-                        if(rank == 'species') {
+                        if(rank === 'species') {
                             nodes.push({
                                 'data': label,
                                 'attr': {
@@ -754,8 +747,8 @@ function initTaxonTree(treeOptions) {
                                 }
                             });
                         }
-                  });
-                  return nodes;
+                    });
+                    return nodes;
                 },
                 error: function(xhr, text_status) {
                     console.warn(text_status);
@@ -799,43 +792,43 @@ function initTaxonTree(treeOptions) {
     });
 }
 
-/************************************************************\
+/** **********************************************************\
 * Go to occurrence records for selected node
 \************************************************************/
 function showRecords(node, query) {
     var rank = node.attr('rank');
-    if(rank == 'kingdoms') {
-        return
-    };
+    if(rank === 'kingdoms') {
+        return;
+    }
     var name = node.attr('id');
     // url for records list
     var recordsUrl = urlConcat(biocacheWebappUrl, '/occurrences/search?q=') + query + '&fq=' + rank + ':' + name;
     document.location.href = recordsUrl;
 }
 
-/************************************************************\
+/** **********************************************************\
 * Go to 'species' page for selected node
 \************************************************************/
 function showBie(node) {
     var rank = node.attr('rank');
-    if(rank == 'kingdoms') {
-        return
-    };
+    if(rank === 'kingdoms') {
+        return;
+    }
     var name = node.attr('id');
     var sppUrl = 'http://bie.ala.org.au/species/' + name;  // TODO: URL?
-    if(rank != 'species') {
+    if(rank !== 'species') {
         sppUrl += '_(' + rank + ')';
     }
     document.location.href = sppUrl;
 }
 
-/*------------------------- UTILITIES ------------------------------*/
-/************************************************************\
+/* ------------------------- UTILITIES ------------------------------*/
+/** **********************************************************\
 * build records query handling multiple uids
 * uidSet can be a comma-separated string or an array
 \************************************************************/
 function buildQueryString(uidSet) {
-    var uids = (typeof uidSet == 'string') ? uidSet.split(',') : uidSet;
+    var uids = (typeof uidSet === 'string') ? uidSet.split(',') : uidSet;
     var str = '';
     $.each(uids, function(index, value) {
         str += solrFieldNameForUid(value) + ':' + value + ' OR ';
@@ -843,7 +836,7 @@ function buildQueryString(uidSet) {
     return str.substring(0, str.length - 4);
 }
 
-/************************************************************\
+/** **********************************************************\
 * returns the appropriate facet name for the uid - to build
 * biocache occurrence searches
 \************************************************************/
@@ -864,12 +857,12 @@ function solrFieldNameForUid(uid) {
     }
 }
 
-/************************************************************\
+/** **********************************************************\
 * returns the appropriate context for the uid - to build
 * biocache webservice urls
 \************************************************************/
 function wsEntityForBreakdown(uid) {
-    switch (uid.substr(0, 2)) {
+    switch(uid.substr(0, 2)) {
         case 'co':
             return 'collections';
         case 'in':
@@ -885,7 +878,7 @@ function wsEntityForBreakdown(uid) {
     }
 }
 
-/************************************************************\
+/** **********************************************************\
 * Concatenate url fragments handling stray slashes
 \************************************************************/
 function urlConcat(base, context) {
@@ -897,17 +890,17 @@ function urlConcat(base, context) {
     return base + '/' + context;
 }
 
-/************************************************************\
+/** **********************************************************\
 * Add commas to number strings
 \************************************************************/
 function addCommas(nStr) {
-    nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
+    nStr = String(nStr);
+    var x = nStr.split('.');
+    var x1 = x[0];
+    var x2 = x.length > 1 ? '.' + x[1] : '';
     var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    while(rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1,$2');
     }
     return x1 + x2;
 }
