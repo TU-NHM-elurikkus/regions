@@ -64,12 +64,6 @@
 /**
  *  Regions page
  */
-/*#map-canvas {
-    height: 470px;
-    border: 1px solid #d3d3d3;
-    border-radius: 4px;
-}*/
-
 #accordion {
     margin-bottom: 1rem;
 }
@@ -119,13 +113,6 @@ li.regionLink:hover {
     color: inherit;
     text-decoration: none;
 }
-
-/*#region-map {
-    width: 100%;
-    height: 480px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-}*/
 
 #species .scrollContent {
     height: 400px;

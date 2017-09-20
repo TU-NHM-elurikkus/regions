@@ -67,10 +67,9 @@
      * Removes region-specific info from the map title. Replaces with generic text.
      */
     function hideInfo() {
-        $('#click-info').addClass('hidden');
-        $('#show-region').addClass('hidden');
-        $('#zoomTo').addClass('hidden');
-        $('#extra').addClass('hidden');
+        $('#show-region').parent().addClass('hidden');
+        $('#zoomTo').parent().addClass('hidden');
+        $('#extra').parent().addClass('hidden');
     }
 
     /** * RegionSet represents a set of regions such as all states ********************************************************/
@@ -381,16 +380,14 @@
         /* Write the region link and optional subregion name and zoom link at the top of the map.
          * @param subregion the name of the subregion */
         setLinks: function(subregion) {
-            if(this.name.toLowerCase() === 'n/a') {
-                $('#click-info').removeClass('hidden');
-            } else {
+            if(this.name.toLowerCase() !== 'n/a') {
                 var regionName = this.name;
                 var $showRegion = $('#show-region');
-                $('#click-info').addClass('hidden');
 
                 $showRegion.attr('href', this.urlToViewRegion());
                 $showRegion.attr('title', 'Go to ' + regionName);
                 $showRegion.html(regionName);
+                console.log("CHANGING SHIT");
                 $showRegion.parent().removeClass('hidden');
                 $('#zoomTo').parent().removeClass('hidden');
 

@@ -67,7 +67,6 @@
                     <div class="col-md-12 col-lg-9 col-xl-8 order-lg-2">
                         <%-- Buttons --%>
                         <div class="inline-controls inline-controls--right">
-
                             <div class="inline-controls__group hidden">
                                 <a
                                     id="show-region"
