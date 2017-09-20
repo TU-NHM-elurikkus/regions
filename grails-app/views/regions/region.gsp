@@ -69,12 +69,16 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-5">
+            <%-- Filters info --%>
+            <div class="col-sm-12 col-md-6 col-lg-5">
                 <div class="vertical-block">
                     <span class="fa fa-info-circle"></span>
                     <g:message code="region.map.info.filterspecies" />
                 </div>
+            </div>
 
+            <%-- Filter, graph tabs --%>
+            <div class="col-sm-12 col-md-6 col-lg-5 order-md-3">
                 <div class="tabbable">
                     <ul class="nav nav-tabs" id="explorerTabs">
                         <li class="nav-item">
@@ -159,33 +163,48 @@
                 </div>
             </div>
 
-            <div class="col-lg-7">
-                <div class="vertical-block">
-                    <span>
-                        <span class="fa fa-info-circle"></span>
-                        <g:message code="region.playBack.desc" />
-                    </span>
+            <%-- Buttons & info --%>
+            <div class="col-sm-12 col-md-6 col-lg-7 order-md-2">
+                <div class="row">
+                    <div class="col-md-12 col-lg-9 col-xl-8 order-lg-2">
+                        <div class="inline-controls inline-controls--right">
+                            <div class="inline-controls__group">
 
-                    <div class="float-right">
-                        <button id="viewRecords" class="erk-button erk-button--dark">
-                            <span class="fa fa-list"></span>
-                            <g:message code="species.results.recordList" />
-                            <span class="totalRecords"></span>
-                        </button>
+                                <button id="viewRecords" class="erk-button erk-button--dark">
+                                    <span class="fa fa-list"></span>
+                                    <g:message code="species.results.recordList" />
+                                    <span class="totalRecords"></span>
+                                </button>
+                            </div>
 
-                        <a
-                            href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
-                            aa-refresh-zones="dialogZone"
-                            aa-js-before="regionWidget.showDownloadDialog();"
-                        >
-                            <button class="erk-button erk-button--light">
-                                <span class="fa fa-download"></span>
-                                <g:message code="general.btn.download.label" />
-                            </button>
-                        </a>
+                            <div class="inline-controls__group">
+                                <a
+                                    href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
+                                    aa-refresh-zones="dialogZone"
+                                    aa-js-before="regionWidget.showDownloadDialog();"
+                                >
+                                    <button class="erk-button erk-button--light">
+                                        <span class="fa fa-download"></span>
+                                        <g:message code="general.btn.download.label" />
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-3 col-xl-4">
+                        <div class="column-reverse">
+                            <p>
+                                <span class="fa fa-info-circle"></span>
+                                <g:message code="region.playBack.desc" />
+                            </p>
+                        </div>
                     </div>
                 </div>
+            </div>
 
+            <%-- Map and controls--%>
+            <div class="col-sm-12 col-md-6 col-lg-7 order-md-3">
                 <div id="region-map"></div>
 
                 <div id="time-controls" class="text-center">
