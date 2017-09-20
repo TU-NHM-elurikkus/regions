@@ -67,9 +67,6 @@
                     <div class="col-md-12 col-lg-9 col-xl-8 order-lg-2">
                         <%-- Buttons --%>
                         <div class="inline-controls inline-controls--right">
-                            <span id="click-info" class="hidden">
-                                <g:message code="regions.map.noInfo" />
-                            </span>
 
                             <div class="inline-controls__group hidden">
                                 <a
@@ -112,11 +109,9 @@
 
             <%-- MAP --%>
             <div class="col-sm-12 col-md-6 col-lg-7 order-md-3">
-                <div id="map">
-                    <div id="map-container">
-                        <div id="map-canvas"></div>
-                    </div>
+                <div id="map-canvas" class="regions-map"></div>
 
+                <div id="map-controls">
                     <div id="controls">
                         <label class="checkbox" for="toggleLayer">
                             <input type="checkbox" name="layer" id="toggleLayer" value="1" checked />

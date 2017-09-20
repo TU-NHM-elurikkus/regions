@@ -4,6 +4,23 @@
 *= require elurikkus-common
 */
 
+.regions-map {
+    width: 100%;
+    height: 480px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.regions-map img {
+    max-width: none;
+}
+
+.regions-map label {
+    display: inline;
+    width: auto;
+}
+
 /* XXX */
 .ui-state-default {
     background: none;
@@ -47,11 +64,11 @@
 /**
  *  Regions page
  */
-#map-canvas {
+/*#map-canvas {
     height: 470px;
     border: 1px solid #d3d3d3;
     border-radius: 4px;
-}
+}*/
 
 #accordion {
     margin-bottom: 1rem;
@@ -103,12 +120,12 @@ li.regionLink:hover {
     text-decoration: none;
 }
 
-#region-map {
+/*#region-map {
     width: 100%;
     height: 480px;
     border: 1px solid #dddddd;
     border-radius: 5px;
-}
+}*/
 
 #species .scrollContent {
     height: 400px;
