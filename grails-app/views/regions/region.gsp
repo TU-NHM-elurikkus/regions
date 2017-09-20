@@ -71,9 +71,11 @@
         <div class="row">
             <%-- Filters info --%>
             <div class="col-sm-12 col-md-6 col-lg-5">
-                <div class="vertical-block">
-                    <span class="fa fa-info-circle"></span>
-                    <g:message code="region.map.info.filterspecies" />
+                <div class="column-reverse">
+                    <p>
+                        <span class="fa fa-info-circle"></span>
+                        <g:message code="region.map.info.filterspecies" />
+                    </p>
                 </div>
             </div>
 
@@ -166,10 +168,9 @@
             <%-- Buttons & info --%>
             <div class="col-sm-12 col-md-6 col-lg-7 order-md-2">
                 <div class="row">
-                    <div class="col-md-12 col-lg-9 col-xl-8 order-lg-2">
+                    <div class="col-md-12 col-lg-8 col-xl-7 order-lg-2">
                         <div class="inline-controls inline-controls--right">
                             <div class="inline-controls__group">
-
                                 <button id="viewRecords" class="erk-button erk-button--dark">
                                     <span class="fa fa-list"></span>
                                     <g:message code="species.results.recordList" />
@@ -192,7 +193,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-lg-3 col-xl-4">
+                    <div class="col">
                         <div class="column-reverse">
                             <p>
                                 <span class="fa fa-info-circle"></span>
@@ -205,7 +206,7 @@
 
             <%-- Map and controls--%>
             <div class="col-sm-12 col-md-6 col-lg-7 order-md-3">
-                <div id="region-map"></div>
+                <div id="region-map" class="regions-map"></div>
 
                 <div id="time-controls" class="text-center">
                     <div id="time-buttons">
