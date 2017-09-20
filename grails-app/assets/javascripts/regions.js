@@ -387,7 +387,6 @@
                 $showRegion.attr('href', this.urlToViewRegion());
                 $showRegion.attr('title', 'Go to ' + regionName);
                 $showRegion.html(regionName);
-                console.log("CHANGING SHIT");
                 $showRegion.parent().removeClass('hidden');
                 $('#zoomTo').parent().removeClass('hidden');
 
