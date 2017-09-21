@@ -55,23 +55,7 @@ var region = {
         if(count >= 1000000) {
             return count.numberFormat('#,#0,,.00 million');
         }
-        return region.addCommas(count);
-    },
-
-    /**
-     * Inserts commas into a number for display.
-     * @param nStr
-     */
-    addCommas: function(nStr) {
-        nStr = String(nStr);
-        var x = nStr.split('.');
-        var x1 = x[0];
-        var x2 = x.length > 1 ? '.' + x[1] : '';
-        var rgx = /(\d+)(\d{3})/;
-        while(rgx.test(x1)) {
-            x1 = x1.replace(rgx, '$1,$2');
-        }
-        return x1 + x2;
+        return count.toLocaleString();
     }
 };
 
