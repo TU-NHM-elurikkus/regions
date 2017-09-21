@@ -105,15 +105,6 @@
 
             // add content to the region type pane if empty
             this.writeList(callbacks);
-
-            // store last selected region type in hash params
-            if(this.name === 'states') {
-                if($.bbq.getState('rt') !== undefined) {
-                    $.bbq.removeState('rt');
-                }
-            } else {
-                $.bbq.pushState({ 'rt': this.name });
-            }
         },
         /* Return the number of regions in the set */
         size: function() {
@@ -316,7 +307,6 @@
             clearSelectedRegion();
             selectedRegion = this;
             if(this.name.toLowerCase() !== 'n/a') {
-                $.bbq.pushState({ region: this.name });
                 selectedRegionType.highlightInList(this.name);
             }
             this.setLinks();
@@ -339,7 +329,6 @@
             disableRegionsSlider();
             selectedRegion = null;
             if(!this.other) {
-                $.bbq.removeState('region');
                 hideInfo();
             }
         },
@@ -595,9 +584,9 @@
         | Set state from hash params or defaults
         \*****************************************/
 
-        initialRegionTypeStr = $.bbq.getState('rt') || options.defaultRegionType || Object.keys(layers)[0];
+        initialRegionTypeStr = options.defaultRegionType || Object.keys(layers)[0];
         selectedRegionType = layers[initialRegionTypeStr];
-        Region.initialRegion = $.bbq.getState('region') || options.defaultRegion;
+        Region.initialRegion = options.defaultRegion;
 
         /** ***************************************\
         | Set up accordion and handle changes

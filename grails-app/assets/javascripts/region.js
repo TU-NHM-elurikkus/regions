@@ -117,9 +117,6 @@ function RegionWidget(config) {
         state.showHubData = config.showHubData || false;
         state.hubFilter = config.hubFilter || '';
 
-        // Check previous existing state
-        updateState($.bbq.getState());
-
         urls = config.urls;
 
         initializeTabs();
@@ -198,15 +195,6 @@ function RegionWidget(config) {
      */
     function updateState(newPartialState) {
         $.extend(state, newPartialState);
-        // persist current state
-        $.bbq.pushState({
-            group: state.group,
-            subgroup: state.subgroup,
-            from: state.from,
-            to: state.to,
-            tab: state.tab
-        });
-
     }
 
     /**
