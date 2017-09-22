@@ -29,6 +29,17 @@
             <div class="page-header__subtitle">
                 <g:message code="regions.body.title.desc" />
             </div>
+
+            <div class="page-header-links">
+                <a class="page-header-links__link" href="http://ala-test.ut.ee/generic-hub/search?lang=et#tab-spatial-search">
+                    <span class="fa fa-search"></span>
+                    <g:message code="general.searchByPolygon" />
+                </a>
+                <a class="page-header-links__link" href="http://ala-test.ut.ee/generic-hub/explore/your-area">
+                    <span class="fa fa-search"></span>
+                    <g:message code="general.exploreArea" />
+                </a>
+            </div>
         </div>
 
         <div class="row">
