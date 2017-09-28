@@ -55,9 +55,10 @@
 
             <%-- Region selection menu --%>
             <div class="col-sm-12 col-md-6 col-lg-5 order-md-3">
+                <!-- jQuery UI accordion -->
                 <div id="accordion">
                     <g:each in="${menu}" var="item">
-                        <h2>
+                        <h2 id="accordion-heading-${item.layerName}" class="accordion-heading">
                             <a href="#">
                                 ${item.label}
                             </a>

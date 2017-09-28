@@ -1,8 +1,15 @@
 //= require he-0.5.0
 //= require common
 
-(function(windows) {
+$(document).ready(function() {
+    $('.accordion-heading').on('click', function(e) {
+        var target = $(e.currentTarget).attr('id');
 
+        window.location.hash = target.replace('accordion-heading-', '');
+    });
+});
+
+(function(windows) {
     var
         // represents the map and its associated properties and events
         map,
@@ -106,29 +113,35 @@
             // add content to the region type pane if empty
             this.writeList(callbacks);
         },
+
         /* Return the number of regions in the set */
         size: function() {
             return this.sortedList.length;
         },
+
         /* Return the field id for this set (or the selected sub-set of 'other') */
         getFid: function() {
             return this.other ? (selectedRegion ? selectedRegion.id : '') : this.fid;
         },
+
         /* Return the pid for the specified object in this set (or for the subregion of a sub-set)
          * @param name of the object */
         getPid: function(name) {
             return this.other ? selectedRegion.subregionPid :
                   (this.objects[name] ? this.objects[name].pid : null);
         },
+
         /* Return metadata for the region in this set with the specified name
          * @param name of the region */
         getRegion: function(name) {
             return this.objects[name.replace('&amp;', '&')];
         },
+
         /* Is the content loaded? */
         loaded: function() {
             return this.size() > 0;
         },
+
         /* Load the content asynchronously
          * @param callbackOnSuccess optional callback on complete
          * @param optional param for callback */
@@ -162,12 +175,14 @@
                         this[callbackOnSuccess](callbackParam);
                     }
                 },
+
                 error: function(jqXHR, textStatus) {
                     this.error = textStatus;
                     $('#' + this.name).html(this.error);
                 }
             });
         },
+
         /* Write the list of regions to the regionSet's DOM container - loading first if required
          * @param callbackOnComplete a global-scope function to call when the list is written */
         writeList: function(callbackOnComplete) {
@@ -175,37 +190,42 @@
             var me = this;
             var id;
             var html = '<ul class="erk-ulist">';
+
             if(!this.loaded()) {
                 // load content asynchronously and execute this method when complete
                 this.load('writeList', callbackOnComplete);
                 return;
             }
+
             if($content.find('ul').length === 0) {
                 $.each(this.sortedList, function(i, name) {
                     id = me.other ? me.objects[name].layerName : me.objects[name].id;
                     html += '<li class=\'erk-ulist__item regionLink\' id=\'' + id + '\'>' + name + '</li>';
                 });
+
                 html += '</ul>';
                 $content.find('span.loading').remove();
                 $content.append(html);
+
                 // Correctly size the content box based on the number of items.  We are relying on the max-height css
                 // to stop it from growing too large.
                 var itemHeight = $content.find('li').height();
+
                 $content.height(this.sortedList.length * itemHeight);
 
                 $content.on('click', '.regionLink', function() {
                     var name = $(this).html();
-                    if(selectedRegion !== null && name === selectedRegion.name) {
-                        document.location.href = selectedRegion.urlToViewRegion();
-                    }
+
                     new Region(name).set();
                 });
             }
+
             if(callbackOnComplete) {
                 // assume global scope
                 callbackOnComplete();// TODO: fix this - pass in function itself?
             }
         },
+
         /* Draw the layer for this set (or sub-set) */
         drawLayer: function(colour, order) {
             var redraw = false;
@@ -507,6 +527,7 @@
                                         name.toLowerCase() !== 'n/a') {
                                     document.location.href = selectedRegion.urlToViewRegion();
                                 }
+
                                 var region = new Region(name).set();
                             }
                     }
@@ -549,6 +570,25 @@
     }
 
     /**
+     * Get region layer by region layer name in the URL anchor.
+     */
+    function getRegionType(layers, layerName, defaultLayerName) {
+        var regionTypes = Object.keys(layers).map(function(key) {
+            return layers[key];
+        });
+
+        var foundLayer = regionTypes.find(function(layer) {
+            return layer.layerName === layerName;
+        });
+
+        var defaultLayer = regionTypes.find(function(layer) {
+            return layer.layerName === defaultLayerName;
+        });
+
+        return foundLayer || defaultLayer || regionTypes[0];
+    }
+
+    /**
      * Initialises everything including the map.
      *
      * @param options object specifier with the following members:
@@ -583,9 +623,7 @@
         /** ***************************************\
         | Set state from hash params or defaults
         \*****************************************/
-
-        initialRegionTypeStr = options.defaultRegionType || Object.keys(layers)[0];
-        selectedRegionType = layers[initialRegionTypeStr];
+        selectedRegionType = getRegionType(layers, document.location.hash.replace('#', ''), options.defaultRegionType);
         Region.initialRegion = options.defaultRegion;
 
         /** ***************************************\
@@ -595,11 +633,14 @@
             activate: function(event, ui) {
                 layers[$(ui.newPanel).attr('layer')].set();
             },
+
             active: selectedRegionType.order
         });
+
         if(options.accordionPanelMaxHeight) {
             $('#accordion .ui-accordion-content').css('max-height', options.accordionPanelMaxHeight);
         }
+
         /** ***************************************\
          | Set up opacity sliders
          \*****************************************/
