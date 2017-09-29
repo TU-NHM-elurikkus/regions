@@ -3,9 +3,13 @@
 
 $(document).ready(function() {
     $('.accordion-heading').on('click', function(e) {
-        var target = $(e.currentTarget).attr('id');
+        var anchor = $(e.currentTarget).attr('id').replace('accordion-heading-', '#');
 
-        window.location.hash = target.replace('accordion-heading-', '');
+        if(window.history) {
+            window.history.replaceState({}, '', anchor);
+        } else {
+            window.location.hash = anchor;
+        }
     });
 });
 
