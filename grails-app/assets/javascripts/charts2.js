@@ -174,7 +174,7 @@ function drawFacetCharts(data, chartOptions) {
 
     // update total if requested
     if(chartOptions.totalRecordsSelector) {
-        $(chartOptions.totalRecordsSelector).html(data.totalRecords.toLocaleString());
+        $(chartOptions.totalRecordsSelector).html(data.totalRecords.toLocaleString(GLOBAL_LOCALE_CONF.locale));
     }
 
     // transform facet results into map
