@@ -54,8 +54,9 @@ var region = {
     format: function(count) {
         if(count >= 1000000) {
             return count.numberFormat('#,#0,,.00 million');
+        } else {
+            return count.toLocaleString(GLOBAL_LOCALE_CONF.locale);
         }
-        return count.toLocaleString();
     }
 };
 
