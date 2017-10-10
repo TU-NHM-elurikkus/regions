@@ -6,21 +6,30 @@ import org.apache.log4j.Level
 def ENV_NAME = "${appName.toUpperCase()}_CONFIG"
 config_dir = "/data/${appName}/config/"
 default_config = "/data/${appName}/config/${appName}-config.properties"
+commons_config = "/data/commons/config/commons-config.properties"
+
 if(!grails.config.locations || !(grails.config.locations instanceof List)) {
     grails.config.locations = []
 }
+
+// TODO: doesn't seem like a needed functionality - investigate and remove
 if(System.getenv(ENV_NAME) && new File(System.getenv(ENV_NAME)).exists()) {
     println "[${appName}] Including configuration file specified in environment: " + System.getenv(ENV_NAME);
     grails.config.locations.add "file:" + System.getenv(ENV_NAME)
 } else if(System.getProperty(ENV_NAME) && new File(System.getProperty(ENV_NAME)).exists()) {
     println "[${appName}] Including configuration file specified on command line: " + System.getProperty(ENV_NAME);
     grails.config.locations.add "file:" + System.getProperty(ENV_NAME)
-} else if(new File(default_config).exists()) {
-    println "[${appName}] Including default configuration file: " + default_config;
-    grails.config.locations.add "file:" + default_config
-} else {
-    println "[${appName}] No external configuration file defined."
 }
+
+if (!new File(default_config).exists()) {
+    throw ApplicationException("Config doesn't exist: " + default_config)
+} else if(!new File(commons_config).exists()) {
+    throw ApplicationException("Config doesn't exist: " + commons_config)
+}
+
+grails.config.locations.add "file:" + default_config
+grails.config.locations.add "file:" + commons_config
+
 println "[${appName}] (*) grails.config.locations = ${grails.config.locations}"
 
 /******************************************************************************\
@@ -28,7 +37,7 @@ println "[${appName}] (*) grails.config.locations = ${grails.config.locations}"
  \******************************************************************************/
 //reloadable.cfgPollingFrequency = 1000 * 60 * 60 // 1 hour
 //reloadable.cfgPollingRetryAttempts = 5
-reloadable.cfgs = ["file:/data/${appName}/config/${appName}-config.properties"]
+reloadable.cfgs = ["file:" + default_config, "file:" + commons_config]
 
 /******************************************************************************\
  *  SKINNING
@@ -139,18 +148,17 @@ log4j = {
         }
     }
     root {
-// change the root logger to my tomcatLog file
+        // change the root logger to my tomcatLog file
         error 'tomcatLog'
         warn 'tomcatLog'
         additivity = true
     }
 
-    warn 'au.org.ala.cas.client',
+    warn    'au.org.ala.cas.client',
             'grails.spring.BeanBuilder',
             'grails.plugin.webxml',
-            'grails.plugin.cache.web.filter',
-
-    debug 'grails.app'
+            'grails.plugin.cache.web.filter'
+    debug   'grails.app'
 }
 
 // app specific config
