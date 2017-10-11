@@ -21,10 +21,13 @@ if(System.getenv(ENV_NAME) && new File(System.getenv(ENV_NAME)).exists()) {
     grails.config.locations.add "file:" + System.getProperty(ENV_NAME)
 }
 
+// Build server doesn't see config files for some reason
 if (!new File(default_config).exists()) {
-    throw ApplicationException("Config doesn't exist: " + default_config)
+    // throw ApplicationException("Config doesn't exist: " + default_config)
+    println "[${appName}] No external configuration file defined."
 } else if(!new File(commons_config).exists()) {
-    throw ApplicationException("Config doesn't exist: " + commons_config)
+    // throw ApplicationException("Config doesn't exist: " + commons_config)
+    println "[${appName}] No external commons configuration file defined."
 }
 
 grails.config.locations.add "file:" + default_config
