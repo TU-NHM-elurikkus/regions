@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page import="grails.util.Environment" %>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,16 +14,18 @@
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmpdTc4R7iLML5tHXpN0OzHsEm7duuPrg" type="text/javascript"></script>
         <script src="https://www.google.com/jsapi?type=js/key=AIzaSyBmpdTc4R7iLML5tHXpN0OzHsEm7duuPrg" type="text/javascript"></script>
+
+        <script>
+            var GRAILS_APP = {
+                environment: "${Environment.current.name}",
+                rollbarApiKey: "${grailsApplication.config.rollbar.postApiKey}"
+            };
+        </script>
+
         <asset:javascript src="region-main" />
         <asset:stylesheet src="region-main" />
 
         <g:layoutHead />
-
-        <style>
-            body {
-                padding-top: 0;
-            }
-        </style>
     </head>
 
     <body>

@@ -1,5 +1,4 @@
 //= require he-0.5.0
-//= require common
 
 $(document).ready(function() {
     $('.accordion-heading').on('click', function(e) {
