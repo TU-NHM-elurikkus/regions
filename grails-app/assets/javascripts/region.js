@@ -1,7 +1,6 @@
 //= require jquery-ui-slider-pips
 //= require charts2
 //= require number-functions
-//= require common
 //= require bootstrap-switch.min
 //= require aa
 

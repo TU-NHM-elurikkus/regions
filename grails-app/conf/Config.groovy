@@ -1,39 +1,31 @@
 import org.apache.log4j.Level
+import grails.util.Environment
 
-/******************************************************************************\
- *  CONFIG MANAGEMENT
- \******************************************************************************/
-def ENV_NAME = "${appName.toUpperCase()}_CONFIG"
-config_dir = "/data/${appName}/config/"
+
 default_config = "/data/${appName}/config/${appName}-config.properties"
+config_dir = "/data/${appName}/config/"
 commons_config = "/data/commons/config/commons-config.properties"
+env_config = "config/${Environment.current.name}/Config.groovy"
 
-if(!grails.config.locations || !(grails.config.locations instanceof List)) {
-    grails.config.locations = []
+grails.config.locations = [
+    "file:${env_config}",
+    "file:${env_config}",
+    "file:${default_config}",
+    "file:${commons_config}"
+]
+
+if(!new File(env_config).exists()) {
+    println "ERROR - [${appName}] Couldn't find environment specific configuration file: ${env_config}"
 }
-
-// TODO: doesn't seem like a needed functionality - investigate and remove
-if(System.getenv(ENV_NAME) && new File(System.getenv(ENV_NAME)).exists()) {
-    println "[${appName}] Including configuration file specified in environment: " + System.getenv(ENV_NAME);
-    grails.config.locations.add "file:" + System.getenv(ENV_NAME)
-} else if(System.getProperty(ENV_NAME) && new File(System.getProperty(ENV_NAME)).exists()) {
-    println "[${appName}] Including configuration file specified on command line: " + System.getProperty(ENV_NAME);
-    grails.config.locations.add "file:" + System.getProperty(ENV_NAME)
+if(!new File(default_config).exists()) {
+    println "ERROR - [${appName}] No external configuration file defined. ${default_config}"
 }
-
-// Build server doesn't see config files for some reason
-if (!new File(default_config).exists()) {
-    // throw ApplicationException("Config doesn't exist: " + default_config)
-    println "[${appName}] No external configuration file defined."
-} else if(!new File(commons_config).exists()) {
-    // throw ApplicationException("Config doesn't exist: " + commons_config)
-    println "[${appName}] No external commons configuration file defined."
+if(!new File(commons_config).exists()) {
+    println "ERROR - [${appName}] No external commons configuration file defined. ${commons_config}"
 }
-
-grails.config.locations.add "file:" + default_config
-grails.config.locations.add "file:" + commons_config
 
 println "[${appName}] (*) grails.config.locations = ${grails.config.locations}"
+
 
 /******************************************************************************\
  *  RELOADABLE CONFIG
