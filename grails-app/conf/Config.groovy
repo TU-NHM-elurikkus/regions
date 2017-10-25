@@ -9,9 +9,8 @@ env_config = "config/${Environment.current.name}/Config.groovy"
 
 grails.config.locations = [
     "file:${env_config}",
-    "file:${env_config}",
-    "file:${default_config}",
-    "file:${commons_config}"
+    "file:${commons_config}",
+    "file:${default_config}"
 ]
 
 if(!new File(env_config).exists()) {
@@ -123,30 +122,46 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
-def loggingDir = (System.getProperty('catalina.base') ? System.getProperty('catalina.base') + '/logs' : './logs')
-def appName = grails.util.Metadata.current.'app.name'
-// log4j configuration
+
+def logging_dir = System.getProperty("catalina.base") ? System.getProperty("catalina.base") + "/logs" : "/var/log/tomcat7"
+if(!new File(logging_dir).exists()) {
+    logging_dir = "/tmp"
+}
+
 log4j = {
-// Example of changing the log pattern for the default console
-// appender:
+
+    def logPattern = pattern(conversionPattern: "%d %-5p [%c{1}] %m%n")
+
     appenders {
         environments {
             production {
-                rollingFile name: "tomcatLog", maxFileSize: '1MB', file: "${loggingDir}/${appName}.log", threshold: Level.ERROR, layout: pattern(conversionPattern: "%d %-5p [%c{1}] %m%n")
-            }
-            development {
-                console name: "stdout", layout: pattern(conversionPattern: "%d %-5p [%c{1}] %m%n"), threshold: Level.DEBUG
+                rollingFile(
+                    name: "tomcatLog",
+                    maxFileSize: "10MB",
+                    file: "${logging_dir}/specieslist.log",
+                    threshold: org.apache.log4j.Level.WARN,
+                    layout: logPattern)
             }
             test {
-                rollingFile name: "stdout,tomcatLog", maxFileSize: '1MB', file: "/tmp/${appName}", threshold: Level.DEBUG, layout: pattern(conversionPattern: "%d %-5p [%c{1}] %m%n")
+                rollingFile(
+                    name: "tomcatLog",
+                    maxFileSize: "10MB",
+                    file: "${logging_dir}/specieslist.log",
+                    threshold: org.apache.log4j.Level.WARN,
+                    layout: logPattern)
+            }
+            development {
+                console(
+                    name: "stdout",
+                    layout: logPattern,
+                    threshold: org.apache.log4j.Level.DEBUG)
             }
         }
     }
+
     root {
-        // change the root logger to my tomcatLog file
-        error 'tomcatLog'
-        warn 'tomcatLog'
-        additivity = true
+        error "tomcatLog"
+        warn "tomcatLog"
     }
 
     warn    'au.org.ala.cas.client',
@@ -155,6 +170,7 @@ log4j = {
             'grails.plugin.cache.web.filter'
     debug   'grails.app'
 }
+
 
 // app specific config
 // switch this on to query hub specific data
