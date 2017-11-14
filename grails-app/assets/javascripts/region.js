@@ -1,7 +1,9 @@
+//= require jquery-ui-1.11.2-no-autocomplete
 //= require jquery-ui-slider-pips
 //= require charts2
 //= require number-functions
-//= require bootstrap-switch.min
+//= require keydragzoom
+//= require wms
 //= require aa
 
 var region = {

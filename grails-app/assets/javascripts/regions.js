@@ -1,4 +1,7 @@
 //= require he-0.5.0
+//= require jquery-ui-1.11.2-no-autocomplete
+//= require wms
+//= require keydragzoom
 
 $(document).ready(function() {
     $('.accordion-heading').on('click', function(e) {
