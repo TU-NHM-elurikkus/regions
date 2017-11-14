@@ -10,7 +10,8 @@
         <%-- Get regions metadata --%>
         <script src="${g.createLink(controller: 'data', action: 'regionsMetadataJavascript')}"></script>
 
-        <asset:javascript src="regions.js" />
+        <asset:javascript src="regions" />
+        <asset:stylesheet src="regions" />
 
     </head>
 

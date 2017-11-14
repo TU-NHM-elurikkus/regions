@@ -7,8 +7,8 @@
             ${region.name}
         </title>
 
-        <asset:javascript src="region.js" />
-        <asset:stylesheet src="bootstrap-switch.css" />
+        <asset:javascript src="region" />
+        <asset:stylesheet src="region" />
     </head>
 
     <body class="nav-locations regions">
