@@ -44,5 +44,7 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:2.14.1"
         compile ":cache-headers:1.1.7"
         compile ":elurikkus-commons:0.2-SNAPSHOT"
+
+        runtime ":resources:1.2.14"  // Need this or else ajaxanywhere plugin throws errors during build
     }
 }
