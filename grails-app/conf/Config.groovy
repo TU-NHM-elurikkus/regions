@@ -7,10 +7,8 @@ import com.nextdoor.rollbar.RollbarLog4jAppender
 default_config = "/data/${appName}/config/${appName}-config.properties"
 config_dir = "/data/${appName}/config/"
 commons_config = "/data/commons/config/commons-config.properties"
-env_config = "config/${Environment.current.name}/Config.groovy"
 
 grails.config.locations = [
-    "file:${env_config}",
     "file:${commons_config}",
     "file:${default_config}"
 ]
@@ -24,12 +22,9 @@ try {
     prop.load(new FileInputStream(fileLocation))
     rollbarServerKey = prop.getProperty("rollbar.postServerKey") ?: ""
 } catch(IOException e) {
-    e.printStackTrace()
+    // e.printStackTrace()
 }
 
-if(!new File(env_config).exists()) {
-    println "ERROR - [${appName}] Couldn't find environment specific configuration file: ${env_config}"
-}
 if(!new File(default_config).exists()) {
     println "ERROR - [${appName}] No external configuration file defined. ${default_config}"
 }
