@@ -387,26 +387,6 @@
                     return false;
                 });
 
-                <g:if test="${enableHubData}">
-                    $("[name='hub-toggle']").bootstrapSwitch({
-                        size: "small",
-                        onText: "All",
-                        onColor: "primary",
-                        offText: "MDBA",
-                        offColor: "success",
-                        onSwitchChange: function(event, state) {
-                            if (!state) {
-                                // MDBA visible
-                                regionWidget.getCurrentState().showHubData = true
-                            } else {
-                                regionWidget.getCurrentState().showHubData = false
-                            }
-                            refreshSpeciesGroup();
-                            taxonomyChart.load()
-                        }
-                    });
-                </g:if>
-
                 regionWidget = new RegionWidget({
                     regionName: '${region.name}',
                     regionType: '${region.type}',
