@@ -49,35 +49,35 @@ reloadable.cfgs = ["file:" + default_config, "file:" + commons_config]
  *  SKINNING
  \******************************************************************************/
 if (!ala.skin) {
-    ala.skin = 'ala2';
+    ala.skin = "ala2";
 }
 // Defaults used for the breadcrumb if the skin doesn't override them
 // Skins should use the prefix: skin.breadcrumb instead of breadcrumb.default.  They can also
 // supply a skin.homeURL which will be used as a prefix for the paths.
-breadcrumb.default.level1.title='Home'
-breadcrumb.default.level1.path=''
-breadcrumb.default.level2.title='Explore'
-breadcrumb.default.level2.path='/explore/'
+breadcrumb.default.level1.title="Home"
+breadcrumb.default.level1.path=""
+breadcrumb.default.level2.title="Explore"
+breadcrumb.default.level2.path="/explore/"
 
 
-grails.project.groupId = 'au.org.ala' // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = "au.org.ala" // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
-grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
+grails.mime.disable.accept.header.userAgents = ["Gecko", "WebKit", "Presto", "Trident"]
 grails.mime.types = [ // the first one is the default format
-                      all          : '*/*', // 'all' maps to '*' or the first available format in withFormat
-                      atom         : 'application/atom+xml',
-                      css          : 'text/css',
-                      csv          : 'text/csv',
-                      form         : 'application/x-www-form-urlencoded',
-                      html         : ['text/html', 'application/xhtml+xml'],
-                      js           : 'text/javascript',
-                      json         : ['application/json', 'text/json'],
-                      multipartForm: 'multipart/form-data',
-                      rss          : 'application/rss+xml',
-                      text         : 'text/plain',
-                      hal          : ['application/hal+json', 'application/hal+xml'],
-                      xml          : ['text/xml', 'application/xml']
+                      all          : "*/*", // "all" maps to "*" or the first available format in withFormat
+                      atom         : "application/atom+xml",
+                      css          : "text/css",
+                      csv          : "text/csv",
+                      form         : "application/x-www-form-urlencoded",
+                      html         : ["text/html", "application/xhtml+xml"],
+                      js           : "text/javascript",
+                      json         : ["application/json", "text/json"],
+                      multipartForm: "multipart/form-data",
+                      rss          : "application/rss+xml",
+                      text         : "text/plain",
+                      hal          : ["application/hal+json", "application/hal+xml"],
+                      xml          : ["text/xml", "application/xml"]
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -88,30 +88,30 @@ grails.views.default.codec = "html"
 
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
-grails.controllers.defaultScope = 'singleton'
+grails.controllers.defaultScope = "singleton"
 
 // GSP settings
 grails {
     views {
         gsp {
-            encoding = 'UTF-8'
-            htmlcodec = 'xml' // use xml escaping instead of HTML4 escaping
+            encoding = "UTF-8"
+            htmlcodec = "xml" // use xml escaping instead of HTML4 escaping
             codecs {
-                expression = 'html' // escapes values inside ${}
-                scriptlet = 'html' // escapes output from scriptlets in GSPs
-                taglib = 'none' // escapes output from taglibs
-                staticparts = 'none' // escapes output from static template parts
+                expression = "html" // escapes values inside ${}
+                scriptlet = "html" // escapes output from scriptlets in GSPs
+                taglib = "none" // escapes output from taglibs
+                staticparts = "none" // escapes output from static template parts
             }
         }
         // escapes all not-encoded output at final stage of outputting
-        // filteringCodecForContentType.'text/html' = 'html'
+        // filteringCodecForContentType."text/html" = "html"
     }
 }
 
 
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
-grails.scaffolding.templates.domainSuffix = 'Instance'
+grails.scaffolding.templates.domainSuffix = "Instance"
 
 // Set to false to use the new Grails 1.2 JSONBuilder in the render method
 grails.json.legacy.builder = false
@@ -123,9 +123,9 @@ grails.spring.bean.packages = []
 grails.web.disable.multipart = false
 
 // request parameters to mask when logging exceptions
-grails.exceptionresolver.params.exclude = ['password']
+grails.exceptionresolver.params.exclude = ["password"]
 
-// configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
+// configure auto-caching of queries by default (if false you can cache individual queries with "cache: true")
 grails.hibernate.cache.queries = false
 
 // configure passing transaction's read-only attribute to Hibernate session, queries and criterias
@@ -156,7 +156,7 @@ log4j = {
     def tomcatLogAppender = rollingFile(
         name: "tomcatLog",
         maxFileSize: "10MB",
-        file: "${logging_dir}/specieslist.log",
+        file: "${logging_dir}/regions.log",
         threshold: org.apache.log4j.Level.WARN,
         layout: logPattern
     )
@@ -181,15 +181,24 @@ log4j = {
     }
 
     root {
-        error "tomcatLog", "rollbar"
+        error "rollbar"
         warn "tomcatLog"
+        info "stdout"
     }
 
-    warn    'au.org.ala.cas.client',
-            'grails.spring.BeanBuilder',
-            'grails.plugin.webxml',
-            'grails.plugin.cache.web.filter'
-    debug   'grails.app'
+    warn    "org.codehaus.groovy.grails.web.servlet",        // controllers
+            "org.codehaus.groovy.grails.web.pages",          // GSP
+            "org.codehaus.groovy.grails.web.sitemesh",       // layouts
+            "org.codehaus.groovy.grails.web.mapping.filter", // URL mapping
+            "org.codehaus.groovy.grails.web.mapping",        // URL mapping
+            "org.codehaus.groovy.grails.commons",            // core / classloading
+            "org.codehaus.groovy.grails.plugins",            // plugins
+            "org.codehaus.groovy.grails.orm.hibernate",      // hibernate integration
+            "au.org.ala.cas.client",
+            "grails.spring.BeanBuilder",
+            "grails.plugin.webxml",
+            "grails.plugin.cache.web.filter"
+    debug   "grails.app"
 }
 
 
@@ -211,9 +220,9 @@ layers.intersectObject=""
 // configuration to show a default layer on the map. This layer is on top of the layers selected from accordion.
 // helpful for regions app implementation for a hub.
 layers.showQueryContext=false
-layers.queryContextName=''
-layers.queryContextShortName=''
-layers.queryContextDisplayName=''
-layers.queryContextFid=''
-layers.queryContextBieContext=''
-layers.queryContextOrder=''
+layers.queryContextName=""
+layers.queryContextShortName=""
+layers.queryContextDisplayName=""
+layers.queryContextFid=""
+layers.queryContextBieContext=""
+layers.queryContextOrder=""
