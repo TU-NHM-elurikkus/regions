@@ -136,7 +136,6 @@ li.regionLink:hover {
 
 #groups tbody,
 #species tbody {
-    height: 530px;
     max-height: 530px;
     overflow-y: auto;
 }
@@ -159,17 +158,9 @@ tbody .spinner {
     border-right: 1px solid #dddddd;
 }
 
-#groups thead th {}
-
-#groups tbody tr {}
-
-#groups tbody td {}
-
 #groups td.level1 {
     padding-left: 2em;
 }
-
-#species {}
 
 #species td:first-child {
     padding-right: 0;
@@ -219,14 +210,11 @@ tr.speciesSelected:hover td {
 
 #timeSlider .ui-slider-label {
     font-size: .8em;
+    color: #999 !important;
 }
 
 #timeSlider .ui-slider-handle {
     cursor: pointer;
-}
-
-#timeSlider .ui-slider-label {
-    color: #999 !important;
 }
 
 #time-range {
