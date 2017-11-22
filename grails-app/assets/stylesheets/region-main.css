@@ -227,8 +227,9 @@ tr.speciesSelected:hover td {
 }
 
 .time-control {
-    width: 2em;
+    border: 0;
     height: 2em;
+    width: 2em;
 }
 
 #playButton {

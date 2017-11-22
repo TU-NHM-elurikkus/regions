@@ -637,7 +637,7 @@ $(document).ready(function() {
         \*****************************************/
         $('#accordion').accordion({
             activate: function(event, ui) {
-                layers[$(ui.newPanel).attr('layer')].set();
+                layers[$(ui.newPanel).attr('data-layer')].set();
             },
 
             active: selectedRegionType.order

@@ -1,4 +1,4 @@
-<tbody tagName="tbody" id="groupsZone" aa-queue="abort">
+<tbody id="groupsZone" aa-queue="abort">
     <g:each in="${groups}" var="group">
         <tr
             id="${group.commonName.replaceAll(/[^A-Za-z\\d_]/, "")}-row"

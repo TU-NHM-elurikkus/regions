@@ -105,7 +105,6 @@
                             <div class="col-4">
                                 <table
                                     id="groups"
-                                    tagName="tbody"
                                     class="table table-condensed table-hover"
                                     aa-href="${g.createLink(controller: 'region', action: 'showGroups', params: [regionFid: region.fid,regionType: region.type, regionName: region.name, regionPid: region.pid])}"
                                     aa-js-before="setHubConfig();"
@@ -121,7 +120,7 @@
                                         </tr>
                                     </thead>
 
-                                    <tbody id="groupsZone" tagName="tbody">
+                                    <tbody id="groupsZone">
                                         <tr class="spinner">
                                             <td class="spinner text-center">
                                                 <span class="fa fa-cog fa-spin fa-2x"></span>
@@ -183,11 +182,10 @@
                                     href="${g.createLink(controller: 'region', action: 'showDownloadDialog')}"
                                     aa-refresh-zones="dialogZone"
                                     aa-js-before="regionWidget.showDownloadDialog();"
+                                    class="erk-button erk-button--light erk-button-link"
                                 >
-                                    <button class="erk-button erk-button--light">
-                                        <span class="fa fa-download"></span>
-                                        <g:message code="general.btn.download.label" />
-                                    </button>
+                                    <span class="fa fa-download"></span>
+                                    <g:message code="general.btn.download.label" />
                                 </a>
                             </div>
                         </div>
@@ -210,30 +208,26 @@
 
                 <div id="time-controls" class="text-center">
                     <div id="time-buttons">
-                        <span
+                        <button
                             id="playButton"
                             class="time-control link"
                             title="${message(code: 'region.playBack.btn.play')}"
-                            alt="${message(code: 'region.playBack.btn.play')}"
-                        ></span>
-                        <span
+                        ></button>
+                        <button
                             id="pauseButton"
                             class="time-control link"
                             title="${message(code: 'region.playBack.btn.pause')}"
-                            alt"${message(code: 'region.playBack.btn.pause')}"
-                        ></span>
-                        <span
+                        ></button>
+                        <button
                             id="stopButton"
                             class="time-control link"
                             title="${message(code: 'region.playBack.btn.stop')}"
-                            alt="${message(code: 'region.playBack.btn.stop')}"
-                        ></span>
-                        <span
+                        ></button>
+                        <button
                             id="resetButton"
                             class="time-control link"
                             title="${message(code: 'region.playBack.btn.reset')}"
-                            alt="${message(code: 'region.playBack.btn.reset')}"
-                        ></span>
+                        ></button>
                     </div>
                 </div>
 
