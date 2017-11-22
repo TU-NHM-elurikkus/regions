@@ -675,7 +675,7 @@ function RegionMap(config) {
                             new google.maps.LatLng(data[3], data[2]));
                         map.fitBounds(initialBounds);
                         $('#using-bbox-hack').html('Using occurrence bounds')
-                        $('#bbox').html('Using bbox ' + newBbox.toString());
+                        $('#bbox').html('Using bbox ' + new Bbox.toString());
                     }
                 }
             });
