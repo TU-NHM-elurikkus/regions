@@ -2,11 +2,11 @@
 
 /** *** external services & links *****/
 // an instance of the collections app - used for name lookup services
-var collectionsUrl = 'http://collections.ala.org.au';  // should be overridden from config by the calling page
+var collectionsUrl = 'http://collections.ala.org.au'; // should be overridden from config by the calling page
 // an instance of the biocache web services app - used for facet and taxonomic breakdowns
-var biocacheServicesUrl = 'http://biocache.ala.org.au/ws';  // should be overridden from config by the calling page
+var biocacheServicesUrl = 'http://biocache.ala.org.au/ws'; // should be overridden from config by the calling page
 // an instance of a web app - used to display search results
-var biocacheWebappUrl = 'http://biocache.ala.org.au/';  // should be overridden from config by the calling page
+var biocacheWebappUrl = 'http://biocache.ala.org.au/'; // should be overridden from config by the calling page
 
 // defaults for taxa chart
 var taxonomyPieChartOptions = {
@@ -158,7 +158,7 @@ function loadFacetCharts(chartOptions) {
 
 function cleanUp(chartOptions) {
     $('i.loading').remove();
-    if(chartOptions != undefined && chartOptions.error) {
+    if(chartOptions !== undefined && chartOptions.error) {
         window[chartOptions.error]();
     }
 }
@@ -187,7 +187,7 @@ function drawFacetCharts(data, chartOptions) {
     var chartsDiv = $('#' + (chartOptions.targetDivId ? chartOptions.targetDivId : 'charts'));
     var query = chartOptions.query ? chartOptions.query : buildQueryString(chartOptions.instanceUid);
     $.each(chartOptions.charts, function(index, name) {
-        if(facetMap[name] != undefined) {
+        if(facetMap[name] !== undefined) {
             buildGenericFacetChart(name, facetMap[name], query, chartsDiv, chartOptions);
         }
     });
@@ -202,7 +202,7 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
 
     // resolve the chart options
     var opts = $.extend({}, genericChartOptions);
-    opts.title = 'By ' + chartLabel;  // default title
+    opts.title = 'By ' + chartLabel; // default title
     var individualOptions = individualChartOptions[name] ? individualChartOptions[name] : {};
     // merge generic, individual and user options
     opts = $.extend(true, {}, opts, individualOptions, chartOptions[name]);
@@ -265,7 +265,7 @@ function buildGenericFacetChart(name, data, query, chartsDiv, chartOptions) {
     }
 
     // setup a click handler - if requested
-    if(chartOptions.clickThru != false) {  // defaults to true
+    if(chartOptions.clickThru !== false) { // defaults to true
         google.visualization.events.addListener(chart, 'select', function() {
 
             // default facet value is the name selected
@@ -491,7 +491,7 @@ var taxonomyChart = {
         // create the outer div that will contain the chart and the additional links
         var $outerContainer = $('#taxa');
         if(!$outerContainer.length) {
-            $outerContainer = $('<div id="taxa"></div>');  // create it
+            $outerContainer = $('<div id="taxa"></div>'); // create it
             $outerContainer.css('margin-bottom', '-50px');
             var chartsDiv = $('div#' + (this.chartOptions.targetDivId ? this.chartOptions.targetDivId : 'charts'));
             // append it
@@ -575,7 +575,7 @@ var taxonomyChart = {
                 '</div>');
             $recordsLink.css('position', 'relative').css('top', '-45px');
             $recordsLink.click(function() {
-                thisChart.showRecords();  // called explicitly so we have the correct 'this' context
+                thisChart.showRecords(); // called explicitly so we have the correct 'this' context
             });
             $recordsLink.appendTo($outerContainer);
         }
@@ -588,8 +588,8 @@ var taxonomyChart = {
         }
 
         // setup a click handler - if requested
-        var clickThru = this.chartOptions.clickThru == undefined ? true : this.chartOptions.clickThru;  // default to true
-        var drillDown = this.chartOptions.drillDown == undefined ? true : this.chartOptions.drillDown;  // default to true
+        var clickThru = this.chartOptions.clickThru === undefined ? true : this.chartOptions.clickThru; // default to true
+        var drillDown = this.chartOptions.drillDown === undefined ? true : this.chartOptions.drillDown; // default to true
         if(clickThru || drillDown) {
             google.visualization.events.addListener(chart, 'select', function() {
 
@@ -669,7 +669,7 @@ function initTaxonTree(treeOptions) {
 
     var targetDivId = treeOptions.targetDivId ? treeOptions.targetDivId : 'tree';
     var $container = $('#' + targetDivId);
-    $container.append($('<h4>Explore records by taxonomy</h4>'));  // TODO: Translate
+    $container.append($('<h4>Explore records by taxonomy</h4>')); // TODO: Translate
     var $treeContainer = $('<div id="treeContainer"></div>').appendTo($container);
     $treeContainer.resizable({
         maxHeight: 900,
@@ -678,8 +678,7 @@ function initTaxonTree(treeOptions) {
         minWidth: 500
     });
     var $tree = $('<div id="taxaTree"></div>').appendTo($treeContainer);
-    $tree
-    .bind('after_open.jstree', function(event, data) {
+    $tree.bind('after_open.jstree', function(event, data) {
         var children = $.jstree._reference(data.rslt.obj)._get_children(data.rslt.obj);
         // automatically open if only one child node
         if(children.length === 1) {
@@ -693,16 +692,13 @@ function initTaxonTree(treeOptions) {
                 height: fullHeight
             });
         }
-    })
-    .bind('select_node.jstree', function(event, data) {
+    }).bind('select_node.jstree', function(event, data) {
         // click will show the context menu
         $tree.jstree('show_contextmenu', data.rslt.obj);
-    })
-    .bind('loaded.jstree', function(event, data) {
+    }).bind('loaded.jstree', function(event, data) {
         // get rid of the anchor click handler because it hides the context menu (which we are 'binding' to click)
         $tree.jstree('open_node', '#top');
-    })
-    .jstree({
+    }).jstree({
         json_data: {
             data: {
                 'data': 'Kingdoms',
@@ -717,7 +713,7 @@ function initTaxonTree(treeOptions) {
                     var rank = $(node).attr('rank');
                     var u = urlConcat(biocacheServicesUrl, '/breakdown.json?q=') + query + '&rank=';
                     if(rank === 'kingdoms') {
-                        u += 'kingdom';  // starting node
+                        u += 'kingdom'; // starting node
                     } else {
                         u += rank + '&name=' + $(node).attr('id');
                     }
@@ -771,13 +767,13 @@ function initTaxonTree(treeOptions) {
             show_at_node: false,
             items: {
                 records: {
-                    label: 'Show records',  // TODO: Translate
+                    label: 'Show records', // TODO: Translate
                     action: function(obj) {
                         showRecords(obj, query);
                     }
                 },
                 bie: {
-                    label: 'Show information',  // TODO: Translate
+                    label: 'Show information', // TODO: Translate
                     action: function(obj) {
                         showBie(obj);
                     }
@@ -815,7 +811,7 @@ function showBie(node) {
         return;
     }
     var name = node.attr('id');
-    var sppUrl = 'http://bie.ala.org.au/species/' + name;  // TODO: URL?
+    var sppUrl = 'http://bie.ala.org.au/species/' + name; // TODO: URL?
     if(rank !== 'species') {
         sppUrl += '_(' + rank + ')';
     }

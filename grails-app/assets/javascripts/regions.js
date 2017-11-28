@@ -133,8 +133,7 @@ $(document).ready(function() {
         /* Return the pid for the specified object in this set (or for the subregion of a sub-set)
          * @param name of the object */
         getPid: function(name) {
-            return this.other ? selectedRegion.subregionPid :
-                  (this.objects[name] ? this.objects[name].pid : null);
+            return this.other ? selectedRegion.subregionPid : (this.objects[name] ? this.objects[name].pid : null);
         },
 
         /* Return metadata for the region in this set with the specified name
@@ -259,8 +258,7 @@ $(document).ready(function() {
                         'sld_body=' + encodeURIComponent(sld)
                     ];
 
-                    this.wms = new WMSTileLayer(
-                            this.layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded, getLayerOpacity());
+                    this.wms = new WMSTileLayer(this.layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded, getLayerOpacity());
                 }
 
                 map.setLayerOverlay(this.wms, order);
@@ -275,8 +273,7 @@ $(document).ready(function() {
                     'LAYERS=ALA:' + layerName,
                     'STYLES=polygon'
                 ],
-                wms = new WMSTileLayer(layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded,
-                        getLayerOpacity());
+                wms = new WMSTileLayer(layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded, getLayerOpacity());
             if($('#toggleLayer').is(':checked')) {
                 map.setLayerOverlay(wms);
             }
@@ -430,8 +427,8 @@ $(document).ready(function() {
         defaultLayerOpacity: 0.55,
         // the default bounds for the map
         initialBounds: new google.maps.LatLngBounds(
-                new google.maps.LatLng(-41.5, 114),
-                new google.maps.LatLng(-13.5, 154)),
+            new google.maps.LatLng(-41.5, 114),
+            new google.maps.LatLng(-13.5, 154)),
         clickedRegion: '',
         init: function() {
             var options = {
@@ -523,7 +520,7 @@ $(document).ready(function() {
                                 clearSelectedRegion();
                             }
                             break;
-                        default:  // treat one or many as just one for now
+                        default: // treat one or many as just one for now
                             if(selectedRegion && selectedRegion.other) {
                                 selectedRegion.setSubregion(features[0].value, features[0].pid);
                             } else {
@@ -534,7 +531,7 @@ $(document).ready(function() {
                                     document.location.href = selectedRegion.urlToViewRegion();
                                 }
 
-                                var region = new Region(name).set();
+                                new Region(name).set();
                             }
                     }
                 }
@@ -549,22 +546,6 @@ $(document).ready(function() {
         }
 
     };
-
-    /* function delayNewRegion(region) {
-        new Region(region).set();
-    }*/
-
-    /**
-     * Activates the help link.
-     */
-    function initHelp() {
-        $('#showHelp').click(function() {
-            var height = $('#mainHelp').css('height');
-            $('#mainHelp').animate({ height: height === '0px' ? 280 : 0 }, 'slow');
-            $('#showHelp').html(height === '0px' ? 'Hide help' : 'Show me how');
-            return false;
-        });
-    }
 
     /**
      * A callback function to set the initial region once the data and lists are loaded.
@@ -607,8 +588,6 @@ $(document).ready(function() {
      * - defaultRegion: string containing the name of the region within the defaultRegionType menu to select by default
      */
     function init(options) {
-        var initialRegionTypeStr;
-
         config.baseUrl = options.server;
         config.spatialServiceUrl = options.spatialService;
         config.spatialWmsUrl = options.spatialWms;
@@ -711,13 +690,7 @@ $(document).ready(function() {
         \*****************************************/
         // also sets the region from the hash params once the region type data has been retrieved
         selectedRegionType.set(setDefaultRegion);
-
-        /** ***************************************\
-        | Activate the help link
-        \*****************************************/
-        // initHelp();
-
     }
 
     windows.init_regions = init;
-}(this));
+})(this);

@@ -922,7 +922,7 @@ function RegionMap(config) {
                 if(data.length === 0) { return; }
                 if(infoWindow) { infoWindow.close(); }
 
-                var anyInfo = false;  // keep track of whether we actually add anything
+                var anyInfo = false; // keep track of whether we actually add anything
                 var desc = '<ol>';
                 $.each(data, function(i, obj) {
                     if(obj.value) {

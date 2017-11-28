@@ -75,7 +75,7 @@
             </div>
 
             <%-- MAP CONTROLS & INFO --%>
-            <div class="col-sm-12 col-md-6 col-lg-7 order-md-2" id="rightPanel">
+            <div id="rightPanel" class="col-sm-12 col-md-6 col-lg-7 order-md-2">
                 <div class="row">
                     <div class="col-md-12 col-lg-9 col-xl-8 order-lg-2">
                         <%-- Buttons --%>
@@ -153,23 +153,23 @@
 
                 init_regions({
                     server: '${grailsApplication.config.grails.serverURL}',
-                    spatialService: "${grailsApplication.config.layersService.baseURL}/",
-                    spatialWms: "${grailsApplication.config.geoserver.baseURL}/ALA/wms?",
-                    spatialCache: "${grailsApplication.config.geoserver.baseURL}/ALA/wms?",
+                    spatialService: '${grailsApplication.config.layersService.baseURL}/',
+                    spatialWms: '${grailsApplication.config.geoserver.baseURL}/ALA/wms?',
+                    spatialCache: '${grailsApplication.config.geoserver.baseURL}/ALA/wms?',
                     accordionPanelMaxHeight: '${grailsApplication.config.accordion.panel.maxHeight}',
-                    mapBounds: JSON.parse('${grailsApplication.config.map.bounds?:[]}'),
+                    mapBounds: JSON.parse('${grailsApplication.config.map.bounds ?: []}'),
                     mapHeight: '${grailsApplication.config.map.height}',
                     mapContainer: 'map-canvas',
-                    defaultRegionType: "${grailsApplication.config.default.regionType}",
-                    defaultRegion: "${grailsApplication.config.default.region}",
+                    defaultRegionType: '${grailsApplication.config.default.regionType}',
+                    defaultRegion: '${grailsApplication.config.default.region}',
                     showQueryContextLayer: ${grailsApplication.config.layers.showQueryContext},
                     queryContextLayer: {
-                        name:"${grailsApplication.config.layers.queryContextName}",
-                        shortName:"${grailsApplication.config.layers.queryContextShortName}",
-                        fid:"${grailsApplication.config.layers.queryContextFid}",
-                        bieContext:"${grailsApplication.config.layers.queryContextBieContext}",
-                        order:"${grailsApplication.config.layers.queryContextOrder}",
-                        displayName:"${grailsApplication.config.layers.queryContextDisplayName}"
+                        name: '${grailsApplication.config.layers.queryContextName}',
+                        shortName: '${grailsApplication.config.layers.queryContextShortName}',
+                        fid: '${grailsApplication.config.layers.queryContextFid}',
+                        bieContext: '${grailsApplication.config.layers.queryContextBieContext}',
+                        order: '${grailsApplication.config.layers.queryContextOrder}',
+                        displayName: '${grailsApplication.config.layers.queryContextDisplayName}'
                     }
                 });
             })
