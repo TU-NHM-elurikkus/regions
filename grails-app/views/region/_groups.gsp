@@ -19,7 +19,6 @@
                     <span class="fa fa-chevron-right"></span>
                 </g:if>
 
-
                 <g:if test="${group.name == 'ALL_SPECIES'}">
                     <g:message code="groups.dynamic.group.ALL_SPECIES" />
                 </g:if>
