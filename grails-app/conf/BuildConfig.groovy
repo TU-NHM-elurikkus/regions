@@ -37,6 +37,7 @@ grails.project.dependency.resolution = {
         build ":release:3.0.1"
         build ":rest-client-builder:2.0.3"
         build ":tomcat:7.0.70"
+        build ":codenarc:1.0"
 
         compile ":jquery:1.11.1"
         compile ":ajaxanywhere:1.0-SNAPSHOT"
