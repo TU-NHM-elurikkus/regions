@@ -15,7 +15,7 @@ class RegionController {
     def showEmblems(final String regionType, final String regionName) {
         List emblemsMetadata = metadataService.getEmblemsMetadata(regionName)
 
-        render template: 'emblems', model: [emblems: emblemsMetadata]
+        render template: "emblems", model: [emblems: emblemsMetadata]
     }
 
     /**
@@ -25,7 +25,7 @@ class RegionController {
     def showGroups(final String regionFid, final String regionType, final String regionName, final String regionPid, final Boolean showHubData) {
         def groups = metadataService.getGroups(regionFid, regionType, regionName, regionPid, showHubData)
 
-        render template: 'groups', model: [groups: groups]
+        render template: "groups", model: [groups: groups]
     }
 
     /**
@@ -33,10 +33,13 @@ class RegionController {
      * @return
      */
     def showSpecies() {
-        Boolean showHubData = params.boolean('showHubData', false)
-        def species = metadataService.getSpecies(params.regionFid, params.regionType, params.regionName, params.regionPid, params.subgroup?:params.group, params.subgroup ? true : false, showHubData, params.from, params.to, params.pageIndex ?: "0")
+        Boolean showHubData = params.boolean("showHubData", false)
+        def species = metadataService.getSpecies(
+                params.regionFid, params.regionType, params.regionName, params.regionPid,
+                params.subgroup ?: params.group, params.subgroup ? true : false, showHubData, params.from, params.to,
+                params.pageIndex ?: "0", params.groupRank ?: "")
 
-        render template: 'species', model: [species        : species,
+        render template: "species", model: [species        : species,
                                             speciesPageUrl : "${metadataService.BIE_URL}/species",
                                             regionFid      : params.regionFid,
                                             regionType     : params.regionType,
@@ -56,11 +59,11 @@ class RegionController {
     def showDownloadDialog() {
         DownloadParams downloadParams = params.downloadParams
         String downloadUrl = params.downloadUrl
-        Boolean showHubData = params.boolean('showHubData', false)
+        Boolean showHubData = params.boolean("showHubData", false)
         def downloadReasons = MetadataService.logReasonCache
         downloadParams = downloadParams ?: new DownloadParams(email: params.email)
 
-        render template: 'downloadRecordsDialog', model: [
+        render template: "downloadRecordsDialog", model: [
                 downloadParams: downloadParams,
                 downloadReasons: downloadReasons,
                 downloadOptions: MetadataService.DOWNLOAD_OPTIONS,

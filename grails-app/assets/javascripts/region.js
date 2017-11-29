@@ -94,7 +94,8 @@ function RegionWidget(config) {
         q: '',
         qc: '',
         hubFilter: '',
-        showHubData: false
+        showHubData: false,
+        groupRank: ''
     };
 
     var urls = {};
@@ -127,9 +128,10 @@ function RegionWidget(config) {
         $(document).ajaxStart(
             function(e) {
                 showTabSpinner();
-            }).ajaxComplete(function() {
-                hideTabSpinner();
-            });
+            }
+        ).ajaxComplete(function() {
+            hideTabSpinner();
+        });
 
         // Initialize click events on individual species
         $(document).on('click', '#species tbody tr.link', function() {
@@ -244,14 +246,13 @@ function RegionWidget(config) {
     /**
      * Code to execute when a group is selected
      */
-    function selectGroup(group) {
-
+    function selectGroup(group, taxonRank) {
         $('.group-row').removeClass('groupSelected');
         $('tr[parent]').hide();
         if(group !== state.group) {
-            $('#' + state.group + '-row span').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            $('#main-' + state.group + '-row span').removeClass('fa-chevron-down').addClass('fa-chevron-right');
         }
-        var groupId = group.replace(/[^A-Za-z0-9\\d_]/g, '') + '-row';
+        var groupId = 'main-' + group.replace(/[^A-Za-z0-9\\d_]/g, '') + '-row';
 
         var isAlreadyExpanded = $('#' + groupId + ' span').hasClass('fa-chevron-down');
         if(isAlreadyExpanded) {
@@ -263,7 +264,7 @@ function RegionWidget(config) {
         }
 
         // Update widget state
-        updateState({ group: group, subgroup: '', guid: '' });
+        updateState({ group: group, subgroup: '', guid: '', groupRank: taxonRank });
         // Mark as selected
         $('#' + groupId).addClass('groupSelected');
 
@@ -278,12 +279,12 @@ function RegionWidget(config) {
      * Code to execute when a subgroup is selected
      * @param subgroup
      */
-    function selectSubgroup(subgroup) {
+    function selectSubgroup(subgroup, taxonRank) {
         $('.group-row').removeClass('groupSelected');
         var subgroupId = subgroup.replace(/[^A-Za-z\\d_]/g, '') + '-row';
 
         // Update widget state
-        updateState({ subgroup: subgroup, guid: '' });
+        updateState({ group: subgroup, guid: '', groupRank: taxonRank });
         // Mark as selected
         $('#' + subgroupId).addClass('groupSelected');
 
@@ -332,7 +333,7 @@ function RegionWidget(config) {
             if(state.subgroup) {
                 $('#' + getSubgroupId()).click();
             } else {
-                $('#' + getGroupId()).click();
+                $('#main-' + getGroupId()).click();
             }
             // Update taxonomy chart
             if(taxonomyChart) {
@@ -357,15 +358,15 @@ function RegionWidget(config) {
                 $('#' + getGroupId() + ' span').removeClass('fa-chevron-right').addClass('fa-chevron-down');
                 $('#' + getSubgroupId()).click();
             } else {
-                $('#' + getGroupId()).click();
+                $('#main-' + getGroupId()).click();
             }
         },
 
-        selectGroupHandler: function(group, isSubgroup) {
+        selectGroupHandler: function(group, isSubgroup, taxonRank) {
             if(isSubgroup) {
-                selectSubgroup(group);
+                selectSubgroup(group, taxonRank);
             } else {
-                selectGroup(group);
+                selectGroup(group, taxonRank);
             }
         },
 
@@ -604,7 +605,7 @@ function TaxonomyWidget(config) {
  */
 function RegionMap(config) {
     var map;
-    var overlays = [null, null];  // first is the region, second is the occurrence data
+    var overlays = [null, null]; // first is the region, second is the occurrence data
     var defaultOccurrenceOpacity = 1.0;
     var defaultRegionOpacity = 0.2;
     var initialBounds;
@@ -634,7 +635,7 @@ function RegionMap(config) {
             },
             panControl: false,
             draggableCursor: 'crosshair',
-            mapTypeId: google.maps.MapTypeId.TERRAIN  /* google.maps.MapTypeId.TERRAIN */
+            mapTypeId: google.maps.MapTypeId.TERRAIN /* google.maps.MapTypeId.TERRAIN */
         };
 
         map = new google.maps.Map(document.getElementById('region-map'), myOptions);
@@ -661,9 +662,7 @@ function RegionMap(config) {
          | Hack the viewport if we don't have good bbox data
          \*******************************************************/
         // fall-back attempt at bounding box if all of Oz
-        if(initialBounds.equals(new google.maps.LatLngBounds(
-                new google.maps.LatLng(-42, 113),
-                new google.maps.LatLng(-14, 153)))) {
+        if(initialBounds.equals(new google.maps.LatLngBounds(new google.maps.LatLng(-42, 113), new google.maps.LatLng(-14, 153)))) {
             $.ajax({
                 url: regionWidget.getUrls().proxyUrlBbox + '?q=' + decodeURI(regionWidget.getCurrentState().q),
                 // url: url,
@@ -674,7 +673,7 @@ function RegionMap(config) {
                             new google.maps.LatLng(data[1], data[0]),
                             new google.maps.LatLng(data[3], data[2]));
                         map.fitBounds(initialBounds);
-                        $('#using-bbox-hack').html('Using occurrence bounds')
+                        $('#using-bbox-hack').html('Using occurrence bounds');
                         $('#bbox').html('Using bbox ' + new Bbox.toString());
                     }
                 }
@@ -721,7 +720,7 @@ function RegionMap(config) {
         });
     }
 
-   /**
+    /**
     * Called when the overlays are loaded. Not currently used
     * @param numtiles
     */
@@ -854,9 +853,8 @@ function RegionMap(config) {
     function drawRecordsOverlay2() {
         var currentState = regionWidget.getCurrentState();
         var urls = regionWidget.getUrls();
-
-        var url = urls.biocacheServiceUrl + '/mapping/wms/reflect?',
-            query = region.buildBiocacheQuery(currentState.q, 0, true);
+        var url = urls.biocacheServiceUrl + '/mapping/wms/reflect?';
+        var query = region.buildBiocacheQuery(currentState.q, 0, true);
         var prms = [
             'FORMAT=' + overlayFormat,
             'LAYERS=ALA%3Aoccurrences',
@@ -888,7 +886,7 @@ function RegionMap(config) {
                 if(currentState.subgroup) {
                     prms.push('fq=species_subgroup:' + encodeURI('"' + currentState.subgroup + '"'));
                 } else {
-                    prms.push('fq=species_group:' + encodeURI('"' + currentState.group + '"'));
+                    prms.push(encodeURI('fq=' + currentState.groupRank + ':"' + currentState.group + '"'));
                 }
             }
         }
@@ -922,7 +920,7 @@ function RegionMap(config) {
                 if(data.length === 0) { return; }
                 if(infoWindow) { infoWindow.close(); }
 
-                var anyInfo = false;  // keep track of whether we actually add anything
+                var anyInfo = false; // keep track of whether we actually add anything
                 var desc = '<ol>';
                 $.each(data, function(i, obj) {
                     if(obj.value) {
