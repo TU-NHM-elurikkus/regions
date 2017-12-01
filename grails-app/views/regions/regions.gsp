@@ -34,7 +34,7 @@
             <div class="page-header-links">
                 <a class="page-header-links__link" href="${grailsApplication.config.biocache.baseURL}/search#spatial-search">
                     <span class="fa fa-search"></span>
-                    <g:message code="general.searchByPolygon" />
+                    <g:message code="general.spatialSearch" />
                 </a>
                 <a class="page-header-links__link" href="${grailsApplication.config.biocache.baseURL}/explore/your-area">
                     <span class="fa fa-search"></span>
