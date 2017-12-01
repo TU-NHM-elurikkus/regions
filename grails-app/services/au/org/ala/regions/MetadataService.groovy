@@ -68,12 +68,11 @@ class MetadataService {
         1: "Download Species Checklist"
     ]
 
-
     final static String WS_DATE_FROM_PREFIX = "-01-01T00:00:00Z"
     final static String WS_DATE_TO_PREFIX = "-12-31T23:59:59Z"
     final static String WS_DATE_FROM_DEFAULT = "1850"
     final static String PAGE_SIZE = "50"
-    final static Map userAgent = ["User-Agent": "whatever"]
+    final static Map userAgent = ['User-Agent': 'metadataService/2.5 (Regions:metadataService)']
 
     String BIE_URL, BIE_SERVICE_URL, BIOCACHE_URL, BIOCACHE_SERVICE_URL, ALERTS_URL, DEFAULT_IMG_URL, QUERY_CONTEXT,
             HUB_FILTER, INTERSECT_OBJECT
