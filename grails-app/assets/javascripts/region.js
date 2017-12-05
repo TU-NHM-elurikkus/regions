@@ -913,8 +913,8 @@ function RegionMap(config) {
         var urls = regionWidget.getUrls();
 
         $.ajax({
-            url: urls.proxyUrl + '?format=json&url=' + urls.spatialServiceUrl + '/intersect/' + currentState.regionFid + '/' +
-            location.lat() + '/' + location.lng(),
+            url: urls.proxyUrl + '?format=json&url=' + urls.spatialServiceUrl + '/intersect/pointradius/' + currentState.regionFid + '/' +
+            location.lat() + '/' + location.lng() + '/1/',
             dataType: 'json',
             success: function(data) {
                 if(data.length === 0) { return; }
