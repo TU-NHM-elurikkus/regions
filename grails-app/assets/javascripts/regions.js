@@ -34,7 +34,9 @@ $(document).ready(function() {
 
     // helper method
     function clearSelectedRegion() {
-        if(selectedRegion) { selectedRegion.clear(); }
+        if(selectedRegion) {
+            selectedRegion.clear();
+        }
     }
 
     /**
@@ -264,9 +266,12 @@ $(document).ready(function() {
                 map.setLayerOverlay(this.wms, order);
             }
         },
+
         /* Draw the currently selected 'other' region as a layer */
         drawOtherLayers: function() {
-            if(selectedRegion === null) { return; }
+            if(selectedRegion === null) {
+                return;
+            }
             var layerName = this.objects[selectedRegion.name].layerName,
                 layerParams = [
                     'FORMAT=image/png8',
@@ -492,47 +497,35 @@ $(document).ready(function() {
         },
         /* Handle user clicks on the map */
         clickHandler: function(event) {
-            var location = event.latLng,
-                fid = selectedRegionType.getFid(),
-                features = [],
-                that = this;
+            var location = event.latLng;
+            var fid = selectedRegionType.getFid();
+            var that = this;
+
             this.clickedRegion = null;
             $.ajax({
-                url: config.baseUrl + '/proxy?format=json&url=' + config.spatialServiceUrl + '/intersect/' + fid + '/' + location.lat() + '/' + location.lng(),
+                url: config.baseUrl + '/proxy?format=json&url=' + config.spatialServiceUrl + '/intersect/pointradius/' + fid + '/' + location.lat() + '/' + location.lng() + '/1/',
                 dataType: 'json',
                 success: function(data) {
                     if(data.length === 0) {
-                        return;
-                    }
-
-                    // find out how many features have real data
-                    $.each(data, function(i, obj) {
-                        if(obj.value) {
-                            features.push(obj);
+                        if(selectedRegion && selectedRegion.other) {
+                            selectedRegion.clearSubregion();
+                        } else {
+                            clearSelectedRegion();
                         }
-                    });
+                    } else {
+                        var subRegion = data[0];
 
-                    switch(features.length) {
-                        case 0:
-                            if(selectedRegion && selectedRegion.other) {
-                                selectedRegion.clearSubregion();
-                            } else {
-                                clearSelectedRegion();
+                        if(selectedRegion && selectedRegion.other) {
+                            selectedRegion.setSubregion(subRegion.name, subRegion.pid);
+                        } else {
+                            that.clickedRegion = subRegion.name;
+                            var name = subRegion.name;
+                            if(selectedRegion !== null && name === selectedRegion.name && name.toLowerCase() !== 'n/a') {
+                                document.location.href = selectedRegion.urlToViewRegion();
                             }
-                            break;
-                        default: // treat one or many as just one for now
-                            if(selectedRegion && selectedRegion.other) {
-                                selectedRegion.setSubregion(features[0].value, features[0].pid);
-                            } else {
-                                that.clickedRegion = features[0].value;
-                                var name = features[0].value;
-                                if(selectedRegion !== null && name === selectedRegion.name &&
-                                        name.toLowerCase() !== 'n/a') {
-                                    document.location.href = selectedRegion.urlToViewRegion();
-                                }
 
-                                new Region(name).set();
-                            }
+                            new Region(name).set();
+                        }
                     }
                 }
             });
