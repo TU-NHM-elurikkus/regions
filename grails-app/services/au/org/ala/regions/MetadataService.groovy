@@ -174,11 +174,11 @@ class MetadataService {
                     pageSize: 0
             ]
 
-            if(ENABLE_QUERY_CONTEXT){
+            if(ENABLE_QUERY_CONTEXT) {
                 params << [qc: QUERY_CONTEXT]
             }
 
-            if(showHubData && ENABLE_HUB_DATA){
+            if(showHubData && ENABLE_HUB_DATA) {
                 params << [fq: HUB_FILTER]
             }
 
@@ -245,12 +245,12 @@ class MetadataService {
                     baseUrlForUI: "${BIOCACHE_URL}&resourceName=Atlas"
             ]
 
-            if(ENABLE_QUERY_CONTEXT){
+            if(ENABLE_QUERY_CONTEXT) {
                 params.webserviceQuery += "&qc=" + QUERY_CONTEXT
                 params.uiQuery += "&qc=" + QUERY_CONTEXT
             }
 
-            if(ENABLE_HUB_DATA){
+            if(ENABLE_HUB_DATA) {
                 params.webserviceQuery += "&fq=" + HUB_FILTER
                 params.uiQuery += "&fq=" + HUB_FILTER
             }
@@ -399,11 +399,11 @@ class MetadataService {
             params << [fq: params.fq + " AND " + params.fq + " AND " + buildTimeFacet(from, to)]
         }
 
-        if(ENABLE_QUERY_CONTEXT){
+        if(ENABLE_QUERY_CONTEXT) {
             params << [qc: QUERY_CONTEXT]
         }
 
-        if(showHubData && ENABLE_HUB_DATA){
+        if(showHubData && ENABLE_HUB_DATA) {
             params << [fq: params.fq + " AND " + HUB_FILTER]
         }
 
@@ -473,11 +473,11 @@ class MetadataService {
             params << [fq: params.fq + " AND " + buildTimeFacet(from, to)]
         }
 
-        if(ENABLE_QUERY_CONTEXT){
+        if(ENABLE_QUERY_CONTEXT) {
             params << [qc: QUERY_CONTEXT]
         }
 
-        if(showHubData && ENABLE_HUB_DATA){
+        if(showHubData && ENABLE_HUB_DATA) {
             params << [fq: params.fq + " AND " + HUB_FILTER]
         }
 
@@ -551,7 +551,7 @@ class MetadataService {
             // if a specific region is named, then return that
             return regionMd[name]
         }
-        else if (regionMd.values().size == 1){
+        else if (regionMd.values().size == 1) {
             // if there is only one object in the field, return it
             return regionMd.values().iterator().next()
         }
@@ -801,13 +801,19 @@ class MetadataService {
      * @return
      */
     def parseBbox(String bbox) {
-        if (!bbox) return [:]
-
-        def coords = bbox[9..-3]
-        def corners = coords.tokenize(",")
-        def sw = corners[0].tokenize(" ")
-        def ne = corners[2].tokenize(" ")
-        return [minLat: sw[1], minLng: sw[0], maxLat: ne[1], maxLng: ne[0]]
+        if (!bbox) {
+            return [:]
+        } else if (bbox.startsWith("POINT")) {
+            def coords = bbox[6..-2]
+            def (lng, lat) = coords.tokenize(" ")
+            return [minLat: lat, minLng: lng, maxLat: lat, maxLng: lng]
+        } else {
+            def coords = bbox[9..-3]
+            def corners = coords.tokenize(",")
+            def sw = corners[0].tokenize(" ")
+            def ne = corners[2].tokenize(" ")
+            return [minLat: sw[1], minLng: sw[0], maxLat: ne[1], maxLng: ne[0]]
+        }
     }
 
     /**
