@@ -503,7 +503,7 @@ $(document).ready(function() {
 
             this.clickedRegion = null;
             $.ajax({
-                url: config.baseUrl + '/proxy?format=json&url=' + config.spatialServiceUrl + '/intersect/pointradius/' + fid + '/' + location.lat() + '/' + location.lng() + '/1/',
+                url: config.baseUrl + '/proxy?format=json&url=' + config.spatialServiceUrl + '/intersect/pointradius/' + fid + '/' + location.lat() + '/' + location.lng() + '/0.01/',
                 dataType: 'json',
                 success: function(data) {
                     if(data.length === 0) {

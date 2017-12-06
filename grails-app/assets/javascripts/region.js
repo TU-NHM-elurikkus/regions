@@ -914,7 +914,7 @@ function RegionMap(config) {
 
         $.ajax({
             url: urls.proxyUrl + '?format=json&url=' + urls.spatialServiceUrl + '/intersect/pointradius/' + currentState.regionFid + '/' +
-            location.lat() + '/' + location.lng() + '/1/',
+            location.lat() + '/' + location.lng() + '/0.01/',
             dataType: 'json',
             success: function(data) {
                 if(data.length === 0) { return; }
