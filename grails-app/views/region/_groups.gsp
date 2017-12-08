@@ -13,6 +13,8 @@
             aa-js-before="regionWidget.selectGroupHandler('${group.name.encodeAsJs()}', ${group.parent ? true : false}, '${group.taxonRank}');"
             aa-js-after="regionWidget.speciesLoaded();"
             aa-queue="abort"
+            data-taxonrank="${group.taxonRank}"
+            data-taxonname="${group.name}"
         >
             <td class="level${group.parent ? '1' : '0'}">
                 <g:if test="${!group.parent}">
@@ -28,6 +30,9 @@
                 <g:else>
                     ${group.name}
                 </g:else>
+            </td>
+            <td class="level${group.parent ? '1' : '0'} group-count">
+                ##
             </td>
         </tr>
     </g:each>

@@ -6,6 +6,8 @@
 //= require wms
 //= require aa
 
+var regionWidget; // Populated by region.gsp
+
 var region = {
     /**
      * Builds the query as a map that can be passed directly as data in an ajax call
@@ -243,9 +245,7 @@ function RegionWidget(config) {
         }
     }
 
-    /**
-     * Code to execute when a group is selected
-     */
+    /** Code to execute when a group is selected **/
     function selectGroup(group, taxonRank) {
         $('.group-row').removeClass('groupSelected');
         $('tr[parent]').hide();
@@ -259,8 +259,12 @@ function RegionWidget(config) {
             $('tr[parent=\'' + groupId + '\']').hide();
             $('#' + groupId + ' span').removeClass('fa-chevron-down').addClass('fa-chevron-right');
         } else {
+            var subgroupRows = $('tr[parent=\'' + groupId + '\']');
             $('tr[parent=\'' + groupId + '\']').show();
             $('#' + groupId + ' span').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+
+            // Populate sub-group counts
+            getTaxonCount(subgroupRows);
         }
 
         // Update widget state
@@ -273,6 +277,32 @@ function RegionWidget(config) {
             regionMap.reloadRecordsOnMap();
         }
         AjaxAnywhere.dynamicParams = state;
+    }
+
+    /* Finds taxon counts for all the given rows */
+    function getTaxonCount(tableRows) {
+        tableRows.each(function(index, row) {
+            var taxonName = row.dataset.taxonname;
+            var taxonRank = row.dataset.taxonrank;
+            var url = 'http://ala-test.ut.ee/biocache-service/explore/counts/group/ALL_SPECIES/';
+
+            if(taxonName === 'ALL_SPECIES') {
+                url += '?fq=' + state.regionFid + ':"' + state.regionName + '"';
+            } else {
+                url += '?fq=(' + taxonRank + ':"' + taxonName + '" AND ' + state.regionFid + ':"' + state.regionName + '")';
+            }
+
+            $.ajax({
+                url: regionWidget.getUrls().proxyUrl,
+                dataType: 'json',
+                data: {
+                    'url': encodeURI(url)
+                },
+                success: function(data) {
+                    $(row.children[1]).html(data[1]);
+                },
+            });
+        });
     }
 
     /**
@@ -352,14 +382,11 @@ function RegionWidget(config) {
         groupsLoaded: function() {
             $('#groups').effect('highlight', { color: 'rgba(61, 200, 211, .66)' }, 2000);
 
-            if(state.subgroup) {
-                // Display group hidden rows
-                $('tr[parent=\'' + getGroupId() + '\']').show();
-                $('#' + getGroupId() + ' span').removeClass('fa-chevron-right').addClass('fa-chevron-down');
-                $('#' + getSubgroupId()).click();
-            } else {
-                $('#main-' + getGroupId()).click();
-            }
+            $('#main-' + getGroupId()).click();
+
+            // Populate main taxon group counts
+            var mainRows = $('#groups tr[id^="main-"]');
+            getTaxonCount(mainRows);
         },
 
         selectGroupHandler: function(group, isSubgroup, taxonRank) {

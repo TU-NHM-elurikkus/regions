@@ -11,7 +11,8 @@
     "globals": {
         "$": true,
         "google": true,
-        "he": true
+        "he": true,
+        "AjaxAnywhere": true
     },
     "extends": "eslint:recommended",
     "rules": {

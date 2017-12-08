@@ -117,6 +117,9 @@
                                             <th class="text-center">
                                                 <g:message code="region.speciesTab.table.speciesGroup" />
                                             </th>
+                                            <th class="text-right">
+                                                #
+                                            </th>
                                         </tr>
                                     </thead>
 
