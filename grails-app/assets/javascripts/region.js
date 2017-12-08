@@ -684,28 +684,6 @@ function RegionMap(config) {
         google.maps.event.addListener(map, 'click', function(event) {
             info(event.latLng);
         });
-
-        /** *****************************************************\
-         | Hack the viewport if we don't have good bbox data
-         \*******************************************************/
-        // fall-back attempt at bounding box if all of Oz
-        if(initialBounds.equals(new google.maps.LatLngBounds(new google.maps.LatLng(-42, 113), new google.maps.LatLng(-14, 153)))) {
-            $.ajax({
-                url: regionWidget.getUrls().proxyUrlBbox + '?q=' + decodeURI(regionWidget.getCurrentState().q),
-                // url: url,
-                dataType: 'json',
-                success: function(data) {
-                    if(data[0] !== 0.0) {
-                        initialBounds = new google.maps.LatLngBounds(
-                            new google.maps.LatLng(data[1], data[0]),
-                            new google.maps.LatLng(data[3], data[2]));
-                        map.fitBounds(initialBounds);
-                        $('#using-bbox-hack').html('Using occurrence bounds');
-                        $('#bbox').html('Using bbox ' + new Bbox.toString());
-                    }
-                }
-            });
-        }
     }
 
     /**
