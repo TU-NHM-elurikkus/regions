@@ -1,3 +1,7 @@
 /*
 *=require jquery-ui-slider-pips
 */
+
+.group-count {
+    text-align: right;
+}
