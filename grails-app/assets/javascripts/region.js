@@ -284,7 +284,7 @@ function RegionWidget(config) {
         tableRows.each(function(index, row) {
             var taxonName = row.dataset.taxonname;
             var taxonRank = row.dataset.taxonrank;
-            var url = 'http://ala-test.ut.ee/biocache-service/explore/counts/group/ALL_SPECIES/';
+            var url = regionWidget.getUrls().biocacheServiceUrl + '/explore/counts/group/ALL_SPECIES/';
 
             if(taxonName === 'ALL_SPECIES') {
                 url += '?fq=' + state.regionFid + ':"' + state.regionName + '"';
