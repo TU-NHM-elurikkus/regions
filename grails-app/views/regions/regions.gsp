@@ -62,6 +62,9 @@
                         <h2 id="accordion-heading-${item.layerName}" class="accordion-heading">
                             <a href="#">
                                 ${item.label}
+                                <span class="float-lg-right">
+                                    (<g:message code="regions.regionsList.lastUpdated" /> ${item.updatedAt})
+                                </span>
                             </a>
                         </h2>
 
