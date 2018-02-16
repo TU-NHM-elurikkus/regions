@@ -281,22 +281,24 @@ function RegionWidget(config) {
 
     /* Finds taxon counts for all the given rows */
     function getTaxonCount(tableRows) {
+        var urls = regionWidget.getUrls();
+
         tableRows.each(function(index, row) {
             var taxonName = row.dataset.taxonname;
             var taxonRank = row.dataset.taxonrank;
-            var url = regionWidget.getUrls().biocacheServiceUrl + '/explore/counts/group/ALL_SPECIES/';
+            var countQuery = 'explore/counts/group/ALL_SPECIES/';
 
             if(taxonName === 'ALL_SPECIES') {
-                url += '?fq=' + state.regionFid + ':"' + state.regionName + '"';
+                countQuery += '?fq=' + state.regionFid + ':"' + state.regionName + '"';
             } else {
-                url += '?fq=(' + taxonRank + ':"' + taxonName + '" AND ' + state.regionFid + ':"' + state.regionName + '")';
+                countQuery += '?fq=(' + taxonRank + ':"' + taxonName + '" AND ' + state.regionFid + ':"' + state.regionName + '")';
             }
 
             $.ajax({
-                url: regionWidget.getUrls().proxyUrl,
+                url: urls.biocacheProxy,
                 dataType: 'json',
                 data: {
-                    'url': encodeURI(url)
+                    'url': encodeURI(countQuery)
                 },
                 success: function(data) {
                     $(row.children[1]).html(data[1]);
@@ -917,27 +919,46 @@ function RegionMap(config) {
         var currentState = regionWidget.getCurrentState();
         var urls = regionWidget.getUrls();
 
+        var geoQuery = 'intersect/pointradius/' + currentState.regionFid +
+                       '/' + location.lat() + '/' + location.lng() + '/0.01/';
         $.ajax({
-            url: urls.proxyUrl + '?format=json&url=' + urls.spatialServiceUrl + '/intersect/pointradius/' + currentState.regionFid + '/' +
-            location.lat() + '/' + location.lng() + '/0.01/',
+            url: urls.spatialProxy,
             dataType: 'json',
+            data: {
+                url: geoQuery,
+            },
             success: function(data) {
-                if(data.length === 0) { return; }
-                if(infoWindow) { infoWindow.close(); }
+                if(data.length === 0) {
+                    return;
+                }
+                if(infoWindow) {
+                    infoWindow.close();
+                }
 
-                var anyInfo = false; // keep track of whether we actually add anything
-                var desc = '<ol>';
-                $.each(data, function(i, obj) {
-                    if(obj.value) {
-                        anyInfo = true;
-                        var lyr = obj.layername === obj.value ? '' : ' (' + obj.layername + ')';
-                        desc += '<li>' + obj.value + lyr + '</li>';
-                    }
-                });
-                desc += '</ol>';
-                if(anyInfo) {
+                if(data.length) {
+                    var desc = '<ul class="erk-ulist">';
+                    $.each(data, function(i, obj) {
+                        desc += '<b>';
+                        if(obj.pid === currentState.regionPid) {
+                            desc += '<li>' + obj.name + '</li>';
+                        } else {
+                            var href = document.location.origin + '/regions/' + currentState.regionType + '/' + obj.name;
+                            desc += '' +
+                                '<li>' +
+                                    '<a href="' + href + '">' +
+                                        obj.name +
+                                    '</a>' +
+                                '</li>';
+                        }
+                        desc += '</b>';
+
+                        desc += '<li>' + $.i18n.prop('region.info.surfaceArea') + ': ' + obj.area_km.toFixed(1) + ' km&sup2;' + '</li>';
+                        desc += '<li>' + $.i18n.prop('region.info.desc') + ': ' + obj.description + '</li>';
+                    });
+                    desc += '</ul>';
+
                     infoWindow = new google.maps.InfoWindow({
-                        content: '<div style=\'font-size:90%;padding-right:15px;\'>' + desc + '</div>',
+                        content: '<div style="font-size:90%;padding-right:15px;">' + desc + '</div>',
                         position: location
                     });
                     infoWindow.open(map);

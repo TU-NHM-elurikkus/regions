@@ -154,9 +154,12 @@ $(document).ready(function() {
          * @param optional param for callback */
         load: function(callbackOnSuccess, callbackParam) {
             $.ajax({
-                url: config.baseUrl + '/regions/regionList?type=' + this.name,
-                dataType: 'json',
+                url: config.proxyUrl,
                 context: this,
+                dataType: 'json',
+                data: {
+                    url: encodeURI(config.baseUrl + '/regions/regionList?type=' + this.name),
+                },
                 success: function(data) {
                     // check for errors
                     if(data.error === true) {
@@ -206,8 +209,8 @@ $(document).ready(function() {
 
             if($content.find('ul').length === 0) {
                 $.each(this.sortedList, function(i, name) {
-                    id = me.other ? me.objects[name].layerName : me.objects[name].id;
-                    html += '<li class=\'erk-ulist__item regionLink\' id=\'' + id + '\'>' + name + '</li>';
+                    id = 'region-item-' + me.objects[name].pid;
+                    html += '<li class="erk-ulist__item regionLink" id="' + id + '">' + name + '</li>';
                 });
 
                 html += '</ul>';
@@ -229,7 +232,7 @@ $(document).ready(function() {
 
             if(callbackOnComplete) {
                 // assume global scope
-                callbackOnComplete();// TODO: fix this - pass in function itself?
+                callbackOnComplete(); // TODO: fix this - pass in function itself?
             }
         },
 
@@ -237,10 +240,44 @@ $(document).ready(function() {
         drawLayer: function(colour, order) {
             var redraw = false;
             var layerParams;
-            var sld_body = '<?xml version="1.0" encoding="UTF-8"?><StyledLayerDescriptor version="1.0.0" xmlns="http://www.opengis.net/sld"><NamedLayer><Name>ALA:LAYERNAME</Name><UserStyle><FeatureTypeStyle><Rule><Title>Polygon</Title><PolygonSymbolizer><Fill><CssParameter name="fill">COLOUR</CssParameter></Fill><Stroke><CssParameter name="stroke">#000000</CssParameter><CssParameter name="stroke-width">1</CssParameter></Stroke></PolygonSymbolizer></Rule></FeatureTypeStyle></UserStyle></NamedLayer></StyledLayerDescriptor>';
+            var sld_body = '' +
+                '<?xml version="1.0" encoding="UTF-8"?>' +
+                '<StyledLayerDescriptor version="1.0.0" xmlns="http://www.opengis.net/sld">' +
+                    '<NamedLayer>' +
+                        '<Name>' +
+                            'ALA:LAYERNAME' +
+                        '</Name>' +
+                        '<UserStyle>' +
+                            '<FeatureTypeStyle>' +
+                                '<Rule>' +
+                                    '<Title>' +
+                                        'Polygon' +
+                                    '</Title>' +
+                                    '<PolygonSymbolizer>' +
+                                        '<Fill>' +
+                                            '<CssParameter name="fill">' +
+                                                'COLOUR' +
+                                            '</CssParameter>' +
+                                        '</Fill>' +
+                                        '<Stroke>' +
+                                            '<CssParameter name="stroke">'+
+                                                '#000000' +
+                                            '</CssParameter>' +
+                                            '<CssParameter name="stroke-width">' +
+                                                '1' +
+                                            '</CssParameter>' +
+                                        '</Stroke>' +
+                                    '</PolygonSymbolizer>' +
+                                '</Rule>' +
+                            '</FeatureTypeStyle>' +
+                        '</UserStyle>' +
+                    '</NamedLayer>' +
+                    '</StyledLayerDescriptor>';
 
             colour = colour || '#FFFFFF';
             order = order === undefined ? 1 : order;
+
+            var newOpacity = getLayerOpacity();
 
             if(this.other) {
                 this.drawOtherLayers();
@@ -248,7 +285,7 @@ $(document).ready(function() {
                 if(this.wms === undefined) {
                     redraw = true;
                 } else {
-                    redraw = (this.wms.opacity !== getLayerOpacity());
+                    redraw = (this.wms.opacity !== newOpacity);
                 }
 
                 if(redraw) {
@@ -260,7 +297,7 @@ $(document).ready(function() {
                         'sld_body=' + encodeURIComponent(sld)
                     ];
 
-                    this.wms = new WMSTileLayer(this.layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded, getLayerOpacity());
+                    this.wms = new WMSTileLayer(this.layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded, newOpacity);
                 }
 
                 map.setLayerOverlay(this.wms, order);
@@ -303,7 +340,10 @@ $(document).ready(function() {
 
     // (name, layerName, fid, bieContext, order, displayName)
     function createRegionTypes() {
-        if(REGIONS === undefined) { REGIONS = {}; }
+        if(REGIONS === undefined) {
+            REGIONS = {};
+        }
+
         for(var rtype in REGIONS.metadata) {
             if(REGIONS.metadata.hasOwnProperty(rtype)) {
                 var md = REGIONS.metadata[rtype];
@@ -392,7 +432,9 @@ $(document).ready(function() {
         },
         /* Build the url to view the current region */
         urlToViewRegion: function() {
-            return config.baseUrl + '/' + encodeURI(selectedRegionType.name) + '/' + encodeURIComponent(he.encode(encodeURIComponent(this.name))).replace('%3B', '%253B');
+            return document.location.origin +
+                   '/regions/' + encodeURI(selectedRegionType.name) +
+                   '/' + encodeURIComponent(he.encode(encodeURIComponent(this.name))).replace('%3B', '%253B');
         },
         /* Write the region link and optional subregion name and zoom link at the top of the map.
          * @param subregion the name of the subregion */
@@ -470,7 +512,8 @@ $(document).ready(function() {
         },
         /* Clear the layer overlay */
         removeLayerOverlay: function() {
-            this.gmap.overlayMapTypes.setAt(0, null);
+            // this.gmap.overlayMapTypes.setAt(0, null);
+            this.gmap.overlayMapTypes.clear();
         },
         /* Set the region overlay */
         setRegionOverlay: function(wms) {
@@ -502,9 +545,13 @@ $(document).ready(function() {
             var that = this;
 
             this.clickedRegion = null;
+            var geoQuery = 'intersect/pointradius/' + fid + '/' + location.lat() + '/' + location.lng() + '/0.01/';
             $.ajax({
-                url: config.baseUrl + '/proxy?format=json&url=' + config.spatialServiceUrl + '/intersect/pointradius/' + fid + '/' + location.lat() + '/' + location.lng() + '/0.01/',
+                url: config.spatialProxy,
                 dataType: 'json',
+                data: {
+                    url: geoQuery,
+                },
                 success: function(data) {
                     if(data.length === 0) {
                         if(selectedRegion && selectedRegion.other) {
@@ -573,7 +620,6 @@ $(document).ready(function() {
      *
      * @param options object specifier with the following members:
      * - server: url of the server the app is running on
-     * - spatialService:
      * - spatialWms:
      * - spatialCache:
      * - mapContainer: id of the html element to hold the map
@@ -581,8 +627,9 @@ $(document).ready(function() {
      * - defaultRegion: string containing the name of the region within the defaultRegionType menu to select by default
      */
     function init(options) {
+        config.proxyUrl = options.proxyUrl;
+        config.spatialProxy = options.spatialProxy;
         config.baseUrl = options.server;
-        config.spatialServiceUrl = options.spatialService;
         config.spatialWmsUrl = options.spatialWms;
         config.spatialCacheUrl = options.spatialCache;
         config.showQueryContextLayer = options.showQueryContextLayer;
@@ -627,7 +674,9 @@ $(document).ready(function() {
             max: 100,
             value: map.defaultLayerOpacity * 100,
             change: function() {
-                selectedRegionType.drawLayer();
+                if ($('#toggleLayer').is(':checked')) {
+                    selectedRegionType.drawLayer();
+                }
             }
         });
         $('#regionOpacity').slider({
@@ -636,7 +685,9 @@ $(document).ready(function() {
             disabled: true,
             value: map.defaultRegionOpacity * 100,
             change: function() {
-                selectedRegion.displayRegion();
+                if ($('#toggleRegion').is(':checked')) {
+                    selectedRegion.displayRegion();
+                }
             }
         });
         /** ***************************************\

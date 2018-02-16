@@ -385,31 +385,31 @@
                 });
 
                 regionWidget = new RegionWidget({
-                    regionName: '${region.name}',
-                    regionType: '${region.type}',
-                    regionFid: '${region.fid}',
-                    regionPid: '${region.pid}',
-                    regionLayerName: '${region.layerName}',
+                    regionName: "${region.name}",
+                    regionType: "${region.type}",
+                    regionFid: "${region.fid}",
+                    regionPid: "${region.pid}",
+                    regionLayerName: "${region.layerName}",
                     urls: {
-                        regionsApp: '${g.createLink(uri: '/', absolute: true)}',
-                        proxyUrl: '${g.createLink(controller: 'proxy', action: 'index')}',
-                        proxyUrlBbox: '${g.createLink(controller: 'proxy', action: 'bbox')}',
+                        regionsApp: "${g.createLink(uri: '/', absolute: true)}",
+                        spatialProxy: "${g.createLink(controller: 'proxy', action: 'spatial')}",
+                        biocacheProxy: "${g.createLink(controller: 'proxy', action: 'biocache')}",
+                        proxyUrlBbox: "${g.createLink(controller: 'proxy', action: 'bbox')}",
                         speciesPageUrl: "${grailsApplication.config.bie.baseURL}/species/",
                         biocacheServiceUrl: "${grailsApplication.config.biocacheService.baseURL}",
                         biocacheWebappUrl: "${grailsApplication.config.biocache.baseURL}",
                         spatialWmsUrl: "${grailsApplication.config.geoserver.baseURL}/ALA/wms?",
                         spatialCacheUrl: "${grailsApplication.config.geoserver.baseURL}/gwc/service/wms?",
-                        spatialServiceUrl: "${grailsApplication.config.layersService.baseURL}/",
                     },
                     username: '${rg.loggedInUsername()}',
                     q: '${region.q}'
 
                     <g:if test="${enableQueryContext}">
-                        ,qc: "${URLEncoder.encode(grailsApplication.config.biocache.queryContext, "UTF-8")}"
+                        ,qc: "${URLEncoder.encode(grailsApplication.config.biocache.queryContext, 'UTF-8')}"
                     </g:if>
 
                     <g:if test="${enableHubData}">
-                        ,hubFilter: "${URLEncoder.encode(grailsApplication.config.hub.hubFilter , "UTF-8")}"
+                        ,hubFilter: "${URLEncoder.encode(grailsApplication.config.hub.hubFilter , 'UTF-8')}"
                         ,showHubData: ${hubState}
                     </g:if>
                 });
@@ -432,7 +432,7 @@
                 refreshSpeciesGroup();
             });
 
-            function setHubConfig(){
+            function setHubConfig() {
                 <g:if test="${enableHubData}">
                     AjaxAnywhere.dynamicParams = {
                         showHubData:!$('[name="hub-toggle"]').is(":checked")
