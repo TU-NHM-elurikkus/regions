@@ -12,7 +12,7 @@
             <g:layoutTitle />
         </title>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmpdTc4R7iLML5tHXpN0OzHsEm7duuPrg" type="text/javascript"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.29&key=AIzaSyBmpdTc4R7iLML5tHXpN0OzHsEm7duuPrg" type="text/javascript"></script>
         <script src="https://www.google.com/jsapi?type=js/key=AIzaSyBmpdTc4R7iLML5tHXpN0OzHsEm7duuPrg" type="text/javascript"></script>
 
         <script>
