@@ -40,8 +40,6 @@ class ProxyController {
     }
 
     private def requestURL(url) {
-        println url
-
         def resp = ""  // def must be outside of try because its scope would be inside also smh
         try {
             resp = new URL(url).getText()
