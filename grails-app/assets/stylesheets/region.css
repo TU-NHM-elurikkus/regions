@@ -5,3 +5,101 @@
 .group-count {
     text-align: right;
 }
+
+/* main container */
+.taxa-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* left table container */
+.taxa-groups {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+/* right table container */
+.taxa-list {
+    flex: 2;
+    margin-bottom: 16px;
+    padding: 0;
+    background-color: transparent;
+    min-width: 14rem;
+}
+
+.taxa-list-table-container {
+    max-height: 570px;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+}
+
+.taxa-table {
+    width: 100%;
+}
+
+.taxa-table-header {
+    border-top: 2px solid #d9d9d9;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.taxa-table-header th {
+    text-align: center;
+}
+
+.taxa-table td {
+    padding: 0 6px;
+}
+
+.taxa-table td:last-child {
+    min-width: 2rem;
+}
+
+/* XXX */
+#speciesZone td:first-child {
+    padding: 0 6px;
+}
+
+tbody .spinner {
+    height: 99.5%;
+}
+
+#groups {
+    border-right: 1px solid #dddddd;
+}
+
+#groups td.level1 {
+    padding-left: 2em;
+}
+
+#species td:first-child {
+    padding-right: 0;
+}
+
+#species tr.infoRowLinks {
+    background-color: #F0F0E8;
+}
+
+#species tr.infoRowLinks td {
+    padding-bottom: 3px;
+}
+
+.species-list-button {
+    color: white;
+    display: inline-block;
+}
+
+/* XXX */
+tr.groupSelected,
+tr.groupSelected:hover td {
+    color: white;
+    background-color: #3dc8d3 !important;
+    font-weight: bold;
+}
+
+/* XXX */
+tr.speciesSelected,
+tr.speciesSelected:hover td {
+    color: white;
+    background-color: #3dc8d3 !important;
+    font-weight: bold;
+}
