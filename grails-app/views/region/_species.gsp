@@ -18,7 +18,7 @@
         <td>
             ${singleSpecies.name}${singleSpecies.commonName ? " : ${singleSpecies.commonName}" : ""}
         </td>
-        <td class="text-right">
+        <td>
             ${g.formatNumber(number: singleSpecies.count, type: 'number')}
         </td>
     </tr>

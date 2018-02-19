@@ -101,23 +101,23 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="species-tab-content">
-                        <div class="row no-gutters">
-                            <div class="col-4">
+                        <div class="taxa-container">
+                            <div class="taxa-groups">
                                 <table
                                     id="groups"
-                                    class="table table-condensed table-hover"
+                                    class="taxa-table"
                                     aa-href="${g.createLink(controller: 'region', action: 'showGroups', params: [regionFid: region.fid,regionType: region.type, regionName: region.name, regionPid: region.pid])}"
                                     aa-js-before="setHubConfig();"
                                     aa-js-after="regionWidget.groupsLoaded();"
                                     aa-refresh-zones="groupsZone"
                                     aa-queue="abort"
                                 >
-                                    <thead>
+                                    <thead class="taxa-table-header">
                                         <tr>
-                                            <th class="text-center">
+                                            <th>
                                                 <g:message code="region.speciesTab.table.speciesGroup" />
                                             </th>
-                                            <th class="text-right">
+                                            <th>
                                                 #
                                             </th>
                                         </tr>
@@ -125,7 +125,7 @@
 
                                     <tbody id="groupsZone">
                                         <tr class="spinner">
-                                            <td class="spinner text-center">
+                                            <td class="spinner">
                                                 <span class="fa fa-cog fa-spin fa-2x"></span>
                                             </td>
                                         </tr>
@@ -133,28 +133,32 @@
                                 </table>
                             </div>
 
-                            <div class="col-8">
-                                <table class="table table-condensed table-hover" id="species">
-                                    <thead>
+                            <div class="taxa-list">
+                                <table class="taxa-table">
+                                    <thead class="taxa-table-header">
                                         <tr>
-                                            <th></th>
-                                            <th>
+                                            <th colspan="2">
                                                 <g:message code="region.speciesTab.table.taxonList" />
                                             </th>
-                                            <th class="text-right">
+
+                                            <th>
                                                 <g:message code="region.speciesTab.table.recordsCount" />
                                             </th>
                                         </tr>
                                     </thead>
-
-                                    <aa:zone id="speciesZone" tag="tbody" jsAfter="regionWidget.speciesLoaded();">
-                                        <tr class="spinner">
-                                            <td colspan="3" class="spinner text-center">
-                                                <span class="fa fa-cog fa-spin fa-2x"></span>
-                                            </td>
-                                        </tr>
-                                    </aa:zone>
                                 </table>
+
+                                <div class="taxa-list-table-container">
+                                    <table class="taxa-table" id="species">
+                                        <aa:zone id="speciesZone" tag="tbody" jsAfter="regionWidget.speciesLoaded();">
+                                            <tr class="spinner">
+                                                <td colspan="3" class="spinner">
+                                                    <span class="fa fa-cog fa-spin fa-2x"></span>
+                                                </td>
+                                            </tr>
+                                        </aa:zone>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
