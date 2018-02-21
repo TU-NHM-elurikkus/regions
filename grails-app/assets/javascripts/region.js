@@ -952,7 +952,9 @@ function RegionMap(config) {
                         }
                         desc += '</b>';
 
-                        desc += '<li>' + $.i18n.prop('region.info.surfaceArea') + ': ' + obj.area_km.toFixed(1) + ' km&sup2;' + '</li>';
+                        if(obj.area_km) {
+                            desc += '<li>' + $.i18n.prop('region.info.surfaceArea') + ': ' + obj.area_km.toFixed(1) + ' km&sup2;</li>';
+                        }
                         desc += '<li>' + $.i18n.prop('region.info.desc') + ': ' + obj.description + '</li>';
                     });
                     desc += '</ul>';
