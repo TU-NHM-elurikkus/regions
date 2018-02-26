@@ -309,13 +309,13 @@ $(document).ready(function() {
             if(selectedRegion === null) {
                 return;
             }
-            var layerName = this.objects[selectedRegion.name].layerName,
-                layerParams = [
-                    'FORMAT=image/png8',
-                    'LAYERS=ALA:' + layerName,
-                    'STYLES=polygon'
-                ],
-                wms = new WMSTileLayer(layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded, getLayerOpacity());
+            var layerName = this.objects[selectedRegion.name].layerName;
+            var layerParams = [
+                'FORMAT=image/png8',
+                'LAYERS=ALA:' + layerName,
+                'STYLES=polygon'
+            ];
+            var wms = new WMSTileLayer(layerName, config.spatialCacheUrl, layerParams, map.wmsTileLoaded, getLayerOpacity());
             if($('#toggleLayer').is(':checked')) {
                 map.setLayerOverlay(wms);
             }
