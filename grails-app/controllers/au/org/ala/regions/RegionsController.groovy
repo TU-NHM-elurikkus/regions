@@ -11,7 +11,7 @@ class RegionsController {
 
     def metadataService
 
-    static defaultAction = 'regions'
+    static defaultAction = "regions"
 
     /**
      * Do logouts through this app so we can invalidate the session.
@@ -26,12 +26,12 @@ class RegionsController {
 
     def clearCache = {
         metadataService.clearCaches()
-        render "<div>All caches cleared.</div>"
+        render("<div>All caches cleared.</div>")
     }
 
     def clearTemplateCache = {
         hf.clearCache()
-        render "<div>Template cache cleared.</div>"
+        render("<div>Template cache cleared.</div>")
     }
 
     /**
@@ -42,7 +42,7 @@ class RegionsController {
     }
 
     def documents = {
-        render "Not implemented yet"
+        render("Not implemented yet")
     }
 
     /**
@@ -82,13 +82,13 @@ class RegionsController {
         def model = loadRegion(params)
         model.enableRegionOverlay = false
         model.isHabitat = true
-        render(view: 'region', model: model)
+        render(view: "region", model: model)
     }
 
     /**
      * Show the descriptive page for a region.
      *
-     * @param regionType type of region eg states, ibras - 'layer' indicates the region is a layer of its own
+     * @param regionType type of region eg states, ibras - "layer" indicates the region is a layer of its own
      * @param regionName the name of the object in the layer eg Tasmania
      * @param pid the id of the object - optional
      */
@@ -97,7 +97,7 @@ class RegionsController {
         def region = [:]
         def menu = [:]
 
-        if(params.pid){
+        if(params.pid) {
             def metadata = metadataService.getObjectByPid(params.pid)
             region.name = metadata.name
             region.pid = metadata.pid
@@ -106,7 +106,7 @@ class RegionsController {
             menu.fid = metadata.fid
         } else {
             // This decoding process is required because some region names contain a lot of unsafe characters
-            region.name = URLDecoder.decode(params.regionName.replace("%253B", "%3B"), 'UTF-8')
+            region.name = URLDecoder.decode(params.regionName.replace("%253B", "%3B"), "UTF-8")
             region.name = StringEscapeUtils.unescapeHtml(region.name)
             log.debug("Requested Region name = $region.name")
 
@@ -197,13 +197,13 @@ class RegionsController {
             region.q = URLEncoder.encode(metadataService.buildRegionFacet(region.fid, region.type, region.name, region.pid), "UTF-8")
         }
 
-        if (region.type == 'states') {
+        if (region.type == "states") {
             // lookup state emblems
             def emblems = metadataService.getStateEmblems()[region.name]
             if (emblems) {
-                ['animal', 'plant', 'marine', 'bird'].each {
+                ["animal", "plant", "marine", "bird"].each {
                     if (emblems[it]) {
-                        emblemGuids[it + 'Emblem'] = emblems."${it}".guid
+                        emblemGuids[it + "Emblem"] = emblems."${it}".guid
                     }
                 }
             }
@@ -213,7 +213,7 @@ class RegionsController {
             emblems: emblemGuids,
             subRegions: subRegions,
             documents: [:],
-            useReflect: params.reflect == 'false' ? false : true,
+            useReflect: params.reflect == "false" ? false : true,
             alertsUrl: metadataService.buildAlertsUrl(region)
         ]
     }
@@ -230,10 +230,10 @@ class RegionsController {
         try {
             stream = resource.getInputStream()
             ConfigSlurper configSlurper = new ConfigSlurper(GrailsUtil.getEnvironment())
-            if (resource.filename.endsWith('.groovy')) {
+            if (resource.filename.endsWith(".groovy")) {
                 def newConfig = configSlurper.parse(stream.text)
                 grailsApplication.getConfig().merge(newConfig)
-            } else if (resource.filename.endsWith('.properties')) {
+            } else if (resource.filename.endsWith(".properties")) {
                 def props = new Properties()
                 props.load(stream)
                 def newConfig = configSlurper.parse(props)
