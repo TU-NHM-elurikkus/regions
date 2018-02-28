@@ -154,34 +154,24 @@ $(document).ready(function() {
          * @param optional param for callback */
         load: function(callbackOnSuccess, callbackParam) {
             $.ajax({
-                url: config.proxyUrl,
+                url: encodeURI(config.baseUrl + '/regions/regionList?type=' + this.name),
                 context: this,
                 dataType: 'json',
-                data: {
-                    url: encodeURI(config.baseUrl + '/regions/regionList?type=' + this.name),
-                },
                 success: function(data) {
                     // check for errors
                     if(data.error === true) {
                         this.error = data.errorMessage;
                         $('#' + this.name).html(this.error);
                     } else {
+                        var areaNames = [];
                         if(mapBounds) {
-                            var i, name, obj;
-                            var names = [];
-                            var objs = {};
-
-                            for(i = 0; i < data.names.length; i++) {
-                                obj = data.objects[name = data.names[i]];
-                                names.push(name);
-                                objs[name] = obj;
-                            }
-                            data.names = names;
-                            data.objects = objs;
+                            areaNames = Object.keys(data).sort();
+                            data.names = areaNames;
+                            data.objects = data;
                         }
                         // add to cache
-                        this.objects = data.objects;
-                        this.sortedList = data.names;
+                        this.objects = data;
+                        this.sortedList = areaNames;
                         this[callbackOnSuccess](callbackParam);
                     }
                 },
@@ -455,6 +445,7 @@ $(document).ready(function() {
                     $subRegion.parent().removeClass('hidden');
                 }
 
+                $('#zoomTo').off('click'); // Unbind previos click event. Otherwise you're going to have a bad time
                 $('#zoomTo').on('click', function() {
                     map.zoomToRegion(regionName);
                 });
