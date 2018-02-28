@@ -57,21 +57,15 @@ class RegionsController {
      *  objects is a map of objects holding the properties of the region, keyed by name
      */
     def regionList = {
-
         // get the list
         def map = metadataService.getMenuItems(params.type)
 
-        def result
-
         if (map.error) {
             // render error
-            result = map
-        } else {
-            // render as a list and a map
-            result = [names: map.keySet().sort(), objects: map]
+            render(status: NOT_FOUND)
         }
 
-        render result as JSON
+        render(map as JSON)
     }
 
     def region = {
