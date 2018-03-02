@@ -175,11 +175,7 @@ function RegionWidget(config) {
                 url += '&fq=' + region.buildTimeFacet();
             }
             if(state.group !== 'ALL_SPECIES') {
-                if(state.subgroup) {
-                    url += '&fq=species_subgroup:"' + state.subgroup + '"';
-                } else {
-                    url += '&fq=species_group:"' + state.group + '"';
-                }
+                url += '&fq=' + state.groupRank + ':"' + state.group + '"';
             }
 
             if(state.qc) {
