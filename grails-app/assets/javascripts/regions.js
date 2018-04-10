@@ -186,7 +186,7 @@ $(document).ready(function() {
         /* Write the list of regions to the regionSet's DOM container - loading first if required
          * @param callbackOnComplete a global-scope function to call when the list is written */
         writeList: function(callbackOnComplete) {
-            var $content = $('#' + layers[this.name].layerName);
+            var $content = $('#' + layers[this.name].fid);
             var me = this;
             var id;
             var html = '<ul class="erk-ulist">';

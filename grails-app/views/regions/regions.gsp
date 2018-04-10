@@ -68,7 +68,7 @@
                             </a>
                         </h2>
 
-                        <div id="${item.layerName}" data-layer="${item.label}">
+                        <div id="${item.fid}" data-layer="${item.label}">
                             <span class="loading">
                                 <g:message code="regions.regionsList.loading" />&hellip;
                             </span>
