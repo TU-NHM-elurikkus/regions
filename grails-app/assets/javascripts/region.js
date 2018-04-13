@@ -364,7 +364,7 @@ function RegionWidget(config) {
                 $('#main-' + getGroupId()).click();
             }
             // Update taxonomy chart
-            if(taxonomyChart) {
+            if(taxonomyChart && taxonomyWidget) {
                 taxonomyChart.updateQuery(taxonomyWidget.getQuery() + '&fq=' + region.buildTimeFacet());
             }
         },
