@@ -74,8 +74,8 @@ class MetadataService {
     final static String PAGE_SIZE = "50"
     final static Map userAgent = ["User-Agent": "metadataService/2.5 (Regions:metadataService)"]
 
-    String BIE_URL, BIE_SERVICE_URL, BIOCACHE_URL, BIOCACHE_SERVICE_URL, ALERTS_URL, DEFAULT_IMG_URL, QUERY_CONTEXT,
-            HUB_FILTER, INTERSECT_OBJECT
+    String BIE_URL, BIE_SERVICE_URL, BIOCACHE_URL, BIOCACHE_SERVICE_BACKEND_URL, BIOCACHE_SERVICE_URL, ALERTS_URL,
+           DEFAULT_IMG_URL, QUERY_CONTEXT, HUB_FILTER, INTERSECT_OBJECT
     Boolean ENABLE_HUB_DATA, ENABLE_QUERY_CONTEXT, ENABLE_OBJECT_INTERSECTION
     String CONFIG_DIR
 
@@ -84,7 +84,8 @@ class MetadataService {
         BIE_URL = grailsApplication.config.bie.baseURL
         BIE_SERVICE_URL = grailsApplication.config.bieService.baseURL
         BIOCACHE_URL = grailsApplication.config.biocache.baseURL
-        BIOCACHE_SERVICE_URL = grailsApplication.config.biocacheService.baseURL
+        BIOCACHE_SERVICE_BACKEND_URL = grailsApplication.config.biocacheService.internal.url
+        BIOCACHE_SERVICE_URL = grailsApplication.config.biocacheService.internal.url
         DEFAULT_IMG_URL = "${BIE_URL}/static/images/noImage85.jpg"
         ALERTS_URL = grailsApplication.config.alerts.baseURL
         CONFIG_DIR = grailsApplication.config.config_dir
@@ -143,7 +144,7 @@ class MetadataService {
      * @return
      */
     List getGroups(String regionFid, String regionType, String regionName, String regionPid, Boolean showHubData = false) {
-        def responseGroups = new RESTClient("${BIOCACHE_SERVICE_URL}/explore/hierarchy").get([headers: userAgent]).data
+        def responseGroups = new RESTClient("${BIOCACHE_SERVICE_BACKEND_URL}/explore/hierarchy").get([headers: userAgent]).data
         Map subgroupsWithRecords = getSubgroupsWithRecords(regionFid, regionType, regionName, regionPid, showHubData)
 
         List groups = [] << [name: "ALL_SPECIES", commonName: "ALL_SPECIES"]
@@ -166,7 +167,7 @@ class MetadataService {
      */
     Map getSubgroupsWithRecords(String regionFid, String regionType, String regionName, String regionPid, Boolean showHubData = false) {
 
-        String url = new URIBuilder("${BIOCACHE_SERVICE_URL}/occurrences/search").with {
+        String url = new URIBuilder("${BIOCACHE_SERVICE_BACKEND_URL}/occurrences/search").with {
             Map params = [
                     q: buildRegionFacet(regionFid, regionType, regionName, regionPid),
                     facets: "species_subgroup",
@@ -212,9 +213,11 @@ class MetadataService {
             Boolean isSubgroup = false, Boolean showHubData, String from = null, String to = null,
             String pageIndex = "0", String groupRank = "") {
 
-        def response = new RESTClient(buildBiocacheSearchOccurrencesWsUrl(
+        def searchUrl = buildBiocacheSearchOccurrencesWsUrl(
                 regionFid, regionType, regionName, regionPid, groupName == "ALL_SPECIES" ? null : groupName, isSubgroup,
-                from, to, pageIndex, showHubData, groupRank)).get([headers: userAgent]).data
+                from, to, pageIndex, showHubData, groupRank)
+
+        def response = new RESTClient(searchUrl).get([headers: userAgent]).data
 
         return [
                 totalRecords: response.totalRecords,
