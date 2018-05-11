@@ -51,7 +51,7 @@ class ProxyController {
     }
 
     def biocache = {
-        def domain = "${grailsApplication.config.biocacheService.baseURL}"
+        def domain = "${grailsApplication.config.biocacheService.internal.url}"
 
         def url = params.url
         if(!url) {
@@ -63,7 +63,7 @@ class ProxyController {
     }
 
     def spatial = {
-        def domain = "${grailsApplication.config.layersService.baseURL}"
+        def domain = "${grailsApplication.config.layersService.internal.url}"
 
         def url = params.url
         if(!url) {
@@ -142,8 +142,7 @@ class ProxyController {
     def kml = {
 
         def pid = params.pid ?: 1 // some magic number which hopefully exists
-        def baseUrl = grailsApplication.config.layersService.baseURL
-        def url = baseUrl + "/shape/kml/" + pid
+        def url = "${grailsApplication.config.layersService.internal.url}/shape/kml/${pid}"
         def conn = new URL(url).openConnection()
         def kml = conn.content.text
 
@@ -153,8 +152,7 @@ class ProxyController {
     }
 
     def bbox = {
-        def baseUrl = grailsApplication.config.biocacheService.baseURL
-        def url = baseUrl + "/mapping/bounds?q=" + URLEncoder.encode(params.q.trim(), 'UTF-8')
+        def url = "${grailsApplication.config.biocacheService.internal.url}/mapping/bounds?q=${URLEncoder.encode(params.q.trim(), 'UTF-8')}"
         def conn = new URL(url).openConnection()
         def box = conn.content.text
         render box

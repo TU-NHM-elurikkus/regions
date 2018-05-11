@@ -31,7 +31,6 @@ class DataController {
                     priority(1.0)
                 }
                 metadataService.getRegionTypes().each { regionType ->
-                    println regionType
                     if (regionType == 'other') {
                         metadataService.getOtherRegions().each { other, otherValue ->
                             url {

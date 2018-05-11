@@ -74,18 +74,21 @@ class MetadataService {
     final static String PAGE_SIZE = "50"
     final static Map userAgent = ["User-Agent": "metadataService/2.5 (Regions:metadataService)"]
 
-    String BIE_URL, BIE_SERVICE_URL, BIOCACHE_URL, BIOCACHE_SERVICE_BACKEND_URL, BIOCACHE_SERVICE_URL, ALERTS_URL,
-           DEFAULT_IMG_URL, QUERY_CONTEXT, HUB_FILTER, INTERSECT_OBJECT
+    String BIOCACHE_SERVICE_BACKEND_URL, LAYERS_SERVICE_BACKEND_URL
+    String BIE_URL, BIE_SERVICE_URL, BIOCACHE_URL, BIOCACHE_SERVICE_URL, ALERTS_URL, DEFAULT_IMG_URL, QUERY_CONTEXT,
+           HUB_FILTER, INTERSECT_OBJECT
     Boolean ENABLE_HUB_DATA, ENABLE_QUERY_CONTEXT, ENABLE_OBJECT_INTERSECTION
     String CONFIG_DIR
 
     @PostConstruct
     def init() {
+        BIOCACHE_SERVICE_BACKEND_URL = grailsApplication.config.biocacheService.internal.url
+        LAYERS_SERVICE_BACKEND_URL = grailsApplication.config.layersService.internal.url
+
         BIE_URL = grailsApplication.config.bie.baseURL
         BIE_SERVICE_URL = grailsApplication.config.bieService.baseURL
         BIOCACHE_URL = grailsApplication.config.biocache.baseURL
-        BIOCACHE_SERVICE_BACKEND_URL = grailsApplication.config.biocacheService.internal.url
-        BIOCACHE_SERVICE_URL = grailsApplication.config.biocacheService.internal.url
+        BIOCACHE_SERVICE_URL = grailsApplication.config.biocacheService.baseURL
         DEFAULT_IMG_URL = "${BIE_URL}/static/images/noImage85.jpg"
         ALERTS_URL = grailsApplication.config.alerts.baseURL
         CONFIG_DIR = grailsApplication.config.config_dir
@@ -430,7 +433,7 @@ class MetadataService {
             String groupName = null, Boolean isSubgroup = false, String from = null, String to = null,
             String pageIndex = "0", Boolean showHubData = false, String groupRank = "") {
 
-        String url = new URIBuilder("${BIOCACHE_SERVICE_URL}/occurrences/search").with {
+        String url = new URIBuilder("${BIOCACHE_SERVICE_BACKEND_URL}/occurrences/search").with {
             query = buildSearchOccurrencesWsParams(regionFid, regionType, regionName, regionPid, groupName, isSubgroup,
                 from, to, pageIndex, showHubData, groupRank)
             return it
@@ -576,7 +579,7 @@ class MetadataService {
             regionCache[fid] = new TreeMap() // clear any stale content
             regionCacheLastRefreshed[fid] = new Date()
             if(ENABLE_OBJECT_INTERSECTION){
-                def url = grailsApplication.config.layersService.baseURL + "/intersect/object/" + fid + "/" + INTERSECT_OBJECT
+                def url = "${LAYERS_SERVICE_BACKEND_URL}/intersect/object/${fid}/${INTERSECT_OBJECT}"
                 def conn = new URL(url).openConnection()
                 try {
                     conn.setConnectTimeout(10000)
@@ -597,7 +600,7 @@ class MetadataService {
                     return [error: true, errorMessage: message]
                 }
             } else {
-                def url = grailsApplication.config.layersService.baseURL + "/field/" + fid
+                def url = "${LAYERS_SERVICE_BACKEND_URL}/field/${fid}"
                 def conn = new URL(url).openConnection()
                 try {
                     conn.setConnectTimeout(10000)
@@ -685,7 +688,8 @@ class MetadataService {
     }
 
     def getObjectByPid(pid){
-        def url = grailsApplication.config.layersService.baseURL + "/object/" + pid
+        LAYERS_SERVICE_BACKEND_URL
+        def url = "${LAYERS_SERVICE_BACKEND_URL}/object/${pid}"
         def js = new JsonSlurper()
         js.parseText(new URL(url).text)
     }
@@ -696,7 +700,7 @@ class MetadataService {
         }
 
         def results = [:]
-        def url = grailsApplication.config.layersService.baseURL + "/layers"
+        def url = "${LAYERS_SERVICE_BACKEND_URL}/layers"
         def conn = new URL(url).openConnection()
         try {
             conn.setConnectTimeout(10000)
@@ -724,7 +728,7 @@ class MetadataService {
         }
 
         def results = [:]
-        def url = grailsApplication.config.layersService.baseURL + "/fields"
+        def url = "${LAYERS_SERVICE_BACKEND_URL}/fields"
         def conn = new URL(url).openConnection()
         try {
             conn.setConnectTimeout(10000)
@@ -777,7 +781,7 @@ class MetadataService {
      */
    def getObjectsForALayer(fid) {
         def results = [:]
-        def url = grailsApplication.config.layersService.baseURL + "/field/" + fid
+        def url = "${LAYERS_SERVICE_BACKEND_URL}/field/${fid}"
         def conn = new URL(url).openConnection()
         try {
             conn.setConnectTimeout(10000)
