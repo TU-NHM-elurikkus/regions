@@ -2,7 +2,7 @@ package au.org.ala.regions
 
 class ProxyController {
 
-    def DEFAULT_ALLOWED_HOSTS = ['v2.suite.opengeo.org','spatial.ala.org.au']
+    def DEFAULT_ALLOWED_HOSTS = ["elurikkus.ee", "v2.suite.opengeo.org", "spatial.ala.org.au"]
 
     def allowedHosts = null
 
