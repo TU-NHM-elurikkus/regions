@@ -157,7 +157,7 @@
                 init_regions({
                     proxyUrl: "${g.createLink(controller: 'proxy', action: 'index')}",
                     spatialProxy: "${g.createLink(controller: 'proxy', action: 'spatial')}",
-                    server: '${grailsApplication.config.serverRoot}',
+                    server: '${grailsApplication.config.regions.ui.url}',
                     spatialWms: '${grailsApplication.config.geoserver.ui.url}/ALA/wms?',
                     spatialCache: '${grailsApplication.config.geoserver.ui.url}/ALA/wms?',
                     accordionPanelMaxHeight: '${grailsApplication.config.accordion.panel.maxHeight}',
