@@ -28,8 +28,11 @@ Number.prototype.numberFormat = function(format, context) {
         return Number.prototype.posInfinity;
     } else if(this === -Infinity) {
         return Number.prototype.negInfinity;
-    } else if(Number.formatFunctions[format] === null) {
-        Number.createNewFormat(format);
+    } else {
+        var fFunc = Number.formatFunctions[format];
+        if(fFunc === null || fFunc === undefined) {
+            Number.createNewFormat(format);
+        }
     }
     return this[Number.formatFunctions[format]](context);
 };
