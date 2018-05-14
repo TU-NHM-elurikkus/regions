@@ -483,7 +483,11 @@ var taxonomyChart = {
         // resolve the chart options
         var opts = $.extend({}, taxonomyPieChartOptions);
         opts = $.extend(true, opts, this.chartOptions);
-        opts.title = opts.name ? opts.name + ' records by ' + data.rank : $.i18n.prop('charts.taxonomy.byRank.' + data.rank);
+        if(opts.name) {
+            opts.title = opts.name + ' records by ' + data.rank;
+        } else if(data.rank) {
+            opts.title = $.i18n.prop('charts.taxonomy.byRank.' + data.rank);
+        }
         opts.backgroundColor = {
             fill: 'transparent'
         };
