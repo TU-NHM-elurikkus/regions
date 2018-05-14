@@ -644,7 +644,7 @@ class MetadataService {
      */
     Map lookupBoundingBox(regionType, regionName) {
         def bbox = regionMetadata(regionType, regionName)?.bbox
-        return bbox ?: [minLat: -42, minLng: 113, maxLat: -14, maxLng: 153]
+        return bbox ?: [minLat: 57.8, minLng: 21.795833, maxLat: 59.5, maxLng: 28.883333]
     }
 
     /**
@@ -688,7 +688,6 @@ class MetadataService {
     }
 
     def getObjectByPid(pid){
-        LAYERS_SERVICE_BACKEND_URL
         def url = "${LAYERS_SERVICE_BACKEND_URL}/object/${pid}"
         def js = new JsonSlurper()
         js.parseText(new URL(url).text)
