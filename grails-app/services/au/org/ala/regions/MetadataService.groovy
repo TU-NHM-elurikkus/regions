@@ -85,9 +85,9 @@ class MetadataService {
         BIOCACHE_SERVICE_BACKEND_URL = grailsApplication.config.biocacheService.internal.url
         LAYERS_SERVICE_BACKEND_URL = grailsApplication.config.layersService.internal.url
 
-        BIE_URL = grailsApplication.config.bie.baseURL
-        BIE_SERVICE_URL = grailsApplication.config.bieService.baseURL
-        BIOCACHE_URL = grailsApplication.config.biocache.baseURL
+        BIE_URL = grailsApplication.config.bie.ui.url
+        BIE_SERVICE_URL = grailsApplication.config.bieService.ui.url
+        BIOCACHE_URL = grailsApplication.config.occurrences.ui.url
         BIOCACHE_SERVICE_URL = grailsApplication.config.biocacheService.baseURL
         DEFAULT_IMG_URL = "${BIE_URL}/static/images/noImage85.jpg"
         ALERTS_URL = grailsApplication.config.alerts.baseURL
@@ -193,8 +193,10 @@ class MetadataService {
         def response = new RESTClient(url).get([headers: userAgent]).data
 
         Map subgroups = [:]
-        response?.facetResults[0]?.fieldResult.each {subgroup ->
-            subgroups << [(subgroup.label): subgroup.count]
+        if (response?.facetResults != null) {
+            response.facetResults[0]?.fieldResult.each {subgroup ->
+                subgroups << [(subgroup.label): subgroup.count]
+            }
         }
 
         return subgroups
@@ -224,7 +226,7 @@ class MetadataService {
 
         return [
                 totalRecords: response.totalRecords,
-                records: response.facetResults[0]?.fieldResult.findAll{ it.label.split("\\|").size() >= 2 }.collect {result ->
+                records: response?.facetResults[0]?.fieldResult.findAll{ it.label.split("\\|").size() >= 2 }.collect {result ->
                     List info = Arrays.asList(result.label.split("\\|"))
                     return [
                             name: info.get(0),
@@ -521,7 +523,7 @@ class MetadataService {
     }
 
     static def loadLoggerReasons() {
-        String url = "${Holders.config.logger.baseURL}/service/logger/reasons"
+        String url = "${Holders.config.loggerService.internal.url}/service/logger/reasons"
         def conn = new URL(url).openConnection()
         def map = [:]
 
@@ -631,7 +633,7 @@ class MetadataService {
      * @return
      */
     def fidFor(regionType) {
-        return getRegionsMetadata()[regionType].fid
+        return getRegionsMetadata()[regionType]?.fid
     }
 
     /**

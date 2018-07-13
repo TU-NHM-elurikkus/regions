@@ -11,7 +11,7 @@
 </g:if>
 
 <g:each in="${species.records}" var="singleSpecies" status="i">
-    <tr class="link" id="${singleSpecies.guid}">
+    <tr class="link" id="${singleSpecies?.guid}">
         <td>
             ${(pageIndex * 50) + i + 1}.
         </td>
@@ -28,7 +28,7 @@
         </td>
         <td colspan="2">
             <a
-                href="${speciesPageUrl}/${singleSpecies.guid}"
+                href="${speciesPageUrl}/${singleSpecies?.guid}"
                 title="${message(code: 'species.results.speciesProfile.title')}"
                 class="species-list-button"
             >
@@ -38,7 +38,7 @@
 
             &nbsp; | &nbsp;
 
-            <a href="${rg.speciesRecordListUrl([guid: singleSpecies.guid, regionFid: regionFid, regionName: regionName, regionType: regionType, regionPid: regionPid, from: from, to: to, showHubData: showHubData])}"
+            <a href="${rg.speciesRecordListUrl([guid: singleSpecies?.guid, regionFid: regionFid, regionName: regionName, regionType: regionType, regionPid: regionPid, from: from, to: to, showHubData: showHubData])}"
                title="${message(code: 'species.results.recordList.title')}"
                class="species-list-button"
             >
