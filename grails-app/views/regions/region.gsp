@@ -398,7 +398,6 @@
                         regionsApp: "${g.createLink(uri: '/', absolute: true)}",
                         spatialProxy: "${g.createLink(controller: 'proxy', action: 'spatial')}",
                         biocacheProxy: "${g.createLink(controller: 'proxy', action: 'biocache')}",
-                        proxyUrlBbox: "${g.createLink(controller: 'proxy', action: 'bbox')}",
                         speciesPageUrl: "${grailsApplication.config.bie.ui.url}/species/",
                         biocacheServiceUrl: "${grailsApplication.config.biocacheService.ui.url}",
                         biocacheWebappUrl: "${grailsApplication.config.occurrences.ui.url}",

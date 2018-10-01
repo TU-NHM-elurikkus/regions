@@ -150,11 +150,4 @@ class ProxyController {
         response.setHeader('Content-Length',String.valueOf(kml.size()));
         render kml
     }
-
-    def bbox = {
-        def url = "${grailsApplication.config.biocacheService.internal.url}/mapping/bounds?q=${URLEncoder.encode(params.q.trim(), 'UTF-8')}"
-        def conn = new URL(url).openConnection()
-        def box = conn.content.text
-        render box
-    }
 }
