@@ -19,12 +19,12 @@ class ProxyController {
     }
 
     def notAllowed = {
-        response.addHeader 'allow','POST'
-        render(status: 405, text: 'Only POST supported')
+        response.addHeader "allow", "POST"
+        render(status: 405, text: "Only POST supported")
     }
 
     def badGateway = { host ->
-        response.addHeader 'Content-Type','text/plain'
+        response.addHeader "Content-Type", "text/plain"
         render(status: 502, text: "This proxy does not allow you to access that location (${host}).")
     }
 
@@ -120,9 +120,13 @@ class ProxyController {
             pw.close();
             render conn.getInputStream().text
         }
-        else {
-            def resp = new URL( params.url ).getText()
+        else if (params.url) {
+            // defined url var fallbacks to some geoserver doc that no one needs
+            def resp = new URL(params.url).getText()
             render resp
+        }
+        else {
+            badRequest "Missing 'url' argument"
         }
     }
 
@@ -141,13 +145,13 @@ class ProxyController {
 
     def kml = {
 
-        def pid = params.pid ?: 1 // some magic number which hopefully exists
+        def pid = params.pid ?: 1  // some magic number which hopefully exists
         def url = "${grailsApplication.config.layersService.internal.url}/shape/kml/${pid}"
         def conn = new URL(url).openConnection()
         def kml = conn.content.text
 
-        response.setHeader('Content-Type','application/vnd.google-earth.kml+xml');
-        response.setHeader('Content-Length',String.valueOf(kml.size()));
+        response.setHeader("Content-Type", "application/vnd.google-earth.kml+xml")
+        response.setHeader("Content-Length", String.valueOf(kml.size()))
         render kml
     }
 }
