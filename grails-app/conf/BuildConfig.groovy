@@ -39,7 +39,7 @@ grails.project.dependency.resolution = {
         build ":tomcat:7.0.70"
 
         compile ":jquery:1.11.1"
-        compile ":ajaxanywhere:1.0-SNAPSHOT"
+        compile ":ajaxanywhere:1.0"
         compile ":ala-auth:1.3.4"
         compile ":asset-pipeline:2.14.1"
         compile ":cache-headers:1.1.7"
